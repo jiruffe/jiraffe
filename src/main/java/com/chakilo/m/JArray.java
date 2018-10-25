@@ -1,24 +1,39 @@
 package com.chakilo.m;
 
-import java.util.Iterator;
-import java.util.Spliterator;
+import com.chakilo.JElement;
+
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
  * 2018.10.23
  *
+ * 数组型 []
+ *
  * @author konar
  */
-public final class JArray extends JElement implements Iterable<JArray> {
-    public Iterator<JArray> iterator() {
-        return null;
+public final class JArray extends JElement {
+
+    protected List<JElement> _sub_elements;
+
+    public JArray(Collection<? extends JElement> sub_elements) {
+        _sub_elements = Collections.synchronizedList(new ArrayList<>(sub_elements));
     }
 
-    public void forEach(Consumer<? super JArray> action) {
-
+    @Override
+    public Iterator<JElement> iterator() {
+        return null != _sub_elements ? _sub_elements.iterator() : null;
     }
 
-    public Spliterator<JArray> spliterator() {
-        return null;
+    @Override
+    public void forEach(Consumer<? super JElement> action) {
+        if (null != _sub_elements) {
+            _sub_elements.forEach(action);
+        }
+    }
+
+    @Override
+    public Spliterator<JElement> spliterator() {
+        return null != _sub_elements ? _sub_elements.spliterator() : null;
     }
 }
