@@ -10,7 +10,7 @@ import java.util.function.Consumer;
  *
  * 数组型 []
  *
- * @author konar
+ * @author Chakilo
  */
 public final class JArray extends JElement {
 

@@ -10,10 +10,13 @@ import java.util.function.Consumer;
  *
  * 元素
  *
- * @author konar
+ * @author Chakilo
  */
 public abstract class JElement implements Serializable, Iterable<JElement> {
 
+    /**
+     * 原始字符串
+     */
     protected String __original_string;
 
 }

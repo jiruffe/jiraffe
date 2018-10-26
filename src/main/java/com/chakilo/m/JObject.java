@@ -10,7 +10,7 @@ import java.util.function.Consumer;
  *
  * 对象型 {}
  *
- * @author konar
+ * @author Chakilo
  */
 public final class JObject extends JElement {
 

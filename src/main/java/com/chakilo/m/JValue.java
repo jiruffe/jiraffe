@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  *
  * 值类型
  *
- * @author konar
+ * @author Chakilo
  */
 public final class JValue extends JElement {
 
