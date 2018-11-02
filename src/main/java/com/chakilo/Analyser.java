@@ -1,6 +1,7 @@
 package com.chakilo;
 
 import com.chakilo.m.JObject;
+import com.sun.istack.internal.NotNull;
 
 import java.util.List;
 
@@ -28,7 +29,11 @@ final class Analyser {
          * 数组状态
          * []
          */
-        IN_ARRAY
+        IN_ARRAY,
+        /**
+         * 数值状态
+         */
+        IN_VALUE
     }
 
     /**
@@ -106,16 +111,32 @@ final class Analyser {
      * @param json
      * @return
      */
-    List<Token> tokenize(String json) {
+    @NotNull List<Token> tokenize(@NotNull String json) {
+
+        // 当前状态
+        AnalysisStatus now = AnalysisStatus.DEFAULT;
+
+
+
+        // 遍历每个字符
+        for (char c : json.toCharArray()) {
+
+            switch (now) {
+
+
+
+            }
+
+        }
 
         return null;
     }
 
-    JElement parseObject(List<Token> tokens) {
+    @NotNull JElement parseObject(@NotNull List<Token> tokens) {
         return null;
     }
 
-    JElement parseArray(List<Token> tokens) {
+    @NotNull JElement parseArray(@NotNull List<Token> tokens) {
         return null;
     }
 
