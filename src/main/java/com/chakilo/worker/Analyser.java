@@ -1,6 +1,6 @@
-package com.chakilo;
+package com.chakilo.worker;
 
-import com.chakilo.m.JObject;
+import com.chakilo.m.JElement;
 import com.sun.istack.internal.NotNull;
 
 import java.util.List;
@@ -132,7 +132,8 @@ final class Analyser {
         return null;
     }
 
-    @NotNull JElement parseObject(@NotNull List<Token> tokens) {
+    @NotNull
+    JElement parseObject(@NotNull List<Token> tokens) {
         return null;
     }
 

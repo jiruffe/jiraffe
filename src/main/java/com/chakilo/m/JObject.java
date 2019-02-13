@@ -1,7 +1,5 @@
 package com.chakilo.m;
 
-import com.chakilo.JElement;
-
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -14,10 +12,14 @@ import java.util.function.Consumer;
  */
 public final class JObject extends JElement {
 
-    protected Hashtable<String, JElement> _sub_elements;
+    protected Map<Object, JElement> _sub_elements;
 
-    public JObject(Map<String, ? extends JElement> sub_elements) {
-        _sub_elements = new Hashtable<>(sub_elements);
+    public JObject() {
+        this(new HashMap<>());
+    }
+
+    public JObject(Map<Object, JElement> sub_elements) {
+        _sub_elements = sub_elements;
     }
 
     @Override
@@ -36,4 +38,20 @@ public final class JObject extends JElement {
     public Spliterator<JElement> spliterator() {
         return null != _sub_elements ? _sub_elements.values().spliterator() : null;
     }
+
+    @Override
+    public JElement peek(Object k) {
+        return _sub_elements.get(k);
+    }
+
+    @Override
+    public JElement offer(Object k, Object v) {
+        if (v instanceof JElement) {
+            _sub_elements.put(k, (JElement) v);
+        } else {
+            _sub_elements.put(k, new JValue(v));
+        }
+        return this;
+    }
+
 }

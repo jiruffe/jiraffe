@@ -1,6 +1,7 @@
 package com.chakilo.m;
 
-import com.chakilo.JElement;
+import com.chakilo.utils.TypeUtil;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -16,8 +17,12 @@ public final class JArray extends JElement {
 
     protected List<JElement> _sub_elements;
 
-    public JArray(Collection<? extends JElement> sub_elements) {
-        _sub_elements = Collections.synchronizedList(new ArrayList<>(sub_elements));
+    public JArray() {
+        this(new ArrayList<>());
+    }
+
+    public JArray(List<JElement> sub_elements) {
+        _sub_elements = sub_elements;
     }
 
     @Override
@@ -36,4 +41,24 @@ public final class JArray extends JElement {
     public Spliterator<JElement> spliterator() {
         return null != _sub_elements ? _sub_elements.spliterator() : null;
     }
+
+    @Override
+    public JElement peek(Object k) throws InvalidArgumentException {
+        if (TypeUtil.couldCastToInteger(k)) {
+            return _sub_elements.get(TypeUtil.castToInteger(k));
+        } else {
+            throw new InvalidArgumentException(new String[]{"k"});
+        }
+    }
+
+    @Override
+    public JElement offer(Object v) {
+        if (v instanceof JElement) {
+            _sub_elements.add((JElement) v);
+        } else {
+            _sub_elements.add(new JValue(v));
+        }
+        return this;
+    }
+
 }

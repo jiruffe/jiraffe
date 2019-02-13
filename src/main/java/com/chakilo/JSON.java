@@ -1,6 +1,6 @@
 package com.chakilo;
 
-import java.io.Serializable;
+import com.chakilo.m.JElement;
 
 /******************************************************************************
  *
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author Chakilo
  *
  ******************************************************************************/
-public final class Jiraffe {
+public abstract class JSON {
 
     public static String serialize(JElement element) {
         return "";

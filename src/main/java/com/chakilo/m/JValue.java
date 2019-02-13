@@ -1,7 +1,6 @@
 package com.chakilo.m;
 
-import com.chakilo.JElement;
-import org.apache.commons.collections4.iterators.SingletonIterator;
+import com.chakilo.lib.SingletonIterator;
 
 import java.util.Iterator;
 import java.util.Spliterator;
@@ -17,7 +16,15 @@ import java.util.function.Consumer;
  */
 public final class JValue extends JElement {
 
-    private String _value;
+    private Object _value;
+
+    public JValue() {
+        this(null);
+    }
+
+    public JValue(Object v) {
+        _value = v;
+    }
 
     @Override
     public Iterator<JElement> iterator() {
@@ -33,4 +40,5 @@ public final class JValue extends JElement {
     public Spliterator<JElement> spliterator() {
         return Spliterators.spliterator(iterator(), 1, Spliterator.CONCURRENT);
     }
+
 }
