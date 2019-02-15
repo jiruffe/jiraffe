@@ -1,6 +1,4 @@
-package com.chakilo.utils;
-
-import com.sun.javaws.exceptions.InvalidArgumentException;
+package com.chakilo.jiraffe.utils;
 
 /**
  * 2019.02.13

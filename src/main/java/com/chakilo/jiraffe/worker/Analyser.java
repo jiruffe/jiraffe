@@ -1,6 +1,6 @@
-package com.chakilo.worker;
+package com.chakilo.jiraffe.worker;
 
-import com.chakilo.m.JElement;
+import com.chakilo.jiraffe.m.JElement;
 import com.sun.istack.internal.NotNull;
 
 import java.util.List;

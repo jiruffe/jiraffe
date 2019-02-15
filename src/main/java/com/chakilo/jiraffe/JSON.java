@@ -1,6 +1,6 @@
-package com.chakilo;
+package com.chakilo.jiraffe;
 
-import com.chakilo.m.JElement;
+import com.chakilo.jiraffe.m.JElement;
 
 /******************************************************************************
  *

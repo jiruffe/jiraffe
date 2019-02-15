@@ -1,4 +1,4 @@
-package com.chakilo.m;
+package com.chakilo.jiraffe.m;
 
 import java.util.*;
 import java.util.function.Consumer;

@@ -1,6 +1,6 @@
-package com.chakilo.m;
+package com.chakilo.jiraffe.m;
 
-import com.chakilo.utils.TypeUtil;
+import com.chakilo.jiraffe.utils.TypeUtil;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 
 import java.util.*;

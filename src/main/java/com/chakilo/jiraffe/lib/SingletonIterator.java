@@ -1,4 +1,4 @@
-package com.chakilo.lib;
+package com.chakilo.jiraffe.lib;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
