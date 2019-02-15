@@ -1,6 +1,8 @@
 package com.chakilo.jiraffe.m;
 
 import com.chakilo.jiraffe.lib.SingletonIterator;
+import com.chakilo.jiraffe.utils.StringUtil;
+import com.chakilo.jiraffe.utils.TypeUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -50,27 +52,27 @@ public final class JValue extends JElement {
 
     @Override
     public String getString() throws Exception {
-        return _value.toString();
+        return StringUtil.toString(_value);
     }
 
     @Override
     public byte getByte() throws Exception {
-        return super.getByte();
+        return TypeUtil.castToByte(_value);
     }
 
     @Override
     public short getShort() throws Exception {
-        return super.getShort();
+        return new Integer(TypeUtil.castToInteger(_value)).shortValue();
     }
 
     @Override
     public int getInt() throws Exception {
-        return super.getInt();
+        return TypeUtil.castToInteger(_value);
     }
 
     @Override
     public long getLong() throws Exception {
-        return super.getLong();
+        return TypeUtil.castToLong(_value);
     }
 
     @Override

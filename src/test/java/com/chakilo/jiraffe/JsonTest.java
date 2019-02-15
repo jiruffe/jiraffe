@@ -22,7 +22,7 @@ public class JsonTest {
     @Test
     public void test1() {
         Character a = 1;
-        assert 1 == (int) (a);
+        assert 1 == (long) (a);
     }
 
     @Test(expected = UnsupportedOperationException.class)
