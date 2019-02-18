@@ -1,4 +1,6 @@
-package com.chakilo.jiraffe.m;
+package com.chakilo.jiraffe.model;
+
+import com.chakilo.jiraffe.model.base.JSONElement;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -10,46 +12,46 @@ import java.util.function.Consumer;
  *
  * @author Chakilo
  */
-public final class JObject extends JElement {
+public final class JSONObject extends JSONElement {
 
-    protected Map<Object, JElement> _sub_elements;
+    protected Map<Object, JSONElement> _sub_elements;
 
-    public JObject() {
+    public JSONObject() {
         this(new HashMap<>());
     }
 
-    public JObject(Map<Object, JElement> sub_elements) {
+    public JSONObject(Map<Object, JSONElement> sub_elements) {
         _sub_elements = sub_elements;
     }
 
     @Override
-    public Iterator<JElement> iterator() {
+    public Iterator<JSONElement> iterator() {
         return null != _sub_elements ? _sub_elements.values().iterator() : null;
     }
 
     @Override
-    public void forEach(Consumer<? super JElement> action) {
+    public void forEach(Consumer<? super JSONElement> action) {
         if (null != _sub_elements) {
             _sub_elements.values().forEach(action);
         }
     }
 
     @Override
-    public Spliterator<JElement> spliterator() {
+    public Spliterator<JSONElement> spliterator() {
         return null != _sub_elements ? _sub_elements.values().spliterator() : null;
     }
 
     @Override
-    public JElement peek(Object k) {
+    public JSONElement peek(Object k) {
         return _sub_elements.get(k);
     }
 
     @Override
-    public JElement offer(Object k, Object v) {
-        if (v instanceof JElement) {
-            _sub_elements.put(k, (JElement) v);
+    public JSONElement offer(Object k, Object v) {
+        if (v instanceof JSONElement) {
+            _sub_elements.put(k, (JSONElement) v);
         } else {
-            _sub_elements.put(k, new JValue(v));
+            _sub_elements.put(k, new JSONValue(v));
         }
         return this;
     }

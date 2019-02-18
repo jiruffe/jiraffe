@@ -1,6 +1,7 @@
-package com.chakilo.jiraffe.m;
+package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.lib.SingletonIterator;
+import com.chakilo.jiraffe.model.base.JSONElement;
 import com.chakilo.jiraffe.utils.StringUtil;
 import com.chakilo.jiraffe.utils.TypeUtil;
 
@@ -18,30 +19,30 @@ import java.util.function.Consumer;
  *
  * @author Chakilo
  */
-public final class JValue extends JElement {
+public final class JSONValue extends JSONElement {
 
     private Object _value;
 
-    public JValue() {
+    public JSONValue() {
         this(null);
     }
 
-    public JValue(Object v) {
+    public JSONValue(Object v) {
         _value = v;
     }
 
     @Override
-    public Iterator<JElement> iterator() {
+    public Iterator<JSONElement> iterator() {
         return new SingletonIterator<>(this, false);
     }
 
     @Override
-    public void forEach(Consumer<? super JElement> action) {
+    public void forEach(Consumer<? super JSONElement> action) {
         action.accept(this);
     }
 
     @Override
-    public Spliterator<JElement> spliterator() {
+    public Spliterator<JSONElement> spliterator() {
         return Spliterators.spliterator(iterator(), 1, Spliterator.CONCURRENT);
     }
 

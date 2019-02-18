@@ -1,5 +1,6 @@
-package com.chakilo.jiraffe.m;
+package com.chakilo.jiraffe.model;
 
+import com.chakilo.jiraffe.model.base.JSONElement;
 import com.chakilo.jiraffe.utils.TypeUtil;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 
@@ -13,37 +14,37 @@ import java.util.function.Consumer;
  *
  * @author Chakilo
  */
-public final class JArray extends JElement {
+public final class JSONArray extends JSONElement {
 
-    protected List<JElement> _sub_elements;
+    protected List<JSONElement> _sub_elements;
 
-    public JArray() {
+    public JSONArray() {
         this(new ArrayList<>());
     }
 
-    public JArray(List<JElement> sub_elements) {
+    public JSONArray(List<JSONElement> sub_elements) {
         _sub_elements = sub_elements;
     }
 
     @Override
-    public Iterator<JElement> iterator() {
+    public Iterator<JSONElement> iterator() {
         return null != _sub_elements ? _sub_elements.iterator() : null;
     }
 
     @Override
-    public void forEach(Consumer<? super JElement> action) {
+    public void forEach(Consumer<? super JSONElement> action) {
         if (null != _sub_elements) {
             _sub_elements.forEach(action);
         }
     }
 
     @Override
-    public Spliterator<JElement> spliterator() {
+    public Spliterator<JSONElement> spliterator() {
         return null != _sub_elements ? _sub_elements.spliterator() : null;
     }
 
     @Override
-    public JElement peek(Object k) throws InvalidArgumentException {
+    public JSONElement peek(Object k) throws InvalidArgumentException {
         if (TypeUtil.couldCastToInteger(k)) {
             return _sub_elements.get(TypeUtil.castToInteger(k));
         } else {
@@ -52,11 +53,11 @@ public final class JArray extends JElement {
     }
 
     @Override
-    public JElement offer(Object v) {
-        if (v instanceof JElement) {
-            _sub_elements.add((JElement) v);
+    public JSONElement offer(Object v) {
+        if (v instanceof JSONElement) {
+            _sub_elements.add((JSONElement) v);
         } else {
-            _sub_elements.add(new JValue(v));
+            _sub_elements.add(new JSONValue(v));
         }
         return this;
     }

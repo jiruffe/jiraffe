@@ -1,9 +1,9 @@
 package com.chakilo.jiraffe;
 
 
-import com.chakilo.jiraffe.m.JArray;
-import com.chakilo.jiraffe.m.JObject;
-import com.chakilo.jiraffe.m.JValue;
+import com.chakilo.jiraffe.model.JSONArray;
+import com.chakilo.jiraffe.model.JSONObject;
+import com.chakilo.jiraffe.model.JSONValue;
 import org.junit.Test;
 
 /**
@@ -27,17 +27,17 @@ public class JsonTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void test2() throws Exception {
-        new JValue().peek(new Object());
+        new JSONValue().peek(new Object());
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void test3() throws Exception {
-        new JObject().offer(new JValue());
+        new JSONObject().offer(new JSONValue());
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void test4() throws Exception {
-        new JArray().offer(new Object(), new JValue());
+        new JSONArray().offer(new Object(), new JSONValue());
     }
 
     @Test
