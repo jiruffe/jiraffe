@@ -15,10 +15,10 @@
  */
 package com.chakilo.jiraffe;
 
-import com.chakilo.jiraffe.analyser.ForceAnalyser;
-import com.chakilo.jiraffe.analyser.ObjectAnalyser;
+import com.chakilo.jiraffe.analyzer.ForceAnalyzer;
+import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
 import com.chakilo.jiraffe.model.base.JSONElement;
-import com.chakilo.jiraffe.analyser.StringAnalyser;
+import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 
 /******************************************************************************
  *
@@ -32,19 +32,23 @@ import com.chakilo.jiraffe.analyser.StringAnalyser;
 public abstract class JSON {
 
     public static JSONElement serialize(Object o) {
-        return ObjectAnalyser.analyse(o);
+        return ObjectAnalyzer.analyze(o);
     }
 
     public static JSONElement deserialize(String json) {
-        return StringAnalyser.analyse(json);
+        try {
+            return StringAnalyzer.analyze(json);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static String forceSerialize(Object o) {
-        return ForceAnalyser.analyse(o);
+        return ForceAnalyzer.analyze(o);
     }
 
     public static <T> T forceDeserialize(String json, Class<T> target) {
-        return ForceAnalyser.analyse(json, target);
+        return ForceAnalyzer.analyze(json, target);
     }
 
 }

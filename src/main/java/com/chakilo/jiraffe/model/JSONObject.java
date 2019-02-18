@@ -24,6 +24,10 @@ public final class JSONObject extends JSONElement {
         _sub_elements = sub_elements;
     }
 
+    public Set<Object> keySet() {
+        return null != _sub_elements ? _sub_elements.keySet() : null;
+    }
+
     @Override
     public Iterator<JSONElement> iterator() {
         return null != _sub_elements ? _sub_elements.values().iterator() : null;

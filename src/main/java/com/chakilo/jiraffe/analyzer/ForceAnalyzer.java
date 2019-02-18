@@ -1,4 +1,4 @@
-package com.chakilo.jiraffe.analyser;
+package com.chakilo.jiraffe.analyzer;
 
 /**
  * 2019.02.18
@@ -8,13 +8,13 @@ package com.chakilo.jiraffe.analyser;
  *
  * @author Chakilo
  */
-public abstract class ForceAnalyser {
+public abstract class ForceAnalyzer {
 
-    public static String analyse(Object o) {
+    public static String analyze(Object o) {
         return null;
     }
 
-    public static <T> T analyse(String json, Class<T> target) {
+    public static <T> T analyze(String json, Class<T> target) {
         return null;
     }
 

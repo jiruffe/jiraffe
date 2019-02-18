@@ -1,9 +1,7 @@
 package com.chakilo.jiraffe;
 
 
-import com.chakilo.jiraffe.model.JSONArray;
-import com.chakilo.jiraffe.model.JSONObject;
-import com.chakilo.jiraffe.model.JSONValue;
+import com.chakilo.jiraffe.model.base.JSONElement;
 import org.junit.Test;
 
 /**
@@ -14,35 +12,23 @@ import org.junit.Test;
 public class JsonTest {
 
     @Test
-    public void test0() {
-        int a = 1;
-        assert (((Object) a) instanceof Integer);
-    }
-
-    @Test
     public void test1() {
-        Character a = 1;
-        assert 1 == (long) (a);
-    }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void test2() throws Exception {
-        new JSONValue().peek(new Object());
-    }
+        JSONElement element = JSON.deserialize("{'a':'b','c':{'d':'e'},'f':{'g':\"h\"},'i':[{'j':'k','l':'m'},'n']}");
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void test3() throws Exception {
-        new JSONObject().offer(new JSONValue());
-    }
+        assert null != element;
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void test4() throws Exception {
-        new JSONArray().offer(new Object(), new JSONValue());
     }
 
     @Test
-    public void test5() {
-        assert "1".equals(((Object) new Integer(1)).toString());
+    public void test2() {
+
+        JSONElement element = JSON.deserialize("[123,123.45,'123.45','2019-01-02 03:04:05',true,false]");
+
+        assert null != element;
+
+        assert "[123,123.45,\"123.45\",\"2019-01-02 03:04:05\",true,false]".equals(element.toString());
+
     }
 
 }

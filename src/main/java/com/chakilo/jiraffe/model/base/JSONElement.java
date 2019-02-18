@@ -1,7 +1,10 @@
 package com.chakilo.jiraffe.model.base;
 
-import com.chakilo.jiraffe.analyser.ObjectAnalyser;
-import com.chakilo.jiraffe.analyser.StringAnalyser;
+import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
+import com.chakilo.jiraffe.analyzer.StringAnalyzer;
+import com.chakilo.jiraffe.model.JSONArray;
+import com.chakilo.jiraffe.model.JSONObject;
+import com.chakilo.jiraffe.model.JSONValue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -22,7 +25,11 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      */
     @Override
     public String toString() {
-        return StringAnalyser.analyse(this);
+        try {
+            return StringAnalyzer.analyze(this);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     /**
@@ -33,7 +40,50 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return 目标对象
      */
     public <T> T toObject(Class<T> target) {
-        return ObjectAnalyser.analyse(this, target);
+        return ObjectAnalyzer.analyze(this, target);
+    }
+
+    /**
+     * 是否是对象类型{}
+     *
+     * @return true if instance of <code>JSONObject</code>, otherwise false
+     */
+    public boolean isObject() {
+        return this instanceof JSONObject;
+    }
+
+    /**
+     * 是否是数组类型[]
+     *
+     * @return true if instance of <code>JSONArray</code>, otherwise false
+     */
+    public boolean isArray() {
+        return this instanceof JSONArray;
+    }
+
+    /**
+     * 是否是值类型""
+     *
+     * @return true if instance of <code>JSONValue</code>, otherwise false
+     */
+    public boolean isValue() {
+        return this instanceof JSONValue;
+    }
+
+    /**
+     * 获取类型
+     *
+     * @return 类型
+     */
+    public JSONElementType getType() {
+        if (isArray()) {
+            return JSONElementType.ARRAY;
+        } else if (isObject()) {
+            return JSONElementType.OBJECT;
+        } else if (isValue()) {
+            return JSONElementType.VALUE;
+        }
+        return JSONElementType.UNKNOWN;
     }
 
     /**

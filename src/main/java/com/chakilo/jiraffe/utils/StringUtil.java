@@ -86,7 +86,7 @@ public abstract class StringUtil {
     }
 
     public static String toString(Object v) {
-        return v.toString();
+        return String.valueOf(v);
     }
 
 }
