@@ -170,19 +170,7 @@ public abstract class StringAnalyzer {
         } else if ("undefined".equalsIgnoreCase(s)) {
             return new JSONValue(s);
         } else if (StringUtil.isRealNumber(s)) {
-            if (s.length() > 16) {
-                if (StringUtil.isNumeric(s) || StringUtil.isBCPLStyleNumeric(s)) {
-                    return new JSONValue(TypeUtil.castToBigInteger(s));
-                } else {
-                    return new JSONValue(TypeUtil.castToBigDecimal(s));
-                }
-            } else {
-                if (StringUtil.isNumeric(s) || StringUtil.isBCPLStyleNumeric(s)) {
-                    return new JSONValue(TypeUtil.castToLong(s));
-                } else {
-                    return new JSONValue(TypeUtil.castToDouble(s));
-                }
-            }
+            return new JSONValue(TypeUtil.castToNumber(s));
         } else {
             return new JSONValue(s);
         }

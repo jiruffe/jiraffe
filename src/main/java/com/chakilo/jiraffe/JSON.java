@@ -32,23 +32,31 @@ import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 public abstract class JSON {
 
     public static JSONElement serialize(Object o) {
-        return ObjectAnalyzer.analyze(o);
-    }
-
-    public static JSONElement deserialize(String json) {
-        try {
-            return StringAnalyzer.analyze(json);
-        } catch (Exception e) {
-            return null;
+        if (o instanceof JSONElement) {
+            return (JSONElement) o;
+        } else {
+            return ObjectAnalyzer.analyze(o);
         }
     }
 
-    public static String forceSerialize(Object o) {
-        return ForceAnalyzer.analyze(o);
+    public static JSONElement deserialize(String json) throws Exception {
+        return StringAnalyzer.analyze(json);
     }
 
-    public static <T> T forceDeserialize(String json, Class<T> target) {
-        return ForceAnalyzer.analyze(json, target);
+    public static String forceSerialize(Object o) throws Exception {
+        if (o instanceof JSONElement) {
+            return StringAnalyzer.analyze((JSONElement) o);
+        } else {
+            return ForceAnalyzer.analyze(o);
+        }
+    }
+
+    public static <T> T forceDeserialize(String json, Class<T> target) throws Exception {
+        if (JSONElement.class.isAssignableFrom(target)) {
+            return (T) StringAnalyzer.analyze(json);
+        } else {
+            return ForceAnalyzer.analyze(json, target);
+        }
     }
 
 }

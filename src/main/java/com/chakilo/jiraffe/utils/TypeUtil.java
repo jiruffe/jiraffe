@@ -10,13 +10,28 @@ import java.math.BigInteger;
  */
 public abstract class TypeUtil {
 
+    public static boolean isPrimitive(Object o) {
+        return o instanceof Byte ||
+                o instanceof Short ||
+                o instanceof Integer ||
+                o instanceof Long ||
+                o instanceof Float ||
+                o instanceof Double ||
+                o instanceof Boolean ||
+                o instanceof Character;
+    }
+
+    public static boolean isNumber(Object o) {
+        return o instanceof Number;
+    }
+
     public static boolean couldCastToByte(Object o) {
 
         if (o instanceof Byte) {
             return true;
         } else if (couldCastToInteger(o)) {
             int d = castToInteger(o);
-            return d >= 0 && d <= 0xff;
+            return d >= Byte.MIN_VALUE && d <= Byte.MAX_VALUE;
         } else {
             return false;
         }
@@ -33,6 +48,33 @@ public abstract class TypeUtil {
             return (Byte) o;
         } else {
             return new Integer(castToInteger(o)).byteValue();
+        }
+
+    }
+
+    public static boolean couldCastToShort(Object o) {
+
+        if (o instanceof Short) {
+            return true;
+        } else if (couldCastToInteger(o)) {
+            int d = castToInteger(o);
+            return d >= Short.MIN_VALUE && d <= Short.MAX_VALUE;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static short castToShort(Object o) {
+
+        if (!couldCastToByte(o)) {
+            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Short");
+        }
+
+        if (o instanceof Short) {
+            return (Short) o;
+        } else {
+            return new Integer(castToInteger(o)).shortValue();
         }
 
     }
@@ -157,14 +199,7 @@ public abstract class TypeUtil {
 
     public static boolean couldCastToBigInteger(Object o) {
 
-        return o instanceof Byte ||
-                o instanceof Short ||
-                o instanceof Integer ||
-                o instanceof Long ||
-                o instanceof Float ||
-                o instanceof Double ||
-                o instanceof Boolean ||
-                o instanceof Character ||
+        return isPrimitive(o) ||
                 (o instanceof String && (StringUtil.isNumeric((String) o) || StringUtil.isBCPLStyleNumeric((String) o)));
 
     }
@@ -214,14 +249,7 @@ public abstract class TypeUtil {
 
     public static boolean couldCastToBigDecimal(Object o) {
 
-        return o instanceof Byte ||
-                o instanceof Short ||
-                o instanceof Integer ||
-                o instanceof Long ||
-                o instanceof Float ||
-                o instanceof Double ||
-                o instanceof Boolean ||
-                o instanceof Character ||
+        return isPrimitive(o) ||
                 (o instanceof String && StringUtil.isRealNumber((String) o));
 
     }
@@ -259,6 +287,136 @@ public abstract class TypeUtil {
             return BigDecimal.ZERO;
         }
 
+    }
+
+    public static boolean couldCastToBoolean(Object o) {
+        return isPrimitive(o) ||
+                (o instanceof String && (StringUtil.isNumeric((String) o) || "true".equalsIgnoreCase((String) o) || "false".equalsIgnoreCase((String) o)));
+    }
+
+    public static boolean castToBoolean(Object o) {
+
+        if (!couldCastToBoolean(o)) {
+            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Boolean");
+        }
+
+        if (o instanceof Byte) {
+            return ((Byte) o).intValue() != 0;
+        } else if (o instanceof Short) {
+            return ((Short) o).intValue() != 0;
+        } else if (o instanceof Integer) {
+            return (Integer) o != 0;
+        } else if (o instanceof Long) {
+            return ((Long) o).intValue() != 0;
+        } else if (o instanceof Float) {
+            return ((Float) o).intValue() != 0;
+        } else if (o instanceof Double) {
+            return ((Double) o).intValue() != 0;
+        } else if (o instanceof Boolean) {
+            return (Boolean) o;
+        } else if (o instanceof Character) {
+            return ((int) o) != 0;
+        } else if (o instanceof String) {
+            String s = (String) o;
+            if (StringUtil.isNumeric(s)) {
+                return Long.parseLong(s, 10) != 0;
+            } else {
+                return "true".equalsIgnoreCase(s);
+            }
+        } else {
+            return false;
+        }
+
+    }
+
+    public static boolean couldCastToCharacter(Object o) {
+        return isPrimitive(o) ||
+                (o instanceof String && ((String) o).length() > 0);
+    }
+
+    public static char castToCharacter(Object o) {
+
+        if (!couldCastToCharacter(o)) {
+            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Character");
+        }
+
+        if (o instanceof Byte) {
+            return (char) ((Byte) o).intValue();
+        } else if (o instanceof Short) {
+            return (char) ((Short) o).intValue();
+        } else if (o instanceof Integer) {
+            return (char) o;
+        } else if (o instanceof Long) {
+            return (char) ((Long) o).intValue();
+        } else if (o instanceof Float) {
+            return (char) ((Float) o).intValue();
+        } else if (o instanceof Double) {
+            return (char) ((Double) o).intValue();
+        } else if (o instanceof Boolean) {
+            return (Boolean) o ? 'T' : 'F';
+        } else if (o instanceof Character) {
+            return (char) o;
+        } else if (o instanceof String) {
+            String s = (String) o;
+            if (s.length() > 0) {
+                return s.charAt(0);
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+
+    }
+
+    public static boolean couldCastToNumber(Object o) {
+        return isPrimitive(o) ||
+                (o instanceof String && (StringUtil.isRealNumber((String) o)));
+    }
+
+    public static Number castToNumber(Object o) {
+
+        if (!couldCastToNumber(o)) {
+            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Number");
+        }
+
+        if (isNumber(o)) {
+            return (Number) o;
+        } else if (o instanceof Boolean) {
+            return ((Boolean) o) ? 1 : 0;
+        } else if (o instanceof Character) {
+            return (int) o;
+        } else if (o instanceof String) {
+            String s = (String) o;
+            if (StringUtil.isRealNumber(s)) {
+                if (s.length() > 16) {
+                    if (StringUtil.isNumeric(s) || StringUtil.isBCPLStyleNumeric(s)) {
+                        return castToBigInteger(s);
+                    } else {
+                        return castToBigDecimal(s);
+                    }
+                } else {
+                    if (StringUtil.isNumeric(s) || StringUtil.isBCPLStyleNumeric(s)) {
+                        return castToLong(s);
+                    } else {
+                        return castToDouble(s);
+                    }
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+
+    }
+
+    public static boolean couldCastToString(Object o) {
+        return true;
+    }
+
+    public static String castToString(Object o) {
+        return StringUtil.toString(o);
     }
 
 }

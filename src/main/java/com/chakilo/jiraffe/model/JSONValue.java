@@ -53,7 +53,7 @@ public final class JSONValue extends JSONElement {
 
     @Override
     public String getString() throws Exception {
-        return StringUtil.toString(_value);
+        return TypeUtil.castToString(_value);
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class JSONValue extends JSONElement {
 
     @Override
     public short getShort() throws Exception {
-        return new Integer(TypeUtil.castToInteger(_value)).shortValue();
+        return TypeUtil.castToShort(_value);
     }
 
     @Override
@@ -78,37 +78,37 @@ public final class JSONValue extends JSONElement {
 
     @Override
     public float getFloat() throws Exception {
-        return super.getFloat();
+        return TypeUtil.castToFloat(_value);
     }
 
     @Override
     public double getDouble() throws Exception {
-        return super.getDouble();
+        return TypeUtil.castToDouble(_value);
     }
 
     @Override
     public boolean getBoolean() throws Exception {
-        return super.getBoolean();
+        return TypeUtil.castToBoolean(_value);
     }
 
     @Override
     public char getChar() throws Exception {
-        return super.getChar();
+        return TypeUtil.castToCharacter(_value);
     }
 
     @Override
     public Number getNumber() throws Exception {
-        return super.getNumber();
+        return TypeUtil.castToNumber(_value);
     }
 
     @Override
     public BigInteger getBigInteger() throws Exception {
-        return super.getBigInteger();
+        return TypeUtil.castToBigInteger(_value);
     }
 
     @Override
     public BigDecimal getBigDecimal() throws Exception {
-        return super.getBigDecimal();
+        return TypeUtil.castToBigDecimal(_value);
     }
 
 }
