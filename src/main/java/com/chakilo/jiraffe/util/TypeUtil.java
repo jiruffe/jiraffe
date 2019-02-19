@@ -371,7 +371,7 @@ public abstract class TypeUtil {
 
     public static boolean couldCastToNumber(Object o) {
         return isPrimitive(o) ||
-                (o instanceof String && (StringUtil.isRealNumber((String) o)));
+                (o instanceof String && (StringUtil.isRealNumber((String) o) || StringUtil.isBCPLStyleNumeric((String) o)));
     }
 
     public static Number castToNumber(Object o) {
@@ -388,7 +388,7 @@ public abstract class TypeUtil {
             return (int) o;
         } else if (o instanceof String) {
             String s = (String) o;
-            if (StringUtil.isRealNumber(s)) {
+            if (StringUtil.isRealNumber(s) || StringUtil.isBCPLStyleNumeric(s)) {
                 if (s.length() > 16) {
                     if (StringUtil.isNumeric(s) || StringUtil.isBCPLStyleNumeric(s)) {
                         return castToBigInteger(s);

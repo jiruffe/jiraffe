@@ -169,7 +169,7 @@ public abstract class StringAnalyzer {
             return new JSONValue(null);
         } else if ("undefined".equalsIgnoreCase(s)) {
             return new JSONValue(s);
-        } else if (StringUtil.isRealNumber(s)) {
+        } else if (TypeUtil.couldCastToNumber(s)) {
             return new JSONValue(TypeUtil.castToNumber(s));
         } else {
             return new JSONValue(s);
