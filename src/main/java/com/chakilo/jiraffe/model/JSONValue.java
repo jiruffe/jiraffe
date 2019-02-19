@@ -2,8 +2,7 @@ package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.lib.SingletonIterator;
 import com.chakilo.jiraffe.model.base.JSONElement;
-import com.chakilo.jiraffe.utils.StringUtil;
-import com.chakilo.jiraffe.utils.TypeUtil;
+import com.chakilo.jiraffe.util.TypeUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

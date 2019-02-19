@@ -1,4 +1,4 @@
-package com.chakilo.jiraffe.utils;
+package com.chakilo.jiraffe.util;
 
 /**
  * 2019.02.13

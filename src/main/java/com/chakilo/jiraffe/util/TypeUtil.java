@@ -1,4 +1,4 @@
-package com.chakilo.jiraffe.utils;
+package com.chakilo.jiraffe.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

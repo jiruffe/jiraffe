@@ -4,9 +4,9 @@ import com.chakilo.jiraffe.model.JSONArray;
 import com.chakilo.jiraffe.model.JSONObject;
 import com.chakilo.jiraffe.model.JSONValue;
 import com.chakilo.jiraffe.model.base.JSONElement;
-import com.chakilo.jiraffe.utils.CharacterUtil;
-import com.chakilo.jiraffe.utils.StringUtil;
-import com.chakilo.jiraffe.utils.TypeUtil;
+import com.chakilo.jiraffe.util.CharacterUtil;
+import com.chakilo.jiraffe.util.StringUtil;
+import com.chakilo.jiraffe.util.TypeUtil;
 
 import java.io.IOException;
 import java.io.StringReader;

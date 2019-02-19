@@ -1,7 +1,7 @@
 package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.model.base.JSONElement;
-import com.chakilo.jiraffe.utils.TypeUtil;
+import com.chakilo.jiraffe.util.TypeUtil;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 
 import java.util.*;
