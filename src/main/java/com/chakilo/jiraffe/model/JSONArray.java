@@ -44,6 +44,19 @@ public final class JSONArray extends JSONElement {
     }
 
     @Override
+    public Set<Object> keys() throws Exception {
+        if (null != _sub_elements) {
+            Set<Object> s = new HashSet<>();
+            for (int i = 0; i < _sub_elements.size(); i++) {
+                s.add(i);
+            }
+            return s;
+        } else {
+            return Collections.emptySet();
+        }
+    }
+
+    @Override
     public JSONElement peek(Object k) throws InvalidArgumentException {
         if (TypeUtil.couldCastToInteger(k)) {
             return _sub_elements.get(TypeUtil.castToInteger(k));

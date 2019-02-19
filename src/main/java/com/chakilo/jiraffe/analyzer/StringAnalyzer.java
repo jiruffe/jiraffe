@@ -244,7 +244,7 @@ public abstract class StringAnalyzer {
 
             case OBJECT:
                 sb.append('{');
-                Set<Object> ks = ((JSONObject) element).keySet();
+                Set<Object> ks = element.keys();
                 if (null != ks) {
                     Iterator<Object> iterator1 = ks.iterator();
                     while (iterator1.hasNext()) {

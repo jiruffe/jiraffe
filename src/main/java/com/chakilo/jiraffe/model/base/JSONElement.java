@@ -8,6 +8,7 @@ import com.chakilo.jiraffe.model.JSONValue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Set;
 
 /**
  * 2018.10.23
@@ -84,6 +85,15 @@ public abstract class JSONElement implements Iterable<JSONElement> {
             return JSONElementType.VALUE;
         }
         return JSONElementType.UNKNOWN;
+    }
+
+    /**
+     * 获取所有的键
+     * @return 键
+     * @throws Exception if element contains no key
+     */
+    public Set<Object> keys() throws Exception {
+        throw new UnsupportedOperationException("Could not get keys from " + this.getClass().getSimpleName());
     }
 
     /**
