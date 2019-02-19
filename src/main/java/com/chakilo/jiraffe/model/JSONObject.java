@@ -1,6 +1,7 @@
 package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.model.base.JSONElement;
+import com.chakilo.jiraffe.model.base.JSONElementType;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -26,7 +27,7 @@ public final class JSONObject extends JSONElement {
 
     @Override
     public Iterator<JSONElement> iterator() {
-        return null != _sub_elements ? _sub_elements.values().iterator() : null;
+        return null != _sub_elements ? _sub_elements.values().iterator() : Collections.emptyIterator();
     }
 
     @Override
@@ -38,12 +39,32 @@ public final class JSONObject extends JSONElement {
 
     @Override
     public Spliterator<JSONElement> spliterator() {
-        return null != _sub_elements ? _sub_elements.values().spliterator() : null;
+        return null != _sub_elements ? _sub_elements.values().spliterator() : Spliterators.emptySpliterator();
     }
 
     @Override
-    public Set<Object> keys() throws Exception {
-        return null != _sub_elements ? _sub_elements.keySet() : null;
+    public boolean isArray() {
+        return false;
+    }
+
+    @Override
+    public boolean isObject() {
+        return true;
+    }
+
+    @Override
+    public boolean isValue() {
+        return false;
+    }
+
+    @Override
+    public JSONElementType getType() {
+        return JSONElementType.OBJECT;
+    }
+
+    @Override
+    public Set<Object> keys() {
+        return null != _sub_elements ? _sub_elements.keySet() : Collections.emptySet();
     }
 
     @Override

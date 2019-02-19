@@ -45,21 +45,21 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * 是否是对象类型{}
-     *
-     * @return true if instance of <code>JSONObject</code>, otherwise false
-     */
-    public boolean isObject() {
-        return this instanceof JSONObject;
-    }
-
-    /**
      * 是否是数组类型[]
      *
      * @return true if instance of <code>JSONArray</code>, otherwise false
      */
     public boolean isArray() {
         return this instanceof JSONArray;
+    }
+
+    /**
+     * 是否是对象类型{}
+     *
+     * @return true if instance of <code>JSONObject</code>, otherwise false
+     */
+    public boolean isObject() {
+        return this instanceof JSONObject;
     }
 
     /**
@@ -83,8 +83,9 @@ public abstract class JSONElement implements Iterable<JSONElement> {
             return JSONElementType.OBJECT;
         } else if (isValue()) {
             return JSONElementType.VALUE;
+        } else {
+            return JSONElementType.UNKNOWN;
         }
-        return JSONElementType.UNKNOWN;
     }
 
     /**

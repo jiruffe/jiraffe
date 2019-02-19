@@ -1,6 +1,7 @@
 package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.model.base.JSONElement;
+import com.chakilo.jiraffe.model.base.JSONElementType;
 import com.chakilo.jiraffe.util.TypeUtil;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 
@@ -28,7 +29,7 @@ public final class JSONArray extends JSONElement {
 
     @Override
     public Iterator<JSONElement> iterator() {
-        return null != _sub_elements ? _sub_elements.iterator() : null;
+        return null != _sub_elements ? _sub_elements.iterator() : Collections.emptyIterator();
     }
 
     @Override
@@ -40,11 +41,31 @@ public final class JSONArray extends JSONElement {
 
     @Override
     public Spliterator<JSONElement> spliterator() {
-        return null != _sub_elements ? _sub_elements.spliterator() : null;
+        return null != _sub_elements ? _sub_elements.spliterator() : Spliterators.emptySpliterator();
     }
 
     @Override
-    public Set<Object> keys() throws Exception {
+    public boolean isArray() {
+        return true;
+    }
+
+    @Override
+    public boolean isObject() {
+        return false;
+    }
+
+    @Override
+    public boolean isValue() {
+        return false;
+    }
+
+    @Override
+    public JSONElementType getType() {
+        return JSONElementType.ARRAY;
+    }
+
+    @Override
+    public Set<Object> keys() {
         if (null != _sub_elements) {
             Set<Object> s = new HashSet<>();
             for (int i = 0; i < _sub_elements.size(); i++) {

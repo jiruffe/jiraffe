@@ -2,10 +2,12 @@ package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.lib.SingletonIterator;
 import com.chakilo.jiraffe.model.base.JSONElement;
+import com.chakilo.jiraffe.model.base.JSONElementType;
 import com.chakilo.jiraffe.util.TypeUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -32,7 +34,7 @@ public final class JSONValue extends JSONElement {
 
     @Override
     public Iterator<JSONElement> iterator() {
-        return new SingletonIterator<>(this, false);
+        return Collections.singleton((JSONElement) this).iterator();
     }
 
     @Override
@@ -42,7 +44,27 @@ public final class JSONValue extends JSONElement {
 
     @Override
     public Spliterator<JSONElement> spliterator() {
-        return Spliterators.spliterator(iterator(), 1, Spliterator.CONCURRENT);
+        return Collections.singleton((JSONElement) this).spliterator();
+    }
+
+    @Override
+    public boolean isArray() {
+        return false;
+    }
+
+    @Override
+    public boolean isObject() {
+        return false;
+    }
+
+    @Override
+    public boolean isValue() {
+        return true;
+    }
+
+    @Override
+    public JSONElementType getType() {
+        return JSONElementType.VALUE;
     }
 
     @Override
