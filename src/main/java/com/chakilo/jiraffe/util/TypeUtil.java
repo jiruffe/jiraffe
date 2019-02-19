@@ -125,9 +125,7 @@ public abstract class TypeUtil {
             return (long) o;
         } else if (o instanceof String) {
             String s = (String) o;
-            if (StringUtil.isNumeric(s)) {
-                return Long.parseLong(s, 10);
-            } else if (StringUtil.isBCPLStyleNumeric(s)) {
+            if (StringUtil.isBCPLStyleNumeric(s)) {
                 if (s.startsWith("0x")) {
                     return Long.parseLong(s.substring(2), 16);
                 } else if (s.startsWith("0b")) {
@@ -135,6 +133,8 @@ public abstract class TypeUtil {
                 } else {
                     return Long.parseLong(s.substring(1), 8);
                 }
+            } else if (StringUtil.isNumeric(s)) {
+                return Long.parseLong(s, 10);
             } else {
                 return 0L;
             }
@@ -228,9 +228,7 @@ public abstract class TypeUtil {
             return BigInteger.valueOf((long) o);
         } else if (o instanceof String) {
             String s = (String) o;
-            if (StringUtil.isNumeric(s)) {
-                return new BigInteger(s, 10);
-            } else if (StringUtil.isBCPLStyleNumeric(s)) {
+            if (StringUtil.isBCPLStyleNumeric(s)) {
                 if (s.startsWith("0x")) {
                     return new BigInteger(s.substring(2), 16);
                 } else if (s.startsWith("0b")) {
@@ -238,6 +236,8 @@ public abstract class TypeUtil {
                 } else {
                     return new BigInteger(s.substring(1), 8);
                 }
+            } else if (StringUtil.isNumeric(s)) {
+                return new BigInteger(s, 10);
             } else {
                 return BigInteger.ZERO;
             }
