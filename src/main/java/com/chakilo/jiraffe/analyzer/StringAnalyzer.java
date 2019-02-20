@@ -8,7 +8,6 @@ import com.chakilo.jiraffe.util.CharacterUtil;
 import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.*;
 
@@ -170,6 +169,7 @@ public abstract class StringAnalyzer {
     }
 
     private static boolean isSelfTheFinalElement(Queue<JSONElement> bases, Queue<String> keys, JSONElement self) throws Exception {
+
         // 还有上一级, 那就把自身加到上一级去
         if (!bases.isEmpty()) {
             JSONElement base = bases.peek();
@@ -186,6 +186,7 @@ public abstract class StringAnalyzer {
             // 没有上一级了
             return true;
         }
+
     }
 
     private static JSONElement parseValue(String s, boolean force_set_string) {
