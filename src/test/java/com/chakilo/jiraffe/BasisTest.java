@@ -3,6 +3,7 @@ package com.chakilo.jiraffe;
 import com.chakilo.jiraffe.model.JSONArray;
 import com.chakilo.jiraffe.model.JSONObject;
 import com.chakilo.jiraffe.model.JSONValue;
+import com.chakilo.jiraffe.util.ObjectUtil;
 import org.junit.Test;
 
 /**
@@ -47,6 +48,12 @@ public class BasisTest {
     @Test
     public void test6() {
         System.out.println(String.valueOf(Long.MAX_VALUE).length());
+    }
+
+    @Test
+    public void test7() {
+        Object o = null;
+        System.out.println(ObjectUtil.getCanonicalName(o));
     }
 
 }

@@ -26,20 +26,8 @@ public final class JSONObject extends JSONElement {
     }
 
     @Override
-    public Iterator<JSONElement> iterator() {
-        return null != _sub_elements ? _sub_elements.values().iterator() : Collections.emptyIterator();
-    }
-
-    @Override
-    public void forEach(Consumer<? super JSONElement> action) {
-        if (null != _sub_elements) {
-            _sub_elements.values().forEach(action);
-        }
-    }
-
-    @Override
-    public Spliterator<JSONElement> spliterator() {
-        return null != _sub_elements ? _sub_elements.values().spliterator() : Spliterators.emptySpliterator();
+    public boolean isVoid() {
+        return null == _sub_elements;
     }
 
     @Override
@@ -80,6 +68,23 @@ public final class JSONObject extends JSONElement {
             _sub_elements.put(k, new JSONValue(v));
         }
         return this;
+    }
+
+    @Override
+    public Iterator<JSONElement> iterator() {
+        return null != _sub_elements ? _sub_elements.values().iterator() : Collections.emptyIterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super JSONElement> action) {
+        if (null != _sub_elements) {
+            _sub_elements.values().forEach(action);
+        }
+    }
+
+    @Override
+    public Spliterator<JSONElement> spliterator() {
+        return null != _sub_elements ? _sub_elements.values().spliterator() : Spliterators.emptySpliterator();
     }
 
 }

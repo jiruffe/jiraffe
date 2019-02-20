@@ -5,6 +5,7 @@ import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 import com.chakilo.jiraffe.model.JSONArray;
 import com.chakilo.jiraffe.model.JSONObject;
 import com.chakilo.jiraffe.model.JSONValue;
+import com.chakilo.jiraffe.util.ObjectUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -42,6 +43,15 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      */
     public <T> T toObject(Class<T> target) {
         return ObjectAnalyzer.analyze(this, target);
+    }
+
+    /**
+     * 是否为空
+     *
+     * @return true if is void
+     */
+    public boolean isVoid() {
+        return false;
     }
 
     /**
@@ -94,7 +104,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if element contains no key
      */
     public Set<Object> keys() throws Exception {
-        throw new UnsupportedOperationException("Could not get keys from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get keys from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -104,7 +114,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return 子元素
      */
     public JSONElement peek(Object k) throws Exception {
-        throw new UnsupportedOperationException("Could not peek from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not peek from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -114,7 +124,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return 自身
      */
     public JSONElement offer(Object v) throws Exception {
-        throw new UnsupportedOperationException("Could not offer v to " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not offer v to " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -125,7 +135,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return 自身
      */
     public JSONElement offer(Object k, Object v) throws Exception {
-        throw new UnsupportedOperationException("Could not offer k, v to " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not offer k, v to " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -135,7 +145,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public Object getValue() throws Exception {
-        throw new UnsupportedOperationException("Could not get value from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get value from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -145,7 +155,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public String getString() throws Exception {
-        throw new UnsupportedOperationException("Could not get String from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get String from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -155,7 +165,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public byte getByte() throws Exception {
-        throw new UnsupportedOperationException("Could not get byte from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get byte from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -165,7 +175,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public short getShort() throws Exception {
-        throw new UnsupportedOperationException("Could not get short from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get short from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -175,7 +185,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public int getInt() throws Exception {
-        throw new UnsupportedOperationException("Could not get int from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get int from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -185,7 +195,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public long getLong() throws Exception {
-        throw new UnsupportedOperationException("Could not get long from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get long from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -195,7 +205,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public float getFloat() throws Exception {
-        throw new UnsupportedOperationException("Could not get float from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get float from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -205,7 +215,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public double getDouble() throws Exception {
-        throw new UnsupportedOperationException("Could not get double from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get double from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -215,7 +225,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public boolean getBoolean() throws Exception {
-        throw new UnsupportedOperationException("Could not get boolean from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get boolean from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -225,7 +235,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public char getChar() throws Exception {
-        throw new UnsupportedOperationException("Could not get char from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get char from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -235,7 +245,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public Number getNumber() throws Exception {
-        throw new UnsupportedOperationException("Could not get Number from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get Number from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -245,7 +255,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public BigInteger getBigInteger() throws Exception {
-        throw new UnsupportedOperationException("Could not get BigInteger from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get BigInteger from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -255,7 +265,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @throws Exception if not supported
      */
     public BigDecimal getBigDecimal() throws Exception {
-        throw new UnsupportedOperationException("Could not get BigDecimal from " + this.getClass().getSimpleName());
+        throw new UnsupportedOperationException("Could not get BigDecimal from " + ObjectUtil.getSimpleName(this));
     }
 
 }

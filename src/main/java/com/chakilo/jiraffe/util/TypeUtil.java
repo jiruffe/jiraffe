@@ -41,7 +41,7 @@ public abstract class TypeUtil {
     public static byte castToByte(Object o) {
 
         if (!couldCastToByte(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Byte");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.lang.Byte");
         }
 
         if (o instanceof Byte) {
@@ -68,7 +68,7 @@ public abstract class TypeUtil {
     public static short castToShort(Object o) {
 
         if (!couldCastToByte(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Short");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.lang.Short");
         }
 
         if (o instanceof Short) {
@@ -88,7 +88,7 @@ public abstract class TypeUtil {
     public static int castToInteger(Object o) {
 
         if (!couldCastToInteger(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Integer");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.lang.Integer");
         }
 
         return new Long(castToLong(o)).intValue();
@@ -104,7 +104,7 @@ public abstract class TypeUtil {
     public static long castToLong(Object o) {
 
         if (!couldCastToLong(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Long");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.lang.Long");
         }
 
         if (o instanceof Byte) {
@@ -151,7 +151,7 @@ public abstract class TypeUtil {
     public static float castToFloat(Object o) {
 
         if (!couldCastToDouble(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Float");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.lang.Float");
         }
 
         return new Double(castToDouble(o)).floatValue();
@@ -165,7 +165,7 @@ public abstract class TypeUtil {
     public static double castToDouble(Object o) {
 
         if (!couldCastToDouble(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Double");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.lang.Double");
         }
 
         if (o instanceof Byte) {
@@ -207,7 +207,7 @@ public abstract class TypeUtil {
     public static BigInteger castToBigInteger(Object o) {
 
         if (!couldCastToBigInteger(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.math.BigInteger");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.math.BigInteger");
         }
 
         if (o instanceof Byte) {
@@ -257,7 +257,7 @@ public abstract class TypeUtil {
     public static BigDecimal castToBigDecimal(Object o) {
 
         if (!couldCastToBigDecimal(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.math.BigDecimal");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.math.BigDecimal");
         }
 
         if (o instanceof Byte) {
@@ -297,7 +297,7 @@ public abstract class TypeUtil {
     public static boolean castToBoolean(Object o) {
 
         if (!couldCastToBoolean(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Boolean");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.lang.Boolean");
         }
 
         if (o instanceof Byte) {
@@ -337,7 +337,7 @@ public abstract class TypeUtil {
     public static char castToCharacter(Object o) {
 
         if (!couldCastToCharacter(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Character");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.lang.Character");
         }
 
         if (o instanceof Byte) {
@@ -377,7 +377,7 @@ public abstract class TypeUtil {
     public static Number castToNumber(Object o) {
 
         if (!couldCastToNumber(o)) {
-            throw new ClassCastException("Could not cast " + o.getClass().getCanonicalName() + " to java.lang.Number");
+            throw new ClassCastException("Could not cast " + ObjectUtil.getCanonicalName(o) + " to java.lang.Number");
         }
 
         if (isNumber(o)) {

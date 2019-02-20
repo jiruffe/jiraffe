@@ -31,18 +31,8 @@ public final class JSONValue extends JSONElement {
     }
 
     @Override
-    public Iterator<JSONElement> iterator() {
-        return Collections.singleton((JSONElement) this).iterator();
-    }
-
-    @Override
-    public void forEach(Consumer<? super JSONElement> action) {
-        action.accept(this);
-    }
-
-    @Override
-    public Spliterator<JSONElement> spliterator() {
-        return Collections.singleton((JSONElement) this).spliterator();
+    public boolean isVoid() {
+        return null == _value;
     }
 
     @Override
@@ -128,6 +118,21 @@ public final class JSONValue extends JSONElement {
     @Override
     public BigDecimal getBigDecimal() throws Exception {
         return TypeUtil.castToBigDecimal(_value);
+    }
+
+    @Override
+    public Iterator<JSONElement> iterator() {
+        return Collections.singleton((JSONElement) this).iterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super JSONElement> action) {
+        action.accept(this);
+    }
+
+    @Override
+    public Spliterator<JSONElement> spliterator() {
+        return Collections.singleton((JSONElement) this).spliterator();
     }
 
 }

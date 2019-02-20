@@ -28,20 +28,8 @@ public final class JSONArray extends JSONElement {
     }
 
     @Override
-    public Iterator<JSONElement> iterator() {
-        return null != _sub_elements ? _sub_elements.iterator() : Collections.emptyIterator();
-    }
-
-    @Override
-    public void forEach(Consumer<? super JSONElement> action) {
-        if (null != _sub_elements) {
-            _sub_elements.forEach(action);
-        }
-    }
-
-    @Override
-    public Spliterator<JSONElement> spliterator() {
-        return null != _sub_elements ? _sub_elements.spliterator() : Spliterators.emptySpliterator();
+    public boolean isVoid() {
+        return null == _sub_elements;
     }
 
     @Override
@@ -94,6 +82,23 @@ public final class JSONArray extends JSONElement {
             _sub_elements.add(new JSONValue(v));
         }
         return this;
+    }
+
+    @Override
+    public Iterator<JSONElement> iterator() {
+        return null != _sub_elements ? _sub_elements.iterator() : Collections.emptyIterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super JSONElement> action) {
+        if (null != _sub_elements) {
+            _sub_elements.forEach(action);
+        }
+    }
+
+    @Override
+    public Spliterator<JSONElement> spliterator() {
+        return null != _sub_elements ? _sub_elements.spliterator() : Spliterators.emptySpliterator();
     }
 
 }

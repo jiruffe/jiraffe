@@ -25,11 +25,11 @@ public class JsonTest {
     @Test
     public void test2() throws Exception {
 
-        JSONElement element = JSON.deserialize("[123,123.45,'123.45','2019-01-02 03:04:05',true,false]");
+        JSONElement element = JSON.deserialize("[123,123.45,'123.45','2019-01-02 03:04:05',true,false,null]");
 
         assert null != element;
 
-        assert "[123,123.45,\"123.45\",\"2019-01-02 03:04:05\",true,false]".equals(element.toString());
+        assert "[123,123.45,\"123.45\",\"2019-01-02 03:04:05\",true,false,null]".equals(element.toString());
 
     }
 
