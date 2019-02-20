@@ -188,7 +188,7 @@ public abstract class StringAnalyzer {
                 ci = sr.read();
                 assert -1 != ci;
                 c = (char) ci;
-                if ('t' == c || 'r' == c || 'n' == c || 'f' == c || 'b' == c || 'v' == c || '\\' == c || '/' == c || '"' == c || '\'' == c || (c >= '0' && c <= '7')) {
+                if ('b' == c || 't' == c || 'n' == c || 'v' == c || 'f' == c || 'r' == c || '\\' == c || '/' == c || '"' == c || '\'' == c || (c >= '0' && c <= '7')) {
                     sb.append(CharacterUtil.CHARS_MARK_REV[(int) c]);
                 } else if ('x' == c) {
                     int d = 0;
