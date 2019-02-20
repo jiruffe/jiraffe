@@ -99,4 +99,8 @@ public abstract class CharacterUtil {
         return ':' == c;
     }
 
+    public static boolean isQuote(char c) {
+        return '\'' == c || '"' == c;
+    }
+
 }

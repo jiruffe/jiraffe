@@ -56,11 +56,19 @@ public abstract class StringAnalyzer {
 
             c = (char) ci;
 
+            if (CharacterUtil.isQuote(last_token)) {
+                if (last_token == c) {
+                    last_token = 0;
+                } else {
+                    sb.append(c);
+                }
+                continue;
+            }
+
             switch (c) {
 
                 case '"':
                 case '\'':
-                    readString(sr, sb, c);
                     force_set_string = true;
                     last_token = c;
                     break;
@@ -77,7 +85,7 @@ public abstract class StringAnalyzer {
 
                 case ':':
                     // 新的键名
-                    keys.offer(sb.toString());
+                    keys.offer(StringUtil.unescape(sb.toString()));
                     sb.setLength(0);
                     last_token = c;
                     break;
@@ -183,7 +191,7 @@ public abstract class StringAnalyzer {
     private static JSONElement parseValue(String s, boolean force_set_string) {
 
         if (force_set_string) {
-            return new JSONValue(s);
+            return new JSONValue(StringUtil.unescape(s));
         } else if ("true".equalsIgnoreCase(s)) {
             return new JSONValue(Boolean.TRUE);
         } else if ("false".equalsIgnoreCase(s)) {
@@ -197,56 +205,9 @@ public abstract class StringAnalyzer {
         } else if (TypeUtil.couldCastToNumber(s)) {
             return new JSONValue(TypeUtil.castToNumber(s));
         } else {
-            return new JSONValue(s);
+            return new JSONValue(StringUtil.unescape(s));
         }
 
-    }
-
-    private static void readString(StringReader sr, StringBuilder sb, char quote) throws IOException {
-        char c;
-        int ci;
-        while ((ci = sr.read()) != -1) {
-            c = (char) ci;
-            if (quote == c) {
-                break;
-            } else if ('\\' == c) {
-                ci = sr.read();
-                assert -1 != ci;
-                c = (char) ci;
-                if ('b' == c || 't' == c || 'n' == c || 'v' == c || 'f' == c || 'r' == c || '\\' == c || '/' == c || '"' == c || '\'' == c || (c >= '0' && c <= '7')) {
-                    sb.append(CharacterUtil.CHARS_MARK_REV[(int) c]);
-                } else if ('x' == c) {
-                    int d = 0;
-                    ci = sr.read();
-                    assert -1 != ci;
-                    d = CharacterUtil.DIGITS_MARK[ci];
-                    ci = sr.read();
-                    assert -1 != ci;
-                    d = d << 4 + CharacterUtil.DIGITS_MARK[ci];
-                    sb.append((char) d);
-                } else if ('u' == c) {
-                    int d = 0;
-                    ci = sr.read();
-                    assert -1 != ci;
-                    d = CharacterUtil.DIGITS_MARK[ci];
-                    ci = sr.read();
-                    assert -1 != ci;
-                    d = d << 4 + CharacterUtil.DIGITS_MARK[ci];
-                    ci = sr.read();
-                    assert -1 != ci;
-                    d = d << 4 + CharacterUtil.DIGITS_MARK[ci];
-                    ci = sr.read();
-                    assert -1 != ci;
-                    d = d << 4 + CharacterUtil.DIGITS_MARK[ci];
-                    sb.append((char) d);
-                } else {
-                    sb.append('\\');
-                    sb.append(c);
-                }
-            } else {
-                sb.append(c);
-            }
-        }
     }
 
     public static String analyze(JSONElement element) throws Exception {
@@ -275,7 +236,7 @@ public abstract class StringAnalyzer {
                     while (iterator1.hasNext()) {
                         Object k = iterator1.next();
                         sb.append('"');
-                        sb.append(StringUtil.toString(k));
+                        sb.append(StringUtil.escape(StringUtil.toString(k)));
                         sb.append('"');
                         sb.append(':');
                         sb.append(analyze(element.peek(k)));
@@ -291,7 +252,7 @@ public abstract class StringAnalyzer {
                 Object v = element.getValue();
                 if (v instanceof String) {
                     sb.append('"');
-                    sb.append((String) v);
+                    sb.append(StringUtil.escape((String) v));
                     sb.append('"');
                 } else {
                     sb.append(StringUtil.toString(v));

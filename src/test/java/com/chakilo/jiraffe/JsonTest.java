@@ -99,4 +99,30 @@ public class JsonTest {
 
     }
 
+    @Test
+    public void test9() throws Exception {
+
+        JSONElement element = JSON.deserialize("{\"a\":\"'\\u7684\\t\\n\"}");
+
+        assert null != element;
+
+        assert "'的\t\n".equals(element.peek("a").getString());
+
+        assert "{\"a\":\"'\\u7684\\t\\n\"}".equals(element.toString());
+
+    }
+
+    @Test
+    public void test10() throws Exception {
+
+        JSONElement element = JSON.deserialize("{\"a\":\"'\\ud83d\\udc4c\\t\\n\"}");
+
+        assert null != element;
+
+        assert "'👌\t\n".equals(element.peek("a").getString());
+
+        assert "{\"a\":\"'\\uD83D\\uDC4C\\t\\n\"}".equals(element.toString());
+
+    }
+
 }
