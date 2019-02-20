@@ -33,4 +33,48 @@ public class JsonTest {
 
     }
 
+    @Test
+    public void test3() throws Exception {
+
+        JSONElement element = JSON.deserialize("{null:null}");
+
+        assert null != element;
+
+        assert "{\"null\":null}".equals(element.toString());
+
+    }
+
+    @Test
+    public void test4() throws Exception {
+
+        JSONElement element = JSON.deserialize("[,,]");
+
+        assert null != element;
+
+        assert "[null,null,null]".equals(element.toString());
+
+    }
+
+    @Test
+    public void test5() throws Exception {
+
+        JSONElement element = JSON.deserialize("[[[[[]]]]]");
+
+        assert null != element;
+
+        assert "[[[[[null]]]]]".equals(element.toString());
+
+    }
+
+    @Test
+    public void test6() throws Exception {
+
+        JSONElement element = JSON.deserialize("{a:{b:}}");
+
+        assert null != element;
+
+        assert "{\"a\":{\"b\":null}}".equals(element.toString());
+
+    }
+
 }

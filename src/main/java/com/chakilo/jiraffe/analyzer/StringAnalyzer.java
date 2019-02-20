@@ -48,6 +48,8 @@ public abstract class StringAnalyzer {
         int ci;
         // 强制视作字符串
         boolean force_set_string = false;
+        // 刚结束一个{}或[]
+        boolean is_after_brackets = false;
 
         // 遍历字符
         while ((ci = sr.read()) != -1) {
@@ -60,20 +62,24 @@ public abstract class StringAnalyzer {
                 case '\'':
                     readString(sr, sb, c);
                     force_set_string = true;
+                    is_after_brackets = false;
                     break;
 
                 case '{':
                     bases.offer(new JSONObject());
+                    is_after_brackets = false;
                     break;
 
                 case '[':
                     bases.offer(new JSONArray());
+                    is_after_brackets = false;
                     break;
 
                 case ':':
                     // 新的键名
                     keys.offer(sb.toString());
                     sb.setLength(0);
+                    is_after_brackets = false;
                     break;
 
                 case ',':
@@ -87,6 +93,16 @@ public abstract class StringAnalyzer {
                             self.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
                         }
                         sb.setLength(0);
+                    } else if (!is_after_brackets) {
+                        if (!bases.isEmpty()) {
+                            // 加入一个空值
+                            JSONElement self = bases.peek();
+                            if (self.isArray()) {
+                                self.offer(JSONElement.VOID);
+                            } else if (self.isObject()) {
+                                self.offer(keys.poll(), JSONElement.VOID);
+                            }
+                        }
                     }
                     break;
 
@@ -100,7 +116,10 @@ public abstract class StringAnalyzer {
                         assert !keys.isEmpty();
                         self_object.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
                         sb.setLength(0);
+                    } else if (!is_after_brackets) {
+                        self_object.offer(keys.poll(), JSONElement.VOID);
                     }
+                    is_after_brackets = true;
                     // 如果没有父级, 已经解析结束, 若是还有剩余的, 都是多余字符, 忽略即可
                     if (isSelfTheFinalElement(bases, keys, self_object)) return self_object;
                     break;
@@ -114,7 +133,10 @@ public abstract class StringAnalyzer {
                     if (sb.length() > 0) {
                         self_array.offer(parseValue(sb.toString(), force_set_string));
                         sb.setLength(0);
+                    } else if (!is_after_brackets) {
+                        self_array.offer(JSONElement.VOID);
                     }
+                    is_after_brackets = true;
                     // 如果没有父级, 已经解析结束, 若是还有剩余的, 都是多余字符, 忽略即可
                     if (isSelfTheFinalElement(bases, keys, self_array)) return self_array;
                     break;
@@ -123,6 +145,7 @@ public abstract class StringAnalyzer {
                     if (sb.length() > 0) {
                         sb.append(c);
                     } else if (CharacterUtil.isVisibleAndNotSpace(c)) {
+                        is_after_brackets = false;
                         force_set_string = false;
                         sb.append(c);
                     }
