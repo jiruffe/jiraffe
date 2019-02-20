@@ -1,6 +1,5 @@
 package com.chakilo.jiraffe.model;
 
-import com.chakilo.jiraffe.lib.SingletonIterator;
 import com.chakilo.jiraffe.model.base.JSONElement;
 import com.chakilo.jiraffe.model.base.JSONElementType;
 import com.chakilo.jiraffe.util.TypeUtil;
@@ -10,7 +9,6 @@ import java.math.BigInteger;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Spliterator;
-import java.util.Spliterators;
 import java.util.function.Consumer;
 
 /**

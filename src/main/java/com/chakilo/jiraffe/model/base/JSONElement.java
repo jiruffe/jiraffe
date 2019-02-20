@@ -29,7 +29,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
         try {
             return StringAnalyzer.analyze(this);
         } catch (Exception e) {
-            return "";
+            return super.toString();
         }
     }
 
