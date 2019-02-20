@@ -5,6 +5,7 @@ import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 import com.chakilo.jiraffe.model.JSONArray;
 import com.chakilo.jiraffe.model.JSONObject;
 import com.chakilo.jiraffe.model.JSONValue;
+import com.chakilo.jiraffe.model.JSONVoid;
 import com.chakilo.jiraffe.util.ObjectUtil;
 
 import java.math.BigDecimal;
@@ -19,6 +20,8 @@ import java.util.Set;
  * @author Chakilo
  */
 public abstract class JSONElement implements Iterable<JSONElement> {
+
+    public static final JSONElement VOID = JSONVoid.VOID;
 
     /**
      * 转为json string
@@ -48,19 +51,19 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * 是否为空
      *
-     * @return true if is void
+     * @return true if is void, otherwise false
      */
     public boolean isVoid() {
-        return true;
+        return this instanceof JSONVoid;
     }
 
     /**
      * 是否无内容
      *
-     * @return true if is empty
+     * @return true if is empty, otherwise false
      */
     public boolean isEmpty() {
-        return true;
+        return this instanceof JSONVoid;
     }
 
     /**
@@ -96,7 +99,9 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return 类型
      */
     public JSONElementType getType() {
-        if (isArray()) {
+        if (isVoid()) {
+            return JSONElementType.VOID;
+        } else if (isArray()) {
             return JSONElementType.ARRAY;
         } else if (isObject()) {
             return JSONElementType.OBJECT;

@@ -9,5 +9,6 @@ public enum JSONElementType {
     UNKNOWN,
     ARRAY,
     OBJECT,
-    VALUE
+    VALUE,
+    VOID
 }

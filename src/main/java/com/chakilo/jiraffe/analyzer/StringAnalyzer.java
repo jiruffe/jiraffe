@@ -164,11 +164,11 @@ public abstract class StringAnalyzer {
         } else if ("false".equalsIgnoreCase(s)) {
             return new JSONValue(Boolean.FALSE);
         } else if ("null".equalsIgnoreCase(s)) {
-            return new JSONValue(null);
+            return JSONElement.VOID;
         } else if ("NaN".equals(s)) {
-            return new JSONValue(null);
+            return JSONElement.VOID;
         } else if ("undefined".equalsIgnoreCase(s)) {
-            return new JSONValue(null);
+            return JSONElement.VOID;
         } else if (TypeUtil.couldCastToNumber(s)) {
             return new JSONValue(TypeUtil.castToNumber(s));
         } else {
@@ -271,6 +271,10 @@ public abstract class StringAnalyzer {
                 } else {
                     sb.append(StringUtil.toString(v));
                 }
+                break;
+
+            case VOID:
+                sb.append("null");
                 break;
 
             default:
