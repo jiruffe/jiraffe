@@ -58,11 +58,11 @@ public class JsonTest {
     @Test
     public void test5() throws Exception {
 
-        JSONElement element = JSON.deserialize("[[[[[]]]]]");
+        JSONElement element = JSON.deserialize("[[[[[,]]]]]");
 
         assert null != element;
 
-        assert "[[[[[null]]]]]".equals(element.toString());
+        assert "[[[[[null,null]]]]]".equals(element.toString());
 
     }
 
@@ -74,6 +74,28 @@ public class JsonTest {
         assert null != element;
 
         assert "{\"a\":{\"b\":null}}".equals(element.toString());
+
+    }
+
+    @Test
+    public void test7() throws Exception {
+
+        JSONElement element = JSON.deserialize("{a:{b:{c:{d:{e:'f'}}}}}");
+
+        assert null != element;
+
+        assert "{\"a\":{\"b\":{\"c\":{\"d\":{\"e\":\"f\"}}}}}".equals(element.toString());
+
+    }
+
+    @Test
+    public void test8() throws Exception {
+
+        JSONElement element = JSON.deserialize("[[[],[]],[[]],[],[{},{},null]]");
+
+        assert null != element;
+
+        assert "[[[],[]],[[]],[],[{},{},null]]".equals(element.toString());
 
     }
 

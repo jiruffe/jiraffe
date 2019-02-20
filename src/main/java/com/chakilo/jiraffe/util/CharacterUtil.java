@@ -79,4 +79,24 @@ public abstract class CharacterUtil {
         return c <= 32 || c == 127;
     }
 
+    public static boolean isLeftBrackets(char c) {
+        return '[' == c || '{' == c;
+    }
+
+    public static boolean isRightBrackets(char c) {
+        return ']' == c || '}' == c;
+    }
+
+    public static boolean isBrackets(char c) {
+        return isLeftBrackets(c) || isRightBrackets(c);
+    }
+
+    public static boolean isComma(char c) {
+        return ',' == c;
+    }
+
+    public static boolean isColon(char c) {
+        return ':' == c;
+    }
+
 }
