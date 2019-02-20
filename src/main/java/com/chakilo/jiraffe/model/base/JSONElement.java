@@ -55,6 +55,15 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
+     * 是否无内容
+     *
+     * @return true if is empty
+     */
+    public boolean isEmpty() {
+        return true;
+    }
+
+    /**
      * 是否是数组类型[]
      *
      * @return true if instance of <code>JSONArray</code>, otherwise false

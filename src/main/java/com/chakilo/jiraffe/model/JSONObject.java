@@ -31,6 +31,11 @@ public final class JSONObject extends JSONElement {
     }
 
     @Override
+    public boolean isEmpty() {
+        return isVoid() || _sub_elements.isEmpty();
+    }
+
+    @Override
     public boolean isArray() {
         return false;
     }

@@ -7,6 +7,8 @@ package com.chakilo.jiraffe.util;
  */
 public abstract class StringUtil {
 
+    public static final String EMPTY = "";
+
     public static boolean isRealNumber(String s) {
 
         if (s == null || "".equals(s))

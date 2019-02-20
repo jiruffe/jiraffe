@@ -2,6 +2,7 @@ package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.model.base.JSONElement;
 import com.chakilo.jiraffe.model.base.JSONElementType;
+import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
 
 import java.math.BigDecimal;
@@ -33,6 +34,11 @@ public final class JSONValue extends JSONElement {
     @Override
     public boolean isVoid() {
         return null == _value;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return isVoid() || StringUtil.EMPTY.equals(StringUtil.toString(_value));
     }
 
     @Override
