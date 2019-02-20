@@ -168,7 +168,7 @@ public abstract class StringAnalyzer {
         } else if ("NaN".equals(s)) {
             return new JSONValue(null);
         } else if ("undefined".equalsIgnoreCase(s)) {
-            return new JSONValue(s);
+            return new JSONValue(null);
         } else if (TypeUtil.couldCastToNumber(s)) {
             return new JSONValue(TypeUtil.castToNumber(s));
         } else {
