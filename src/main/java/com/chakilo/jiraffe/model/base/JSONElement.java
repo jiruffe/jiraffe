@@ -51,7 +51,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return true if is void
      */
     public boolean isVoid() {
-        return false;
+        return true;
     }
 
     /**
