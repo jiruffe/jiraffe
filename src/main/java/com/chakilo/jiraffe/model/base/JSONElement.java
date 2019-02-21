@@ -83,7 +83,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Return whether this element is void.
+     * Returns whether this element is void.
      *
      * @return true if is void, otherwise false.
      */
@@ -92,7 +92,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Return whether this element is empty.
+     * Returns whether this element is empty.
      *
      * @return true if is empty, otherwise false.
      */
@@ -101,7 +101,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Return whether this element is an instance of JS array [].
+     * Returns whether this element is an instance of JS array [].
      *
      * @return true if instance of <code>JSONArray</code>, otherwise false
      */
@@ -110,7 +110,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Return whether this element is an instance of JS object {}.
+     * Returns whether this element is an instance of JS object {}.
      *
      * @return true if instance of <code>JSONObject</code>, otherwise false
      */
@@ -119,7 +119,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Return whether this element is an instance of JS primitive type.
+     * Returns whether this element is an instance of JS primitive type.
      *
      * @return true if instance of <code>JSONValue</code>, otherwise false
      */
