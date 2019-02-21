@@ -73,7 +73,8 @@ public final class JSONArray extends JSONElement {
     @Override
     public JSONElement peek(Object k) throws InvalidArgumentException {
         if (TypeUtil.couldCastToInteger(k)) {
-            return _sub_elements.get(TypeUtil.castToInteger(k));
+            JSONElement v = _sub_elements.get(TypeUtil.castToInteger(k));
+            return null == v ? JSONElement.VOID : v;
         } else {
             throw new InvalidArgumentException(new String[]{"k"});
         }

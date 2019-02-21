@@ -62,7 +62,8 @@ public final class JSONObject extends JSONElement {
 
     @Override
     public JSONElement peek(Object k) {
-        return _sub_elements.get(k);
+        JSONElement v = _sub_elements.get(k);
+        return null == v ? JSONElement.VOID : v;
     }
 
     @Override
