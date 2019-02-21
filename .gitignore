@@ -5,6 +5,9 @@
 *.iml
 /.idea
 
+# Maven Target
+/target
+
 # Compiled class file
 *.class
 
