@@ -18,7 +18,7 @@ public final class JSONObject extends JSONElement {
     private Map<Object, JSONElement> _sub_elements;
 
     public JSONObject() {
-        this(new HashMap<>());
+        this(new LinkedHashMap<>());
     }
 
     public JSONObject(Map<Object, JSONElement> sub_elements) {
