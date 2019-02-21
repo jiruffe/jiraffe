@@ -15,18 +15,48 @@ import java.util.Set;
 /**
  * 2018.10.23
  *
- * 元素
+ * Represents JSON element including JS object {}, JS array [], or value (primitive type) such as integer, string...
  *
  * @author Chakilo
  */
 public abstract class JSONElement implements Iterable<JSONElement> {
 
+    /**
+     * Represents a void element, also known as <code>null</code>.
+     */
     public static final JSONElement VOID = JSONVoid.VOID;
 
     /**
-     * 转为json string
+     * Get a new instance of JSONArray.
      *
-     * @return json
+     * @return a new instance of JSONArray.
+     */
+    public static JSONElement newArray() {
+        return new JSONArray();
+    }
+
+    /**
+     * Get a new instance of JSONObject.
+     *
+     * @return a new instance of JSONObject.
+     */
+    public static JSONElement newObject() {
+        return new JSONObject();
+    }
+
+    /**
+     * Get a new instance of JSONValue.
+     *
+     * @return a new instance of JSONValue.
+     */
+    public static JSONElement newValue() {
+        return new JSONValue();
+    }
+
+    /**
+     * Converts this element to JSON string.
+     *
+     * @return JSON string.
      */
     @Override
     public String toString() {
@@ -38,11 +68,11 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * 转为对象
+     * Converts this element to java object.
      *
-     * @param target 对象类型
-     * @param <T>    对象类型
-     * @return 目标对象
+     * @param target Target type class.
+     * @param <T>    Target type class.
+     * @return target java object.
      */
     public <T> T toObject(Class<T> target) {
         if (JSONElement.class.isAssignableFrom(target)) {
@@ -53,25 +83,25 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * 是否为空
+     * Return whether this element is void.
      *
-     * @return true if is void, otherwise false
+     * @return true if is void, otherwise false.
      */
     public boolean isVoid() {
         return this instanceof JSONVoid;
     }
 
     /**
-     * 是否无内容
+     * Return whether this element is empty.
      *
-     * @return true if is empty, otherwise false
+     * @return true if is empty, otherwise false.
      */
     public boolean isEmpty() {
         return this instanceof JSONVoid;
     }
 
     /**
-     * 是否是数组类型[]
+     * Return whether this element is an instance of JS array [].
      *
      * @return true if instance of <code>JSONArray</code>, otherwise false
      */
@@ -80,7 +110,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * 是否是对象类型{}
+     * Return whether this element is an instance of JS object {}.
      *
      * @return true if instance of <code>JSONObject</code>, otherwise false
      */
@@ -89,7 +119,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * 是否是值类型""
+     * Return whether this element is an instance of JS primitive type.
      *
      * @return true if instance of <code>JSONValue</code>, otherwise false
      */
@@ -98,9 +128,9 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * 获取类型
+     * Get the type of this element.
      *
-     * @return 类型
+     * @return type of this element.
      */
     public JSONElementType getType() {
         if (isVoid()) {
@@ -117,170 +147,171 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * 获取所有的键
-     * @return 键
-     * @throws Exception if element contains no key
+     * Get all the keys of this element.
+     *
+     * @return a set of keys.
+     * @throws Exception if element contains no keys.
      */
     public Set<Object> keys() throws Exception {
         throw new UnsupportedOperationException("Could not get keys from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取子元素
+     * Returns the sub-element with specified key.
      *
-     * @param k 键
-     * @return 子元素
+     * @param k the key.
+     * @return the sub-element.
      */
     public JSONElement peek(Object k) throws Exception {
         throw new UnsupportedOperationException("Could not peek from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 加入元素
+     * Offers a sub-element to this element.
      *
-     * @param v 子元素
-     * @return 自身
+     * @param v the sub-element.
+     * @return this element itself.
      */
     public JSONElement offer(Object v) throws Exception {
         throw new UnsupportedOperationException("Could not offer v to " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 加入元素
+     * Offers a sub-element with specified key to this element.
      *
-     * @param k 键
-     * @param v 子元素
-     * @return 自身
+     * @param k the key.
+     * @param v the sub-element.
+     * @return this element itself.
      */
     public JSONElement offer(Object k, Object v) throws Exception {
         throw new UnsupportedOperationException("Could not offer k, v to " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取值
+     * Get the value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the value.
+     * @throws Exception if this element does not represent a value.
      */
     public Object getValue() throws Exception {
         throw new UnsupportedOperationException("Could not get value from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取String值
+     * Get the <code>String</code> that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the <code>String</code>.
+     * @throws Exception if this element does not represent a value.
      */
     public String getString() throws Exception {
         throw new UnsupportedOperationException("Could not get String from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取byte值
+     * Get the byte value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the byte value.
+     * @throws Exception if this element does not represent a value.
      */
     public byte getByte() throws Exception {
         throw new UnsupportedOperationException("Could not get byte from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取short值
+     * Get the short value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the short value.
+     * @throws Exception if this element does not represent a value.
      */
     public short getShort() throws Exception {
         throw new UnsupportedOperationException("Could not get short from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取int值
+     * Get the integer value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the integer value.
+     * @throws Exception if this element does not represent a value.
      */
     public int getInt() throws Exception {
         throw new UnsupportedOperationException("Could not get int from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取long值
+     * Get the long value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the long value.
+     * @throws Exception if this element does not represent a value.
      */
     public long getLong() throws Exception {
         throw new UnsupportedOperationException("Could not get long from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取float值
+     * Get the float value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the float value.
+     * @throws Exception if this element does not represent a value.
      */
     public float getFloat() throws Exception {
         throw new UnsupportedOperationException("Could not get float from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取double值
+     * Get the double value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the double value.
+     * @throws Exception if this element does not represent a value.
      */
     public double getDouble() throws Exception {
         throw new UnsupportedOperationException("Could not get double from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取boolean值
+     * Get the boolean value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the boolean value.
+     * @throws Exception if this element does not represent a value.
      */
     public boolean getBoolean() throws Exception {
         throw new UnsupportedOperationException("Could not get boolean from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取char值
+     * Get the character value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the character value.
+     * @throws Exception if this element does not represent a value.
      */
     public char getChar() throws Exception {
         throw new UnsupportedOperationException("Could not get char from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取Number值
+     * Get the number value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the number value.
+     * @throws Exception if this element does not represent a value.
      */
     public Number getNumber() throws Exception {
         throw new UnsupportedOperationException("Could not get Number from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取BigInteger值
+     * Get the <code>BigInteger</code> value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the <code>BigInteger</code> value.
+     * @throws Exception if this element does not represent a value.
      */
     public BigInteger getBigInteger() throws Exception {
         throw new UnsupportedOperationException("Could not get BigInteger from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * 获取BigDecimal值
+     * Get the <code>BigDecimal</code> value that this element represents.
      *
-     * @return 值
-     * @throws Exception if not supported
+     * @return the <code>BigDecimal</code> value.
+     * @throws Exception if this element does not represent a value.
      */
     public BigDecimal getBigDecimal() throws Exception {
         throw new UnsupportedOperationException("Could not get BigDecimal from " + ObjectUtil.getSimpleName(this));
