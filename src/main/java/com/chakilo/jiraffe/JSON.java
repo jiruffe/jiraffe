@@ -78,6 +78,8 @@ public abstract class JSON {
      * Directly deserializes json string to java object.
      *
      * @param json the json string to be deserialized.
+     * @param target the target type class.
+     * @param <T> the target type.
      * @return the java object deserialized.
      * @throws Exception if error occurred while analyzing json string.
      */
