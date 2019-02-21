@@ -22,7 +22,7 @@ import java.util.Set;
 public abstract class JSONElement implements Iterable<JSONElement> {
 
     /**
-     * Represents a void element, also known as <code>null</code>.
+     * Represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JS.
      */
     public static final JSONElement VOID = JSONVoid.VOID;
 
