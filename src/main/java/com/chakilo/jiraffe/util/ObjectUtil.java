@@ -8,15 +8,15 @@ package com.chakilo.jiraffe.util;
 public abstract class ObjectUtil {
 
     public static String getCanonicalName(Object o) {
-        return (null == o ? "null" : o.getClass().getCanonicalName());
+        return null == o ? "null" : o.getClass().getCanonicalName();
     }
 
     public static String getSimpleName(Object o) {
-        return (null == o ? "null" : o.getClass().getSimpleName());
+        return null == o ? "null" : o.getClass().getSimpleName();
     }
 
     public static String getName(Object o) {
-        return (null == o ? "null" : o.getClass().getName());
+        return null == o ? "null" : o.getClass().getName();
     }
 
 }
