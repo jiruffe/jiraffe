@@ -45,7 +45,11 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return 目标对象
      */
     public <T> T toObject(Class<T> target) {
-        return ObjectAnalyzer.analyze(this, target);
+        if (JSONElement.class.isAssignableFrom(target)) {
+            return (T) this;
+        } else {
+            return ObjectAnalyzer.analyze(this, target);
+        }
     }
 
     /**
