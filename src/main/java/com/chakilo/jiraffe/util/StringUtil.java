@@ -95,7 +95,7 @@ public abstract class StringUtil {
             
             char c = s.charAt(i);
             
-            if ('\b' == c || '\t' == c || '\n' == c || '\u000B' == c || '\f' == c || '\r' == c || '\\' == c || '/' == c || '"' == c || (c >= '\0' && c <= '\7')) {
+            if ('\b' == c || '\t' == c || '\n' == c || '\u000B' == c || '\f' == c || '\r' == c || '\\' == c || '"' == c || (c >= '\0' && c <= '\7')) {
                 sb.append('\\');
                 sb.append(CharacterUtil.CHARS_MARK[(int) c]);
             } else if (c < 32) {
