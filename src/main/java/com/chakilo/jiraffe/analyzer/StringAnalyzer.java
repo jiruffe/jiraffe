@@ -90,7 +90,7 @@ public abstract class StringAnalyzer {
                     break;
 
                 case ',':
-                    if (sb.length() > 0) {
+                    if (sb.length() > 0 || force_set_string) {
                         // 上一个值加到现在的元素内
                         JSONElement self = bases.peek();
                         assert null != self;
@@ -100,6 +100,7 @@ public abstract class StringAnalyzer {
                             self.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
                         }
                         sb.setLength(0);
+                        force_set_string = false;
                     } else if (!CharacterUtil.isRightBrackets(last_token)) {
                         if (!bases.isEmpty()) {
                             // 加入一个空值
@@ -120,10 +121,11 @@ public abstract class StringAnalyzer {
                     assert null != self_object;
                     assert self_object.isObject();
                     // 把最后一个元素加进去
-                    if (sb.length() > 0) {
+                    if (sb.length() > 0 || force_set_string) {
                         assert !keys.isEmpty();
                         self_object.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
                         sb.setLength(0);
+                        force_set_string = false;
                     } else if (CharacterUtil.isColon(last_token)) {
                         self_object.offer(keys.poll(), JSONElement.VOID);
                     }
@@ -138,9 +140,10 @@ public abstract class StringAnalyzer {
                     assert null != self_array;
                     assert self_array.isArray();
                     // 把最后一个元素加进去
-                    if (sb.length() > 0) {
+                    if (sb.length() > 0 || force_set_string) {
                         self_array.offer(parseValue(sb.toString(), force_set_string));
                         sb.setLength(0);
+                        force_set_string = false;
                     } else if (CharacterUtil.isComma(last_token)) {
                         self_array.offer(JSONElement.VOID);
                     }
