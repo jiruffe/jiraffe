@@ -67,7 +67,7 @@ public abstract class JSON {
      * @return the json string serialized.
      * @throws Exception if error occurred while analyzing object.
      */
-    public static String directSerialize(Object o) throws Exception {
+    public static String serializeDirectly(Object o) throws Exception {
         if (o instanceof JSONElement) {
             return StringAnalyzer.analyze((JSONElement) o);
         } else {
@@ -82,7 +82,7 @@ public abstract class JSON {
      * @return the java object deserialized.
      * @throws Exception if error occurred while analyzing json string.
      */
-    public static <T> T directDeserialize(String json, Class<T> target) throws Exception {
+    public static <T> T deserializeDirectly(String json, Class<T> target) throws Exception {
         if (JSONElement.class.isAssignableFrom(target)) {
             return (T) StringAnalyzer.analyze(json);
         } else {
