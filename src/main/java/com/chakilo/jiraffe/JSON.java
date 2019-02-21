@@ -29,7 +29,6 @@ import com.chakilo.jiraffe.model.base.JSONElement;
  *
  * 2018.10.23
  * @author Chakilo
- * @since 1.8
  *
  ******************************************************************************/
 public abstract class JSON {
