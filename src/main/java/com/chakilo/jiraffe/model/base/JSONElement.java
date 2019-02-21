@@ -103,7 +103,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JS array [].
      *
-     * @return true if instance of <code>JSONArray</code>, otherwise false
+     * @return true if instance of <code>JSONArray</code>, otherwise false.
      */
     public boolean isArray() {
         return this instanceof JSONArray;
@@ -112,7 +112,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JS object {}.
      *
-     * @return true if instance of <code>JSONObject</code>, otherwise false
+     * @return true if instance of <code>JSONObject</code>, otherwise false.
      */
     public boolean isObject() {
         return this instanceof JSONObject;
@@ -121,7 +121,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JS primitive type.
      *
-     * @return true if instance of <code>JSONValue</code>, otherwise false
+     * @return true if instance of <code>JSONValue</code>, otherwise false.
      */
     public boolean isValue() {
         return this instanceof JSONValue;
