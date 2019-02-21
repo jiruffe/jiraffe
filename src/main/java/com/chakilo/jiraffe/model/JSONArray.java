@@ -17,7 +17,7 @@ import java.util.function.Consumer;
  */
 public final class JSONArray extends JSONElement {
 
-    protected List<JSONElement> _sub_elements;
+    private List<JSONElement> _sub_elements;
 
     public JSONArray() {
         this(new ArrayList<>());

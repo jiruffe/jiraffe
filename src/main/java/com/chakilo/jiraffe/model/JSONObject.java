@@ -15,7 +15,7 @@ import java.util.function.Consumer;
  */
 public final class JSONObject extends JSONElement {
 
-    protected Map<Object, JSONElement> _sub_elements;
+    private Map<Object, JSONElement> _sub_elements;
 
     public JSONObject() {
         this(new HashMap<>());
