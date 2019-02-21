@@ -1,37 +1,36 @@
 package com.chakilo.jiraffe.analyzer;
 
-import com.chakilo.jiraffe.model.base.JSONElement;
-
 /**
  * 2019.02.18
  *
- * object <=> JSONElement conversion.
+ * object <=> json string,
+ * not using <code>JSONElement</code> class during conversion.
  *
  * @author Chakilo
  */
-public abstract class ObjectAnalyzer {
+public abstract class DirectAnalyzer {
 
     /**
-     * object => JSONElement
+     * object => json string
      *
      * @param o the object to be converted.
-     * @return a JSONElement converted.
+     * @return the json string converted.
      * @throws Exception if error occurred while analyzing object.
      */
-    public static JSONElement analyze(Object o) throws Exception {
+    public static String analyze(Object o) throws Exception {
         return null;
     }
 
     /**
-     * JSONElement => object
+     * json string => object
      *
-     * @param element the JSONElement to be converted.
+     * @param json the json string to be converted.
      * @param target the target type class.
      * @param <T> the target type.
      * @return the target java object.
      * @throws Exception if error occurred while analyzing class.
      */
-    public static <T> T analyze(JSONElement element, Class<T> target) throws Exception {
+    public static <T> T analyze(String json, Class<T> target) throws Exception {
         return null;
     }
 

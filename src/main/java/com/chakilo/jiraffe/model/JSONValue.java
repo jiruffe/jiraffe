@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 /**
  * 2018.10.23
  *
- * 值类型
+ * JS value (primitive type)
  *
  * @author Chakilo
  */

@@ -3,7 +3,7 @@ package com.chakilo.jiraffe.util;
 /**
  * 2019.02.20
  *
- * @author cjl
+ * @author Chakilo
  */
 public abstract class ObjectUtil {
 

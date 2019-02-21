@@ -14,18 +14,25 @@ import java.util.*;
 /**
  * 2018.10.25
  *
- * string <=> JSONElement 互转
+ * string <=> JSONElement conversion.
  *
  * @author Chakilo
  */
 public abstract class StringAnalyzer {
 
+    /**
+     * string => JSONElement.
+     *
+     * @param json the json string.
+     * @return converted JSONElement.
+     * @throws Exception if error occurred while reading json string.
+     */
     public static JSONElement analyze(String json) throws Exception {
 
-        // 忽略前后空白
+        // ignore spaces
         json = json.trim();
 
-        // 不是{}/[], 就当作普通值
+        // not object or array, return a value
         if (!json.startsWith("{") && !json.startsWith("[")) {
             boolean force_set_string = false;
             if ((json.startsWith("\"") && json.endsWith("\"")) || (json.startsWith("'") && json.endsWith("'"))) {
@@ -35,22 +42,22 @@ public abstract class StringAnalyzer {
             return parseValue(json, force_set_string);
         }
 
-        // 存放上级对象/数组的栈
+        // stack to store upper element
         Queue<JSONElement> bases = Collections.asLifoQueue(new ArrayDeque<>());
-        // 存放键名的栈
+        // stack to store keys
         Queue<String> keys = Collections.asLifoQueue(new ArrayDeque<>());
-        // 当前读到的元素
+        // value read
         StringBuilder sb = new StringBuilder();
-        // 当前读取的字符
+        // reader
         StringReader sr = new StringReader(json);
         char c;
         int ci;
-        // 强制视作字符串
+        // should set value as string
         boolean force_set_string = false;
-        // 上一个关键字
+        // the last token
         char last_token = 0;
 
-        // 遍历字符
+        // traversal of json string
         while ((ci = sr.read()) != -1) {
 
             c = (char) ci;
@@ -83,7 +90,7 @@ public abstract class StringAnalyzer {
                     break;
 
                 case ':':
-                    // 新的键名
+                    // new key
                     keys.offer(StringUtil.unescape(sb.toString()));
                     sb.setLength(0);
                     last_token = c;
@@ -91,7 +98,7 @@ public abstract class StringAnalyzer {
 
                 case ',':
                     if (sb.length() > 0 || force_set_string) {
-                        // 上一个值加到现在的元素内
+                        // set the value to this element
                         JSONElement self = bases.peek();
                         assert null != self;
                         if (self.isArray()) {
@@ -103,7 +110,7 @@ public abstract class StringAnalyzer {
                         force_set_string = false;
                     } else if (!CharacterUtil.isRightBrackets(last_token)) {
                         if (!bases.isEmpty()) {
-                            // 加入一个空值
+                            // set void
                             JSONElement self = bases.peek();
                             if (self.isArray()) {
                                 self.offer(JSONElement.VOID);
@@ -116,11 +123,11 @@ public abstract class StringAnalyzer {
                     break;
 
                 case '}':
-                    // 这是它自己
+                    // current object
                     JSONElement self_object = bases.poll();
                     assert null != self_object;
                     assert self_object.isObject();
-                    // 把最后一个元素加进去
+                    // set the last value
                     if (sb.length() > 0 || force_set_string) {
                         assert !keys.isEmpty();
                         self_object.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
@@ -129,17 +136,17 @@ public abstract class StringAnalyzer {
                     } else if (CharacterUtil.isColon(last_token)) {
                         self_object.offer(keys.poll(), JSONElement.VOID);
                     }
-                    // 如果没有父级, 已经解析结束, 若是还有剩余的, 都是多余字符, 忽略即可
+                    // if there was no upper element, conversion is finished, ignore extra chars
                     if (isSelfTheFinalElement(bases, keys, self_object)) return self_object;
                     last_token = c;
                     break;
 
                 case ']':
-                    // 这是它自己
+                    // current array
                     JSONElement self_array = bases.poll();
                     assert null != self_array;
                     assert self_array.isArray();
-                    // 把最后一个元素加进去
+                    // set the last value
                     if (sb.length() > 0 || force_set_string) {
                         self_array.offer(parseValue(sb.toString(), force_set_string));
                         sb.setLength(0);
@@ -147,7 +154,7 @@ public abstract class StringAnalyzer {
                     } else if (CharacterUtil.isComma(last_token)) {
                         self_array.offer(JSONElement.VOID);
                     }
-                    // 如果没有父级, 已经解析结束, 若是还有剩余的, 都是多余字符, 忽略即可
+                    // if there was no upper element, conversion is finished, ignore extra chars
                     if (isSelfTheFinalElement(bases, keys, self_array)) return self_array;
                     last_token = c;
                     break;
@@ -173,7 +180,7 @@ public abstract class StringAnalyzer {
 
     private static boolean isSelfTheFinalElement(Queue<JSONElement> bases, Queue<String> keys, JSONElement self) throws Exception {
 
-        // 还有上一级, 那就把自身加到上一级去
+        // upper element exists, set self to it
         if (!bases.isEmpty()) {
             JSONElement base = bases.peek();
             assert null != base;
@@ -186,7 +193,7 @@ public abstract class StringAnalyzer {
             }
             return false;
         } else {
-            // 没有上一级了
+            // no upper elements
             return true;
         }
 
@@ -214,6 +221,13 @@ public abstract class StringAnalyzer {
 
     }
 
+    /**
+     * JSONElement => string.
+     *
+     * @param element the element to be converted.
+     * @return a json string converted.
+     * @throws Exception if error occurred analyzing element.
+     */
     public static String analyze(JSONElement element) throws Exception {
 
         StringBuilder sb = new StringBuilder();

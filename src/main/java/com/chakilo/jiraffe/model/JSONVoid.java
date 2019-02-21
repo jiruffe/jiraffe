@@ -8,8 +8,8 @@ import java.util.function.Consumer;
 
 /**
  * 2019.02.20
- * <p>
- * 空
+ *
+ * null, undefined, NaN
  *
  * @author Chakilo
  */

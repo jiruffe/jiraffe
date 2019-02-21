@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 /**
  * 2018.10.23
  *
- * 数组型 []
+ * JS array []
  *
  * @author Chakilo
  */

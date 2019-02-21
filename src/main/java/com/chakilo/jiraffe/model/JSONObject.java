@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 /**
  * 2018.10.23
  *
- * 对象型 {}
+ * JS object {}
  *
  * @author Chakilo
  */

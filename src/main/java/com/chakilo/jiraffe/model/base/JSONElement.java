@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * 2018.10.23
  *
- * Represents JSON element including JS object {}, JS array [], or value (primitive type) such as integer, string...
+ * Represents JSON element including JS object {}, array [], or value (primitive type) such as integer, string...
  *
  * @author Chakilo
  */
@@ -70,11 +70,12 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Converts this element to java object.
      *
-     * @param target Target type class.
-     * @param <T>    Target type class.
-     * @return target java object.
+     * @param target The target type class.
+     * @param <T>    The target type.
+     * @return the target java object.
+     * @throws Exception if error occurred while analyzing class.
      */
-    public <T> T toObject(Class<T> target) {
+    public <T> T toObject(Class<T> target) throws Exception {
         if (JSONElement.class.isAssignableFrom(target)) {
             return (T) this;
         } else {

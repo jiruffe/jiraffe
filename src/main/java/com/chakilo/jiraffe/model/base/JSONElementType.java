@@ -3,7 +3,7 @@ package com.chakilo.jiraffe.model.base;
 /**
  * 2019.02.18
  *
- * @author cjl
+ * @author Chakilo
  */
 public enum JSONElementType {
     UNKNOWN,
