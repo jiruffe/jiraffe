@@ -231,22 +231,19 @@ public abstract class StringAnalyzer {
 
             case OBJECT:
                 sb.append('{');
-                Set<Object> ks = element.keys();
-                if (null != ks) {
-                    Iterator<Object> iterator1 = ks.iterator();
-                    while (iterator1.hasNext()) {
-                        Object k = iterator1.next();
-                        sb.append('"');
-                        sb.append(StringUtil.escape(StringUtil.toString(k)));
-                        sb.append('"');
-                        sb.append(':');
-                        sb.append(analyze(element.peek(k)));
-                        if (iterator1.hasNext()) {
-                            sb.append(',');
-                        }
+                Iterator<Object> iterator1 = element.keys().iterator();
+                while (iterator1.hasNext()) {
+                    Object k = iterator1.next();
+                    sb.append('"');
+                    sb.append(StringUtil.escape(StringUtil.toString(k)));
+                    sb.append('"');
+                    sb.append(':');
+                    sb.append(analyze(element.peek(k)));
+                    if (iterator1.hasNext()) {
+                        sb.append(',');
                     }
-                    sb.append('}');
                 }
+                sb.append('}');
                 break;
 
             case VALUE:
