@@ -27,27 +27,27 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     public static final JSONElement VOID = JSONVoid.VOID;
 
     /**
-     * Get a new instance of JSONArray.
+     * Get a new instance of <code>JSONArray</code>.
      *
-     * @return a new instance of JSONArray.
+     * @return a new instance of <code>JSONArray</code>.
      */
     public static JSONElement newArray() {
         return new JSONArray();
     }
 
     /**
-     * Get a new instance of JSONObject.
+     * Get a new instance of <code>JSONObject</code>.
      *
-     * @return a new instance of JSONObject.
+     * @return a new instance of <code>JSONObject</code>.
      */
     public static JSONElement newObject() {
         return new JSONObject();
     }
 
     /**
-     * Get a new instance of JSONValue.
+     * Get a new instance of <code>JSONValue</code>.
      *
-     * @return a new instance of JSONValue.
+     * @return a new instance of <code>JSONValue</code>.
      */
     public static JSONElement newValue() {
         return new JSONValue();

@@ -14,17 +14,17 @@ import java.util.*;
 /**
  * 2018.10.25
  *
- * string <=> JSONElement conversion.
+ * string <=> <code>JSONElement</code> conversion.
  *
  * @author Chakilo
  */
 public abstract class StringAnalyzer {
 
     /**
-     * string => JSONElement.
+     * string => <code>JSONElement</code>.
      *
      * @param json the json string.
-     * @return converted JSONElement.
+     * @return converted <code>JSONElement</code>.
      * @throws Exception if error occurred while reading json string.
      */
     public static JSONElement analyze(String json) throws Exception {
@@ -222,7 +222,7 @@ public abstract class StringAnalyzer {
     }
 
     /**
-     * JSONElement => string.
+     * <code>JSONElement</code> => string.
      *
      * @param element the element to be converted.
      * @return a json string converted.

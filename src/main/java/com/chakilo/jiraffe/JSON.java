@@ -34,10 +34,10 @@ import com.chakilo.jiraffe.model.base.JSONElement;
 public abstract class JSON {
 
     /**
-     * Serializes java object to JSONElement.
+     * Serializes java object to <code>JSONElement</code>.
      *
      * @param o the object to be serialized.
-     * @return the JSONElement serialized.
+     * @return the <code>JSONElement</code> serialized.
      * @throws Exception if error occurred while analyzing object.
      */
     public static JSONElement serialize(Object o) throws Exception {
@@ -49,10 +49,10 @@ public abstract class JSON {
     }
 
     /**
-     * Deserializes json string to JSONElement.
+     * Deserializes json string to <code>JSONElement</code>.
      *
      * @param json the json string to be deserialized.
-     * @return the JSONElement deserialized.
+     * @return the <code>JSONElement</code> deserialized.
      * @throws Exception if error occurred while analyzing json string.
      */
     public static JSONElement deserialize(String json) throws Exception {
