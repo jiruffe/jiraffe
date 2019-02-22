@@ -40,7 +40,7 @@ public final class JSONValue extends JSONElement {
     }
 
     @Override
-    public boolean isArray() {
+    public boolean isList() {
         return false;
     }
 

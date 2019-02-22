@@ -33,7 +33,7 @@ public final class JSONObject extends JSONElement {
     }
 
     @Override
-    public boolean isArray() {
+    public boolean isList() {
         return false;
     }
 

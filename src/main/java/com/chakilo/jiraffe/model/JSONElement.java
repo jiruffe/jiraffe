@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * 2018.10.23
  *
- * Represents JSON element including JS object {}, array [], or value (primitive type) such as integer, string...
+ * Represents JSON element including JS object {}, list [], or value (primitive type) such as integer, string...
  *
  * @author Chakilo
  */
@@ -134,11 +134,11 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns whether this element is an instance of JS array [].
+     * Returns whether this element is an instance of JS list [].
      *
      * @return true if instance of <code>JSONList</code>, otherwise false.
      */
-    public boolean isArray() {
+    public boolean isList() {
         return this instanceof JSONList;
     }
 
@@ -168,7 +168,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     public JSONElementType getType() {
         if (isVoid()) {
             return JSONElementType.VOID;
-        } else if (isArray()) {
+        } else if (isList()) {
             return JSONElementType.LIST;
         } else if (isObject()) {
             return JSONElementType.OBJECT;

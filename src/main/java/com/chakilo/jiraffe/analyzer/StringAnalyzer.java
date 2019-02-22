@@ -32,7 +32,7 @@ public abstract class StringAnalyzer {
         // ignore spaces
         json = json.trim();
 
-        // not object or array, return a value
+        // not object or list, return a value
         if (!json.startsWith("{") && !json.startsWith("[")) {
             boolean force_set_string = false;
             if ((json.startsWith("\"") && json.endsWith("\"")) || (json.startsWith("'") && json.endsWith("'"))) {
@@ -101,7 +101,7 @@ public abstract class StringAnalyzer {
                         // set the value to this element
                         JSONElement self = bases.peek();
                         assert null != self;
-                        if (self.isArray()) {
+                        if (self.isList()) {
                             self.offer(parseValue(sb.toString(), force_set_string));
                         } else if (self.isObject()) {
                             self.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
@@ -112,7 +112,7 @@ public abstract class StringAnalyzer {
                         if (!bases.isEmpty()) {
                             // set void
                             JSONElement self = bases.peek();
-                            if (self.isArray()) {
+                            if (self.isList()) {
                                 self.offer(JSONElement.Void());
                             } else if (self.isObject()) {
                                 self.offer(keys.poll(), JSONElement.Void());
@@ -142,20 +142,20 @@ public abstract class StringAnalyzer {
                     break;
 
                 case ']':
-                    // current array
-                    JSONElement self_array = bases.poll();
-                    assert null != self_array;
-                    assert self_array.isArray();
+                    // current list
+                    JSONElement self_list = bases.poll();
+                    assert null != self_list;
+                    assert self_list.isList();
                     // set the last value
                     if (sb.length() > 0 || force_set_string) {
-                        self_array.offer(parseValue(sb.toString(), force_set_string));
+                        self_list.offer(parseValue(sb.toString(), force_set_string));
                         sb.setLength(0);
                         force_set_string = false;
                     } else if (CharacterUtil.isComma(last_token)) {
-                        self_array.offer(JSONElement.Void());
+                        self_list.offer(JSONElement.Void());
                     }
                     // if there was no upper element, conversion is finished, ignore extra chars
-                    if (isSelfTheFinalElement(bases, keys, self_array)) return self_array;
+                    if (isSelfTheFinalElement(bases, keys, self_list)) return self_list;
                     last_token = c;
                     break;
 
@@ -185,7 +185,7 @@ public abstract class StringAnalyzer {
             JSONElement base = bases.peek();
             assert null != base;
             assert !base.isValue();
-            if (base.isArray()) {
+            if (base.isList()) {
                 base.offer(self);
             } else if (base.isObject()) {
                 assert !keys.isEmpty();

@@ -28,7 +28,7 @@ public class JSONVoid extends JSONElement {
     }
 
     @Override
-    public boolean isArray() {
+    public boolean isList() {
         return false;
     }
 

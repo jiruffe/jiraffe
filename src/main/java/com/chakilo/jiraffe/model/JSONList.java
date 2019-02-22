@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 /**
  * 2018.10.23
  *
- * JS array []
+ * JS list []
  *
  * @author Chakilo
  */
@@ -36,7 +36,7 @@ public final class JSONList extends JSONElement {
     }
 
     @Override
-    public boolean isArray() {
+    public boolean isList() {
         return true;
     }
 
