@@ -65,10 +65,12 @@ public final class JSONObject extends JSONElement {
 
     @Override
     public JSONElement offer(Object k, Object v) {
-        if (v instanceof JSONElement) {
+        if (null == v) {
+            _sub_elements.put(k, JSONElement.Void());
+        } else if (v instanceof JSONElement) {
             _sub_elements.put(k, (JSONElement) v);
         } else {
-            _sub_elements.put(k, new JSONValue(v));
+            _sub_elements.put(k, JSONElement.newValue(v));
         }
         return this;
     }

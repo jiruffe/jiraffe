@@ -80,10 +80,12 @@ public final class JSONList extends JSONElement {
 
     @Override
     public JSONElement offer(Object v) {
-        if (v instanceof JSONElement) {
+        if (null == v) {
+            _sub_elements.add(JSONElement.Void());
+        } else if (v instanceof JSONElement) {
             _sub_elements.add((JSONElement) v);
         } else {
-            _sub_elements.add(new JSONValue(v));
+            _sub_elements.add(JSONElement.newValue(v));
         }
         return this;
     }
