@@ -1,9 +1,14 @@
 package com.chakilo.jiraffe;
 
 
+import com.chakilo.jiraffe.model.DModel;
+import com.chakilo.jiraffe.model.EModel;
 import com.chakilo.jiraffe.model.JSONElement;
 import com.chakilo.jiraffe.util.StringUtil;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 2019.02.13
@@ -153,6 +158,29 @@ public class JsonTest {
         assert null != element;
 
         assert "[\"\"]".equals(element.toString());
+
+    }
+
+    @Test
+    public void test12() throws Exception {
+
+        DModel d = new DModel();
+        d.a = 1;
+        d.b = "bbb";
+        d.c = new int[]{1, 2, 3};
+        d.d = new String[]{"a", "b", "c"};
+        EModel e = new EModel();
+        e.a = 5;
+        d.e = new ArrayList<>();
+        d.e.add(e);
+        d.f = new HashMap<>();
+        d.f.put("aaaa", "bbbb");
+
+        JSONElement element = JSON.serialize(d);
+
+        assert null != element;
+
+        assert "{\"a\":1,\"b\":\"bbb\",\"c\":[1,2,3],\"d\":[\"a\",\"b\",\"c\"],\"e\":[{\"a\":5}],\"f\":{\"aaaa\":\"bbbb\"}}".equals(element.toString());
 
     }
 

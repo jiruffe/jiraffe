@@ -1,7 +1,15 @@
 package com.chakilo.jiraffe.analyzer;
 
 import com.chakilo.jiraffe.model.JSONElement;
+import com.chakilo.jiraffe.util.ObjectUtil;
+import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Map;
 
 /**
  * 2019.02.18
@@ -25,15 +33,57 @@ public abstract class ObjectAnalyzer {
             return JSONElement.Void();
         }
 
+        Class<?> cls = o.getClass();
+
         if (o instanceof String) {
+            return JSONElement.newValue(o);
+        } else if (o instanceof Number) {
             return JSONElement.newValue(o);
         } else if (TypeUtil.isPrimitive(o)) {
             return JSONElement.newValue(o);
-        } else if (o.getClass().isArray()) {
-
+        } else if (cls.isEnum()) {
+            return JSONElement.newValue(((Enum) o).ordinal());
+        } else if (cls.isArray()) {
+            JSONElement list = JSONElement.newList();
+            for (int i = 0; i < Array.getLength(o); i++) {
+                list.offer(analyze(Array.get(o, i)));
+            }
+            return list;
+        } else if (o instanceof Iterable) {
+            JSONElement list = JSONElement.newList();
+            for (Object oo : (Iterable) o) {
+                list.offer(analyze(oo));
+            }
+            return list;
+        } else if (o instanceof Enumeration) {
+            JSONElement list = JSONElement.newList();
+            Enumeration es = (Enumeration) o;
+            while (es.hasMoreElements()) {
+                list.offer(analyze(es.nextElement()));
+            }
+            return list;
+        } else if (o instanceof Map) {
+            JSONElement object = JSONElement.newObject();
+            for (Object k : ((Map) o).keySet()) {
+                object.offer(StringUtil.toString(k), analyze(((Map) o).get(k)));
+            }
+            return object;
+        } else if (o instanceof Dictionary) {
+            JSONElement object = JSONElement.newObject();
+            Enumeration keys = ((Dictionary) o).keys();
+            while (keys.hasMoreElements()) {
+                Object k = keys.nextElement();
+                object.offer(StringUtil.toString(k), analyze(((Dictionary) o).get(k)));
+            }
+            return object;
+        } else {
+            JSONElement object = JSONElement.newObject();
+            for (Field f : ObjectUtil.getFields(cls)) {
+                object.offer(f.getName(), analyze(f.get(o)));
+            }
+            return object;
         }
 
-        return null;
     }
 
     /**
