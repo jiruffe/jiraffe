@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  */
 public class JSONVoid extends JSONElement {
 
-    public static final JSONVoid VOID = new JSONVoid();
+    static final JSONVoid VOID = new JSONVoid();
 
     private JSONVoid() {
     }
