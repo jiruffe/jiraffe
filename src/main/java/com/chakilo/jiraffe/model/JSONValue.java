@@ -1,7 +1,5 @@
 package com.chakilo.jiraffe.model;
 
-import com.chakilo.jiraffe.model.base.JSONElement;
-import com.chakilo.jiraffe.model.base.JSONElementType;
 import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
 
@@ -23,11 +21,11 @@ public final class JSONValue extends JSONElement {
 
     private Object _value;
 
-    public JSONValue() {
+    JSONValue() {
         this(null);
     }
 
-    public JSONValue(Object v) {
+    JSONValue(Object v) {
         _value = v;
     }
 

@@ -1,6 +1,7 @@
 package com.chakilo.jiraffe.analyzer;
 
-import com.chakilo.jiraffe.model.base.JSONElement;
+import com.chakilo.jiraffe.model.JSONElement;
+import com.chakilo.jiraffe.util.TypeUtil;
 
 /**
  * 2019.02.18
@@ -19,6 +20,19 @@ public abstract class ObjectAnalyzer {
      * @throws Exception if error occurred while analyzing object.
      */
     public static JSONElement analyze(Object o) throws Exception {
+
+        if (null == o) {
+            return JSONElement.Void();
+        }
+
+        if (o instanceof String) {
+            return JSONElement.newValue(o);
+        } else if (TypeUtil.isPrimitive(o)) {
+            return JSONElement.newValue(o);
+        } else if (o.getClass().isArray()) {
+
+        }
+
         return null;
     }
 

@@ -18,7 +18,7 @@ package com.chakilo.jiraffe;
 import com.chakilo.jiraffe.analyzer.DirectAnalyzer;
 import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
 import com.chakilo.jiraffe.analyzer.StringAnalyzer;
-import com.chakilo.jiraffe.model.base.JSONElement;
+import com.chakilo.jiraffe.model.JSONElement;
 
 /******************************************************************************
  *

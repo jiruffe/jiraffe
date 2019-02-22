@@ -1,15 +1,13 @@
-package com.chakilo.jiraffe.model.base;
+package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
 import com.chakilo.jiraffe.analyzer.StringAnalyzer;
-import com.chakilo.jiraffe.model.JSONArray;
-import com.chakilo.jiraffe.model.JSONObject;
-import com.chakilo.jiraffe.model.JSONValue;
-import com.chakilo.jiraffe.model.JSONVoid;
 import com.chakilo.jiraffe.util.ObjectUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -22,17 +20,22 @@ import java.util.Set;
 public abstract class JSONElement implements Iterable<JSONElement> {
 
     /**
-     * Represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JS.
+     * Get a new instance of <code>JSONList</code>.
+     *
+     * @return a new instance of <code>JSONList</code>.
      */
-    public static final JSONElement VOID = JSONVoid.VOID;
+    public static JSONElement newList() {
+        return new JSONList();
+    }
 
     /**
-     * Get a new instance of <code>JSONArray</code>.
+     * Get a new instance of <code>JSONList</code> with specified sub-elements.
      *
-     * @return a new instance of <code>JSONArray</code>.
+     * @param sub_elements the sub-elements.
+     * @return a new instance of <code>JSONList</code> with specified sub-elements.
      */
-    public static JSONElement newArray() {
-        return new JSONArray();
+    public static JSONElement newList(List<JSONElement> sub_elements) {
+        return new JSONList(sub_elements);
     }
 
     /**
@@ -45,12 +48,41 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
+     * Get a new instance of <code>JSONObject</code> with specified sub-elements.
+     *
+     * @param sub_elements the sub-elements.
+     * @return a new instance of <code>JSONObject</code> with specified sub-elements.
+     */
+    public static JSONElement newObject(Map<Object, JSONElement> sub_elements) {
+        return new JSONObject(sub_elements);
+    }
+
+    /**
      * Get a new instance of <code>JSONValue</code>.
      *
      * @return a new instance of <code>JSONValue</code>.
      */
     public static JSONElement newValue() {
         return new JSONValue();
+    }
+
+    /**
+     * Get a new instance of <code>JSONValue</code> with specified original value.
+     *
+     * @param v the original value.
+     * @return a new instance of <code>JSONValue</code> with specified original value.
+     */
+    public static JSONElement newValue(Object v) {
+        return new JSONValue(v);
+    }
+
+    /**
+     * Represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JS.
+     *
+     * @return a void element.
+     */
+    public static JSONElement Void() {
+        return JSONVoid.VOID;
     }
 
     /**
@@ -104,10 +136,10 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JS array [].
      *
-     * @return true if instance of <code>JSONArray</code>, otherwise false.
+     * @return true if instance of <code>JSONList</code>, otherwise false.
      */
     public boolean isArray() {
-        return this instanceof JSONArray;
+        return this instanceof JSONList;
     }
 
     /**
@@ -137,7 +169,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
         if (isVoid()) {
             return JSONElementType.VOID;
         } else if (isArray()) {
-            return JSONElementType.ARRAY;
+            return JSONElementType.LIST;
         } else if (isObject()) {
             return JSONElementType.OBJECT;
         } else if (isValue()) {

@@ -1,7 +1,7 @@
 package com.chakilo.jiraffe;
 
 
-import com.chakilo.jiraffe.model.base.JSONElement;
+import com.chakilo.jiraffe.model.JSONElement;
 import com.chakilo.jiraffe.util.StringUtil;
 import org.junit.Test;
 

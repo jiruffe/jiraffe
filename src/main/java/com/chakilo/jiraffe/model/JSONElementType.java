@@ -1,4 +1,4 @@
-package com.chakilo.jiraffe.model.base;
+package com.chakilo.jiraffe.model;
 
 /**
  * 2019.02.18
@@ -7,7 +7,7 @@ package com.chakilo.jiraffe.model.base;
  */
 public enum JSONElementType {
     UNKNOWN,
-    ARRAY,
+    LIST,
     OBJECT,
     VALUE,
     VOID

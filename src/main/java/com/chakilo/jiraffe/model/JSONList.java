@@ -1,7 +1,5 @@
 package com.chakilo.jiraffe.model;
 
-import com.chakilo.jiraffe.model.base.JSONElement;
-import com.chakilo.jiraffe.model.base.JSONElementType;
 import com.chakilo.jiraffe.util.TypeUtil;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 
@@ -15,15 +13,15 @@ import java.util.function.Consumer;
  *
  * @author Chakilo
  */
-public final class JSONArray extends JSONElement {
+public final class JSONList extends JSONElement {
 
     private List<JSONElement> _sub_elements;
 
-    public JSONArray() {
+    JSONList() {
         this(new ArrayList<>());
     }
 
-    public JSONArray(List<JSONElement> sub_elements) {
+    JSONList(List<JSONElement> sub_elements) {
         _sub_elements = sub_elements;
     }
 
@@ -54,7 +52,7 @@ public final class JSONArray extends JSONElement {
 
     @Override
     public JSONElementType getType() {
-        return JSONElementType.ARRAY;
+        return JSONElementType.LIST;
     }
 
     @Override
@@ -74,7 +72,7 @@ public final class JSONArray extends JSONElement {
     public JSONElement peek(Object k) throws InvalidArgumentException {
         if (TypeUtil.couldCastToInteger(k)) {
             JSONElement v = _sub_elements.get(TypeUtil.castToInteger(k));
-            return null == v ? JSONElement.VOID : v;
+            return null == v ? JSONElement.Void() : v;
         } else {
             throw new InvalidArgumentException(new String[]{"k"});
         }

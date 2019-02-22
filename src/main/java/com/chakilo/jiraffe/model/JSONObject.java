@@ -1,8 +1,5 @@
 package com.chakilo.jiraffe.model;
 
-import com.chakilo.jiraffe.model.base.JSONElement;
-import com.chakilo.jiraffe.model.base.JSONElementType;
-
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -17,11 +14,11 @@ public final class JSONObject extends JSONElement {
 
     private Map<Object, JSONElement> _sub_elements;
 
-    public JSONObject() {
+    JSONObject() {
         this(new LinkedHashMap<>());
     }
 
-    public JSONObject(Map<Object, JSONElement> sub_elements) {
+    JSONObject(Map<Object, JSONElement> sub_elements) {
         _sub_elements = sub_elements;
     }
 
@@ -63,7 +60,7 @@ public final class JSONObject extends JSONElement {
     @Override
     public JSONElement peek(Object k) {
         JSONElement v = _sub_elements.get(k);
-        return null == v ? JSONElement.VOID : v;
+        return null == v ? JSONElement.Void() : v;
     }
 
     @Override

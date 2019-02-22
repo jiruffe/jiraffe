@@ -1,15 +1,15 @@
 package com.chakilo.jiraffe.analyzer;
 
-import com.chakilo.jiraffe.model.JSONArray;
-import com.chakilo.jiraffe.model.JSONObject;
-import com.chakilo.jiraffe.model.JSONValue;
-import com.chakilo.jiraffe.model.base.JSONElement;
+import com.chakilo.jiraffe.model.JSONElement;
 import com.chakilo.jiraffe.util.CharacterUtil;
 import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
 
 import java.io.StringReader;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Queue;
 
 /**
  * 2018.10.25
@@ -80,12 +80,12 @@ public abstract class StringAnalyzer {
                     break;
 
                 case '{':
-                    bases.offer(new JSONObject());
+                    bases.offer(JSONElement.newObject());
                     last_token = c;
                     break;
 
                 case '[':
-                    bases.offer(new JSONArray());
+                    bases.offer(JSONElement.newList());
                     last_token = c;
                     break;
 
@@ -113,9 +113,9 @@ public abstract class StringAnalyzer {
                             // set void
                             JSONElement self = bases.peek();
                             if (self.isArray()) {
-                                self.offer(JSONElement.VOID);
+                                self.offer(JSONElement.Void());
                             } else if (self.isObject()) {
-                                self.offer(keys.poll(), JSONElement.VOID);
+                                self.offer(keys.poll(), JSONElement.Void());
                             }
                         }
                     }
@@ -134,7 +134,7 @@ public abstract class StringAnalyzer {
                         sb.setLength(0);
                         force_set_string = false;
                     } else if (CharacterUtil.isColon(last_token)) {
-                        self_object.offer(keys.poll(), JSONElement.VOID);
+                        self_object.offer(keys.poll(), JSONElement.Void());
                     }
                     // if there was no upper element, conversion is finished, ignore extra chars
                     if (isSelfTheFinalElement(bases, keys, self_object)) return self_object;
@@ -152,7 +152,7 @@ public abstract class StringAnalyzer {
                         sb.setLength(0);
                         force_set_string = false;
                     } else if (CharacterUtil.isComma(last_token)) {
-                        self_array.offer(JSONElement.VOID);
+                        self_array.offer(JSONElement.Void());
                     }
                     // if there was no upper element, conversion is finished, ignore extra chars
                     if (isSelfTheFinalElement(bases, keys, self_array)) return self_array;
@@ -202,21 +202,21 @@ public abstract class StringAnalyzer {
     private static JSONElement parseValue(String s, boolean force_set_string) {
 
         if (force_set_string) {
-            return new JSONValue(StringUtil.unescape(s));
+            return JSONElement.newValue(StringUtil.unescape(s));
         } else if ("true".equalsIgnoreCase(s)) {
-            return new JSONValue(Boolean.TRUE);
+            return JSONElement.newValue(Boolean.TRUE);
         } else if ("false".equalsIgnoreCase(s)) {
-            return new JSONValue(Boolean.FALSE);
+            return JSONElement.newValue(Boolean.FALSE);
         } else if ("null".equalsIgnoreCase(s)) {
-            return JSONElement.VOID;
+            return JSONElement.Void();
         } else if ("NaN".equals(s)) {
-            return JSONElement.VOID;
+            return JSONElement.Void();
         } else if ("undefined".equalsIgnoreCase(s)) {
-            return JSONElement.VOID;
+            return JSONElement.Void();
         } else if (TypeUtil.couldCastToNumber(s)) {
-            return new JSONValue(TypeUtil.castToNumber(s));
+            return JSONElement.newValue(TypeUtil.castToNumber(s));
         } else {
-            return new JSONValue(StringUtil.unescape(s));
+            return JSONElement.newValue(StringUtil.unescape(s));
         }
 
     }
@@ -234,7 +234,7 @@ public abstract class StringAnalyzer {
 
         switch (element.getType()) {
 
-            case ARRAY:
+            case LIST:
                 sb.append('[');
                 Iterator<JSONElement> iterator = element.iterator();
                 while (iterator.hasNext()) {

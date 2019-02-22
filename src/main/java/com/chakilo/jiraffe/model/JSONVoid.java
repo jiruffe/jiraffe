@@ -1,8 +1,5 @@
 package com.chakilo.jiraffe.model;
 
-import com.chakilo.jiraffe.model.base.JSONElement;
-import com.chakilo.jiraffe.model.base.JSONElementType;
-
 import java.util.*;
 import java.util.function.Consumer;
 
