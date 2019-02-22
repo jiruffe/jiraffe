@@ -24,7 +24,7 @@ public abstract class ObjectAnalyzer {
      * object => JSONElement
      *
      * @param o the object to be converted.
-     * @return a JSONElement converted.
+     * @return a <code>JSONElement</code> converted.
      * @throws Exception if error occurred while analyzing object.
      */
     public static JSONElement analyze(Object o) throws Exception {

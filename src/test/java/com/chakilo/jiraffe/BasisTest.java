@@ -4,6 +4,11 @@ import com.chakilo.jiraffe.model.JSONElement;
 import com.chakilo.jiraffe.util.ObjectUtil;
 import org.junit.Test;
 
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 /**
  * 2019.02.18
  *
@@ -52,6 +57,12 @@ public class BasisTest {
     public void test7() {
         Object o = null;
         System.out.println(ObjectUtil.getCanonicalName(o));
+    }
+
+    @Test
+    public void test8() {
+        Hashtable d = new Hashtable();
+        System.out.println(d instanceof Map);
     }
 
 }
