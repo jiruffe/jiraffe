@@ -60,67 +60,67 @@ public final class JSONValue extends JSONElement {
     }
 
     @Override
-    public Object getValue() throws Exception {
+    public Object asValue() throws Exception {
         return _value;
     }
 
     @Override
-    public String getString() throws Exception {
+    public String asString() throws Exception {
         return TypeUtil.castToString(_value);
     }
 
     @Override
-    public byte getByte() throws Exception {
+    public byte asByte() throws Exception {
         return TypeUtil.castToByte(_value);
     }
 
     @Override
-    public short getShort() throws Exception {
+    public short asShort() throws Exception {
         return TypeUtil.castToShort(_value);
     }
 
     @Override
-    public int getInt() throws Exception {
+    public int asInt() throws Exception {
         return TypeUtil.castToInteger(_value);
     }
 
     @Override
-    public long getLong() throws Exception {
+    public long asLong() throws Exception {
         return TypeUtil.castToLong(_value);
     }
 
     @Override
-    public float getFloat() throws Exception {
+    public float asFloat() throws Exception {
         return TypeUtil.castToFloat(_value);
     }
 
     @Override
-    public double getDouble() throws Exception {
+    public double asDouble() throws Exception {
         return TypeUtil.castToDouble(_value);
     }
 
     @Override
-    public boolean getBoolean() throws Exception {
+    public boolean asBoolean() throws Exception {
         return TypeUtil.castToBoolean(_value);
     }
 
     @Override
-    public char getChar() throws Exception {
+    public char asChar() throws Exception {
         return TypeUtil.castToCharacter(_value);
     }
 
     @Override
-    public Number getNumber() throws Exception {
+    public Number asNumber() throws Exception {
         return TypeUtil.castToNumber(_value);
     }
 
     @Override
-    public BigInteger getBigInteger() throws Exception {
+    public BigInteger asBigInteger() throws Exception {
         return TypeUtil.castToBigInteger(_value);
     }
 
     @Override
-    public BigDecimal getBigDecimal() throws Exception {
+    public BigDecimal asBigDecimal() throws Exception {
         return TypeUtil.castToBigDecimal(_value);
     }
 

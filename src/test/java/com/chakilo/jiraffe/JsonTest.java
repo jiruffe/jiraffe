@@ -131,7 +131,7 @@ public class JsonTest {
 
         assert null != element;
 
-        assert "'的\t\n".equals(element.peek("a").getString());
+        assert "'的\t\n".equals(element.peek("a").asString());
 
         assert "{\"a\":\"'\\u7684\\t\\n\"}".equals(element.toString());
 
@@ -144,7 +144,7 @@ public class JsonTest {
 
         assert null != element;
 
-        assert "'👌\t\n".equals(element.peek("a").getString());
+        assert "'👌\t\n".equals(element.peek("a").asString());
 
         assert "{\"a\":\"'\\uD83D\\uDC4C\\t\\n\"}".equals(element.toString());
 

@@ -226,8 +226,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the value.
      * @throws Exception if this element does not represent a value.
      */
-    public Object getValue() throws Exception {
-        throw new UnsupportedOperationException("Could not get value from " + ObjectUtil.getSimpleName(this));
+    public Object asValue() throws Exception {
+        throw new UnsupportedOperationException("Could not cast value from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -236,8 +236,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the <code>String</code>.
      * @throws Exception if this element does not represent a value.
      */
-    public String getString() throws Exception {
-        throw new UnsupportedOperationException("Could not get String from " + ObjectUtil.getSimpleName(this));
+    public String asString() throws Exception {
+        throw new UnsupportedOperationException("Could not cast String from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -246,8 +246,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the byte value.
      * @throws Exception if this element does not represent a value.
      */
-    public byte getByte() throws Exception {
-        throw new UnsupportedOperationException("Could not get byte from " + ObjectUtil.getSimpleName(this));
+    public byte asByte() throws Exception {
+        throw new UnsupportedOperationException("Could not cast byte from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -256,8 +256,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the short value.
      * @throws Exception if this element does not represent a value.
      */
-    public short getShort() throws Exception {
-        throw new UnsupportedOperationException("Could not get short from " + ObjectUtil.getSimpleName(this));
+    public short asShort() throws Exception {
+        throw new UnsupportedOperationException("Could not cast short from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -266,8 +266,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the integer value.
      * @throws Exception if this element does not represent a value.
      */
-    public int getInt() throws Exception {
-        throw new UnsupportedOperationException("Could not get int from " + ObjectUtil.getSimpleName(this));
+    public int asInt() throws Exception {
+        throw new UnsupportedOperationException("Could not cast int from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -276,8 +276,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the long value.
      * @throws Exception if this element does not represent a value.
      */
-    public long getLong() throws Exception {
-        throw new UnsupportedOperationException("Could not get long from " + ObjectUtil.getSimpleName(this));
+    public long asLong() throws Exception {
+        throw new UnsupportedOperationException("Could not cast long from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -286,8 +286,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the float value.
      * @throws Exception if this element does not represent a value.
      */
-    public float getFloat() throws Exception {
-        throw new UnsupportedOperationException("Could not get float from " + ObjectUtil.getSimpleName(this));
+    public float asFloat() throws Exception {
+        throw new UnsupportedOperationException("Could not cast float from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -296,8 +296,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the double value.
      * @throws Exception if this element does not represent a value.
      */
-    public double getDouble() throws Exception {
-        throw new UnsupportedOperationException("Could not get double from " + ObjectUtil.getSimpleName(this));
+    public double asDouble() throws Exception {
+        throw new UnsupportedOperationException("Could not cast double from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -306,8 +306,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the boolean value.
      * @throws Exception if this element does not represent a value.
      */
-    public boolean getBoolean() throws Exception {
-        throw new UnsupportedOperationException("Could not get boolean from " + ObjectUtil.getSimpleName(this));
+    public boolean asBoolean() throws Exception {
+        throw new UnsupportedOperationException("Could not cast boolean from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -316,8 +316,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the character value.
      * @throws Exception if this element does not represent a value.
      */
-    public char getChar() throws Exception {
-        throw new UnsupportedOperationException("Could not get char from " + ObjectUtil.getSimpleName(this));
+    public char asChar() throws Exception {
+        throw new UnsupportedOperationException("Could not cast char from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -326,8 +326,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the number value.
      * @throws Exception if this element does not represent a value.
      */
-    public Number getNumber() throws Exception {
-        throw new UnsupportedOperationException("Could not get Number from " + ObjectUtil.getSimpleName(this));
+    public Number asNumber() throws Exception {
+        throw new UnsupportedOperationException("Could not cast Number from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -336,8 +336,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the <code>BigInteger</code> value.
      * @throws Exception if this element does not represent a value.
      */
-    public BigInteger getBigInteger() throws Exception {
-        throw new UnsupportedOperationException("Could not get BigInteger from " + ObjectUtil.getSimpleName(this));
+    public BigInteger asBigInteger() throws Exception {
+        throw new UnsupportedOperationException("Could not cast BigInteger from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -346,8 +346,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the <code>BigDecimal</code> value.
      * @throws Exception if this element does not represent a value.
      */
-    public BigDecimal getBigDecimal() throws Exception {
-        throw new UnsupportedOperationException("Could not get BigDecimal from " + ObjectUtil.getSimpleName(this));
+    public BigDecimal asBigDecimal() throws Exception {
+        throw new UnsupportedOperationException("Could not cast BigDecimal from " + ObjectUtil.getSimpleName(this));
     }
 
 }

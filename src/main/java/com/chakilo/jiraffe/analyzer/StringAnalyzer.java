@@ -264,7 +264,7 @@ public abstract class StringAnalyzer {
                 break;
 
             case VALUE:
-                Object v = element.getValue();
+                Object v = element.asValue();
                 if (v instanceof String) {
                     sb.append('"');
                     sb.append(StringUtil.escape((String) v));
