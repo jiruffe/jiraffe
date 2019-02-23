@@ -9,9 +9,10 @@ public abstract class CharacterUtil {
 
     public final static char EOI = 0; // 0x1A;
     public final static char[] DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-    public final static int[] DIGITS_MARK = new int[(int)'f'+1];
+    public final static int[] DIGITS_MARK = new int[(int) 'f' + 1];
     public final static char[] CHARS_MARK = new char[93];
     public final static char[] CHARS_MARK_REV = new char[120];
+
     static {
         for (int i = '0'; i <= '9'; ++i) {
             DIGITS_MARK[i] = i - '0';
