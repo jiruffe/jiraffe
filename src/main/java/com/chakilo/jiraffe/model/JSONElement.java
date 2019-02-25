@@ -36,6 +36,41 @@ import java.util.Set;
 public abstract class JSONElement implements Iterable<JSONElement> {
 
     /**
+     * Converts this element to JSON string.
+     *
+     * @return JSON string.
+     */
+    @Override
+    public String toString() {
+        try {
+            return StringAnalyzer.analyze(this);
+        } catch (Exception e) {
+            return super.toString();
+        }
+    }
+
+    /**
+     * Converts this element to java object.
+     *
+     * @param target The target type.
+     * @param <T>    The target type.
+     * @return the target java object.
+     * @throws Exception if error occurred while analyzing type.
+     */
+    public <T> T toObject(Type target) throws Exception {
+        return ObjectAnalyzer.analyze(this, target);
+    }
+
+    /**
+     * Represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JS.
+     *
+     * @return a void element.
+     */
+    public static JSONElement Void() {
+        return JSONVoid.VOID;
+    }
+
+    /**
      * Get a new instance of <code>JSONList</code>.
      *
      * @return a new instance of <code>JSONList</code>.
@@ -90,41 +125,6 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      */
     public static JSONElement newValue(Object v) {
         return new JSONValue(v);
-    }
-
-    /**
-     * Represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JS.
-     *
-     * @return a void element.
-     */
-    public static JSONElement Void() {
-        return JSONVoid.VOID;
-    }
-
-    /**
-     * Converts this element to JSON string.
-     *
-     * @return JSON string.
-     */
-    @Override
-    public String toString() {
-        try {
-            return StringAnalyzer.analyze(this);
-        } catch (Exception e) {
-            return super.toString();
-        }
-    }
-
-    /**
-     * Converts this element to java object.
-     *
-     * @param target The target type.
-     * @param <T>    The target type.
-     * @return the target java object.
-     * @throws Exception if error occurred while analyzing type.
-     */
-    public <T> T toObject(Type target) throws Exception {
-        return ObjectAnalyzer.analyze(this, target);
     }
 
     /**
