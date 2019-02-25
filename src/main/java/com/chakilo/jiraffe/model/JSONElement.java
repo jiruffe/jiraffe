@@ -223,7 +223,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Get the value that this element represents.
      *
-     * @return the value.
+     * @return the value that this element represents.
      * @throws Exception if this element does not represent a value.
      */
     public Object asValue() throws Exception {
@@ -233,118 +233,118 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Get the <code>String</code> that this element represents.
      *
-     * @return the <code>String</code>.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>String</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>String</code>.
      */
     public String asString() throws Exception {
         throw new UnsupportedOperationException("Could not cast String from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the byte value that this element represents.
+     * Get the <code>byte</code> that this element represents.
      *
-     * @return the byte value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>byte</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>byte</code>.
      */
     public byte asByte() throws Exception {
         throw new UnsupportedOperationException("Could not cast byte from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the short value that this element represents.
+     * Get the <code>short</code> that this element represents.
      *
-     * @return the short value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>short</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>short</code>.
      */
     public short asShort() throws Exception {
         throw new UnsupportedOperationException("Could not cast short from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the integer value that this element represents.
+     * Get the <code>integer</code> that this element represents.
      *
-     * @return the integer value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>integer</code> that this element represents.
+     * @throws Exception if this element does not represent an <code>integer</code>.
      */
     public int asInt() throws Exception {
         throw new UnsupportedOperationException("Could not cast int from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the long value that this element represents.
+     * Get the <code>long</code> that this element represents.
      *
-     * @return the long value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>long</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>long</code>.
      */
     public long asLong() throws Exception {
         throw new UnsupportedOperationException("Could not cast long from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the float value that this element represents.
+     * Get the <code>float</code> that this element represents.
      *
-     * @return the float value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>float</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>float</code>.
      */
     public float asFloat() throws Exception {
         throw new UnsupportedOperationException("Could not cast float from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the double value that this element represents.
+     * Get the <code>double</code> that this element represents.
      *
-     * @return the double value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>double</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>double</code>.
      */
     public double asDouble() throws Exception {
         throw new UnsupportedOperationException("Could not cast double from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the boolean value that this element represents.
+     * Get the <code>boolean</code> that this element represents.
      *
-     * @return the boolean value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>boolean</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>boolean</code>.
      */
     public boolean asBoolean() throws Exception {
         throw new UnsupportedOperationException("Could not cast boolean from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the character value that this element represents.
+     * Get the <code>character</code> that this element represents.
      *
-     * @return the character value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>character</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>character</code>.
      */
     public char asChar() throws Exception {
         throw new UnsupportedOperationException("Could not cast char from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the number value that this element represents.
+     * Get the <code>number</code> that this element represents.
      *
-     * @return the number value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>number</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>number</code>.
      */
     public Number asNumber() throws Exception {
         throw new UnsupportedOperationException("Could not cast Number from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>BigInteger</code> value that this element represents.
+     * Get the <code>BigInteger</code> that this element represents.
      *
-     * @return the <code>BigInteger</code> value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>BigInteger</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>BigInteger</code>.
      */
     public BigInteger asBigInteger() throws Exception {
         throw new UnsupportedOperationException("Could not cast BigInteger from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>BigDecimal</code> value that this element represents.
+     * Get the <code>BigDecimal</code> that this element represents.
      *
-     * @return the <code>BigDecimal</code> value.
-     * @throws Exception if this element does not represent a value.
+     * @return the <code>BigDecimal</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>BigDecimal</code>.
      */
     public BigDecimal asBigDecimal() throws Exception {
         throw new UnsupportedOperationException("Could not cast BigDecimal from " + ObjectUtil.getSimpleName(this));
