@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 /**
  * 2019.02.20
  *
- * null, undefined, NaN
+ * <code>null</code>, <code>undefined</code>, <code>NaN</code>
  *
  * @author Chakilo
  */
