@@ -16,7 +16,6 @@
 package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.util.TypeUtil;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -84,12 +83,12 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public JSONElement peek(Object k) throws InvalidArgumentException {
+    public JSONElement peek(Object k) throws IllegalArgumentException {
         if (TypeUtil.couldCastToInteger(k)) {
             JSONElement v = _sub_elements.get(TypeUtil.castToInteger(k));
             return null == v ? JSONElement.Void() : v;
         } else {
-            throw new InvalidArgumentException(new String[]{"k"});
+            throw new IllegalArgumentException("Argument k must be Integer for JSONList.peek");
         }
     }
 

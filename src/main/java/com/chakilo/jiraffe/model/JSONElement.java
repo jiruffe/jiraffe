@@ -209,6 +209,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      *
      * @param k the key.
      * @return the sub-element.
+     * @throws Exception if not supported.
      */
     public JSONElement peek(Object k) throws Exception {
         throw new UnsupportedOperationException("Could not peek from " + ObjectUtil.getSimpleName(this));
@@ -219,6 +220,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      *
      * @param v the sub-element.
      * @return this element itself.
+     * @throws Exception if not supported.
      */
     public JSONElement offer(Object v) throws Exception {
         throw new UnsupportedOperationException("Could not offer v to " + ObjectUtil.getSimpleName(this));
@@ -230,6 +232,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @param k the key.
      * @param v the sub-element.
      * @return this element itself.
+     * @throws Exception if not supported.
      */
     public JSONElement offer(Object k, Object v) throws Exception {
         throw new UnsupportedOperationException("Could not offer k, v to " + ObjectUtil.getSimpleName(this));

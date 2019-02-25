@@ -29,14 +29,14 @@ import java.util.Queue;
 /**
  * 2018.10.25
  *
- * string <=> <code>JSONElement</code> conversion.
+ * string &lt;=&gt; <code>JSONElement</code> conversion.
  *
  * @author Chakilo
  */
 public abstract class StringAnalyzer {
 
     /**
-     * string => <code>JSONElement</code>.
+     * string =&gt; <code>JSONElement</code>.
      *
      * @param json the json string.
      * @return converted <code>JSONElement</code>.
@@ -237,7 +237,7 @@ public abstract class StringAnalyzer {
     }
 
     /**
-     * <code>JSONElement</code> => string.
+     * <code>JSONElement</code> =&gt; string.
      *
      * @param element the element to be converted.
      * @return a json string converted.

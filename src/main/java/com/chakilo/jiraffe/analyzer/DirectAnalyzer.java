@@ -18,7 +18,7 @@ package com.chakilo.jiraffe.analyzer;
 /**
  * 2019.02.18
  *
- * object <=> json string,
+ * object &lt;=&gt; json string,
  * not using <code>JSONElement</code> class during conversion.
  *
  * @author Chakilo
@@ -26,7 +26,7 @@ package com.chakilo.jiraffe.analyzer;
 public abstract class DirectAnalyzer {
 
     /**
-     * object => json string
+     * object =&gt; json string
      *
      * @param o the object to be converted.
      * @return the json string converted.
@@ -37,7 +37,7 @@ public abstract class DirectAnalyzer {
     }
 
     /**
-     * json string => object
+     * json string =&gt; object
      *
      * @param json the json string to be converted.
      * @param target the target type class.
