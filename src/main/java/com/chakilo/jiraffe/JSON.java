@@ -20,6 +20,8 @@ import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
 import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 import com.chakilo.jiraffe.model.JSONElement;
 
+import java.lang.reflect.Type;
+
 /******************************************************************************
  *
  * jiraffe
@@ -83,12 +85,8 @@ public abstract class JSON {
      * @return the java object deserialized.
      * @throws Exception if error occurred while analyzing json string.
      */
-    public static <T> T deserializeDirectly(String json, Class<T> target) throws Exception {
-        if (JSONElement.class.isAssignableFrom(target)) {
-            return (T) StringAnalyzer.analyze(json);
-        } else {
-            return DirectAnalyzer.analyze(json, target);
-        }
+    public static <T> T deserializeDirectly(String json, Type target) throws Exception {
+        return DirectAnalyzer.analyze(json, target);
     }
 
 }

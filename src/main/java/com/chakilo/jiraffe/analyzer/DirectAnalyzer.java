@@ -15,6 +15,8 @@
  */
 package com.chakilo.jiraffe.analyzer;
 
+import java.lang.reflect.Type;
+
 /**
  * 2019.02.18
  *
@@ -40,12 +42,12 @@ public abstract class DirectAnalyzer {
      * json string =&gt; object
      *
      * @param json the json string to be converted.
-     * @param target the target type class.
+     * @param target the target type.
      * @param <T> the target type.
      * @return the target java object.
-     * @throws Exception if error occurred while analyzing class.
+     * @throws Exception if error occurred while analyzing type.
      */
-    public static <T> T analyze(String json, Class<T> target) throws Exception {
+    public static <T> T analyze(String json, Type target) throws Exception {
         return null;
     }
 

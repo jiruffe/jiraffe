@@ -113,6 +113,7 @@ public abstract class ObjectAnalyzer {
      * @return the target java object.
      * @throws Exception if error occurred while analyzing type.
      */
+    @SuppressWarnings("unchecked")
     public static <T> T analyze(JSONElement element, Type target) throws Exception {
 
         if (null == element || element.isVoid()) {
@@ -120,7 +121,9 @@ public abstract class ObjectAnalyzer {
         }
 
         if (target instanceof Class) {
-
+            if (JSONElement.class.isAssignableFrom((Class) target)) {
+                return (T) element;
+            }
         } else if (target instanceof ParameterizedType) {
 
         } else if (target instanceof GenericArrayType) {
