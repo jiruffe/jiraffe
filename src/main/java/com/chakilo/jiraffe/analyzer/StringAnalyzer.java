@@ -47,7 +47,7 @@ public abstract class StringAnalyzer {
         // ignore spaces
         json = json.trim();
 
-        // not object or list, return a value
+        // not map or list, return a value
         if (!json.startsWith("{") && !json.startsWith("[")) {
             boolean force_set_string = false;
             if ((json.startsWith("\"") && json.endsWith("\"")) || (json.startsWith("'") && json.endsWith("'"))) {
@@ -95,7 +95,7 @@ public abstract class StringAnalyzer {
                     break;
 
                 case '{':
-                    bases.offer(JSONElement.newObject());
+                    bases.offer(JSONElement.newMap());
                     last_token = c;
                     break;
 
@@ -118,7 +118,7 @@ public abstract class StringAnalyzer {
                         assert null != self;
                         if (self.isList()) {
                             self.offer(parseValue(sb.toString(), force_set_string));
-                        } else if (self.isObject()) {
+                        } else if (self.isMap()) {
                             self.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
                         }
                         sb.setLength(0);
@@ -129,7 +129,7 @@ public abstract class StringAnalyzer {
                             JSONElement self = bases.peek();
                             if (self.isList()) {
                                 self.offer(JSONElement.Void());
-                            } else if (self.isObject()) {
+                            } else if (self.isMap()) {
                                 self.offer(keys.poll(), JSONElement.Void());
                             }
                         }
@@ -138,21 +138,21 @@ public abstract class StringAnalyzer {
                     break;
 
                 case '}':
-                    // current object
-                    JSONElement self_object = bases.poll();
-                    assert null != self_object;
-                    assert self_object.isObject();
+                    // current map
+                    JSONElement self_map = bases.poll();
+                    assert null != self_map;
+                    assert self_map.isMap();
                     // set the last value
                     if (sb.length() > 0 || force_set_string) {
                         assert !keys.isEmpty();
-                        self_object.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
+                        self_map.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
                         sb.setLength(0);
                         force_set_string = false;
                     } else if (CharacterUtil.isColon(last_token)) {
-                        self_object.offer(keys.poll(), JSONElement.Void());
+                        self_map.offer(keys.poll(), JSONElement.Void());
                     }
                     // if there was no upper element, conversion is finished, ignore extra chars
-                    if (isSelfTheFinalElement(bases, keys, self_object)) return self_object;
+                    if (isSelfTheFinalElement(bases, keys, self_map)) return self_map;
                     last_token = c;
                     break;
 
@@ -202,7 +202,7 @@ public abstract class StringAnalyzer {
             assert !base.isValue();
             if (base.isList()) {
                 base.offer(self);
-            } else if (base.isObject()) {
+            } else if (base.isMap()) {
                 assert !keys.isEmpty();
                 base.offer(keys.poll(), self);
             }
@@ -261,7 +261,7 @@ public abstract class StringAnalyzer {
                 sb.append(']');
                 break;
 
-            case OBJECT:
+            case MAP:
                 sb.append('{');
                 Iterator<Object> iterator1 = element.keys().iterator();
                 while (iterator1.hasNext()) {

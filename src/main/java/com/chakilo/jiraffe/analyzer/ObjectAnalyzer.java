@@ -78,25 +78,25 @@ public abstract class ObjectAnalyzer {
             }
             return list;
         } else if (o instanceof Map) {
-            JSONElement object = JSONElement.newObject();
+            JSONElement map = JSONElement.newMap();
             for (Object k : ((Map) o).keySet()) {
-                object.offer(StringUtil.toString(k), analyze(((Map) o).get(k)));
+                map.offer(StringUtil.toString(k), analyze(((Map) o).get(k)));
             }
-            return object;
+            return map;
         } else if (o instanceof Dictionary) {
-            JSONElement object = JSONElement.newObject();
+            JSONElement map = JSONElement.newMap();
             Enumeration keys = ((Dictionary) o).keys();
             while (keys.hasMoreElements()) {
                 Object k = keys.nextElement();
-                object.offer(StringUtil.toString(k), analyze(((Dictionary) o).get(k)));
+                map.offer(StringUtil.toString(k), analyze(((Dictionary) o).get(k)));
             }
-            return object;
+            return map;
         } else {
-            JSONElement object = JSONElement.newObject();
+            JSONElement map = JSONElement.newMap();
             for (Field f : ObjectUtil.getFields(cls)) {
-                object.offer(f.getName(), analyze(f.get(o)));
+                map.offer(f.getName(), analyze(f.get(o)));
             }
-            return object;
+            return map;
         }
 
     }

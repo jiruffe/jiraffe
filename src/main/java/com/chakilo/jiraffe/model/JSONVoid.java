@@ -48,7 +48,7 @@ final class JSONVoid extends JSONElement {
     }
 
     @Override
-    public boolean isObject() {
+    public boolean isMap() {
         return false;
     }
 

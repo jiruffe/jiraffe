@@ -28,7 +28,7 @@ import java.util.Set;
 /**
  * 2018.10.23
  *
- * Represents JSON element including JS object {}, list [], or value (primitive type) such as integer, string...
+ * Represents JSON element including JS map {}, list [], or value (primitive type) such as integer, string...
  *
  * @author Chakilo
  */
@@ -54,22 +54,22 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get a new instance of <code>JSONObject</code>.
+     * Get a new instance of <code>JSONMap</code>.
      *
-     * @return a new instance of <code>JSONObject</code>.
+     * @return a new instance of <code>JSONMap</code>.
      */
-    public static JSONElement newObject() {
-        return new JSONObject();
+    public static JSONElement newMap() {
+        return new JSONMap();
     }
 
     /**
-     * Get a new instance of <code>JSONObject</code> with specified sub-elements.
+     * Get a new instance of <code>JSONMap</code> with specified sub-elements.
      *
      * @param sub_elements the sub-elements.
-     * @return a new instance of <code>JSONObject</code> with specified sub-elements.
+     * @return a new instance of <code>JSONMap</code> with specified sub-elements.
      */
-    public static JSONElement newObject(Map<Object, JSONElement> sub_elements) {
-        return new JSONObject(sub_elements);
+    public static JSONElement newMap(Map<Object, JSONElement> sub_elements) {
+        return new JSONMap(sub_elements);
     }
 
     /**
@@ -158,12 +158,12 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns whether this element is an instance of JS object {}.
+     * Returns whether this element is an instance of JS map {}.
      *
-     * @return true if instance of <code>JSONObject</code>, otherwise false.
+     * @return true if instance of <code>JSONMap</code>, otherwise false.
      */
-    public boolean isObject() {
-        return this instanceof JSONObject;
+    public boolean isMap() {
+        return this instanceof JSONMap;
     }
 
     /**
@@ -185,8 +185,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
             return JSONElementType.VOID;
         } else if (isList()) {
             return JSONElementType.LIST;
-        } else if (isObject()) {
-            return JSONElementType.OBJECT;
+        } else if (isMap()) {
+            return JSONElementType.MAP;
         } else if (isValue()) {
             return JSONElementType.VALUE;
         } else {
@@ -233,6 +233,26 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      */
     public JSONElement offer(Object k, Object v) throws Exception {
         throw new UnsupportedOperationException("Could not offer k, v to " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
+     * Get the <code>List</code> that this element represents.
+     *
+     * @return the <code>List</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>List</code>.
+     */
+    public List<JSONElement> asList() throws Exception {
+        throw new UnsupportedOperationException("Could not cast List from " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
+     * Get the <code>Map</code> that this element represents.
+     *
+     * @return the <code>Map</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>Map</code>.
+     */
+    public Map<Object, JSONElement> asMap() throws Exception {
+        throw new UnsupportedOperationException("Could not cast Map from " + ObjectUtil.getSimpleName(this));
     }
 
     /**

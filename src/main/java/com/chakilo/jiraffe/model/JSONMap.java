@@ -21,19 +21,19 @@ import java.util.function.Consumer;
 /**
  * 2018.10.23
  *
- * JS object {}
+ * JS map {}
  *
  * @author Chakilo
  */
-final class JSONObject extends JSONElement {
+final class JSONMap extends JSONElement {
 
     private Map<Object, JSONElement> _sub_elements;
 
-    JSONObject() {
+    JSONMap() {
         this(new LinkedHashMap<>());
     }
 
-    JSONObject(Map<Object, JSONElement> sub_elements) {
+    JSONMap(Map<Object, JSONElement> sub_elements) {
         _sub_elements = sub_elements;
     }
 
@@ -53,7 +53,7 @@ final class JSONObject extends JSONElement {
     }
 
     @Override
-    public boolean isObject() {
+    public boolean isMap() {
         return true;
     }
 
@@ -64,7 +64,7 @@ final class JSONObject extends JSONElement {
 
     @Override
     public JSONElementType getType() {
-        return JSONElementType.OBJECT;
+        return JSONElementType.MAP;
     }
 
     @Override
@@ -88,6 +88,11 @@ final class JSONObject extends JSONElement {
             _sub_elements.put(k, JSONElement.newValue(v));
         }
         return this;
+    }
+
+    @Override
+    public Map<Object, JSONElement> asMap() throws Exception {
+        return _sub_elements;
     }
 
     @Override

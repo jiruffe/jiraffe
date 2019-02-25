@@ -23,7 +23,7 @@ package com.chakilo.jiraffe.model;
 public enum JSONElementType {
     UNKNOWN,
     LIST,
-    OBJECT,
+    MAP,
     VALUE,
     VOID
 }

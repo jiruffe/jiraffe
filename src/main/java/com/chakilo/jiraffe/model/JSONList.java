@@ -56,7 +56,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public boolean isObject() {
+    public boolean isMap() {
         return false;
     }
 
@@ -103,6 +103,11 @@ final class JSONList extends JSONElement {
             _sub_elements.add(JSONElement.newValue(v));
         }
         return this;
+    }
+
+    @Override
+    public List<JSONElement> asList() throws Exception {
+        return _sub_elements;
     }
 
     @Override

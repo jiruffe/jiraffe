@@ -4,8 +4,6 @@ import com.chakilo.jiraffe.model.JSONElement;
 import com.chakilo.jiraffe.util.ObjectUtil;
 import org.junit.Test;
 
-import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -35,7 +33,7 @@ public class BasisTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void test3() throws Exception {
-        JSONElement.newObject().offer(JSONElement.newValue());
+        JSONElement.newMap().offer(JSONElement.newValue());
     }
 
     @Test(expected = UnsupportedOperationException.class)
