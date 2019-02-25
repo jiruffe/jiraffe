@@ -192,6 +192,16 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
+     * Returns the number of sub-elements in this element. If this element contains more than <code>Integer.MAX_VALUE</code> sub-elements, returns <code>Integer.MAX_VALUE</code>.
+     *
+     * @return the number of sub-elements in this element.
+     * @throws Exception if counting size is not available for this element.
+     */
+    public int size() throws Exception {
+        throw new UnsupportedOperationException("Could not get size from " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
      * Get all the keys of this element.
      *
      * @return a set of keys.

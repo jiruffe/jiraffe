@@ -1,9 +1,11 @@
 package com.chakilo.jiraffe;
 
+import com.chakilo.jiraffe.model.DModel;
 import com.chakilo.jiraffe.model.JSONElement;
 import com.chakilo.jiraffe.util.ObjectUtil;
 import org.junit.Test;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -61,6 +63,12 @@ public class BasisTest {
     public void test8() {
         Hashtable d = new Hashtable();
         System.out.println(d instanceof Map);
+    }
+
+    @Test
+    public void test9() throws NoSuchFieldException {
+        assert DModel.class.getField("b").getGenericType() instanceof Class;
+        assert DModel.class.getField("e").getGenericType() instanceof ParameterizedType;
     }
 
 }

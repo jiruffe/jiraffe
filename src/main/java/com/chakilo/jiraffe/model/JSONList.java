@@ -70,6 +70,11 @@ final class JSONList extends JSONElement {
     }
 
     @Override
+    public int size() throws Exception {
+        return null != _sub_elements ? _sub_elements.size() : 0;
+    }
+
+    @Override
     public Set<Object> keys() {
         if (null != _sub_elements) {
             Set<Object> s = new HashSet<>();

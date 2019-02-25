@@ -68,6 +68,11 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
+    public int size() throws Exception {
+        return null != _sub_elements ? _sub_elements.size() : 0;
+    }
+
+    @Override
     public Set<Object> keys() {
         return null != _sub_elements ? _sub_elements.keySet() : Collections.emptySet();
     }

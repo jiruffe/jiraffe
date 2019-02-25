@@ -121,10 +121,62 @@ public abstract class ObjectAnalyzer {
         }
 
         if (target instanceof Class) {
-            if (JSONElement.class.isAssignableFrom((Class) target)) {
+
+            Class<T> target_class = (Class) target;
+            if (JSONElement.class.isAssignableFrom(target_class)) {
                 return (T) element;
+            } else if (Byte.class.isAssignableFrom(target_class) || Byte.TYPE == target_class) {
+                return (T) (Byte) element.asByte();
+            } else if (Short.class.isAssignableFrom(target_class) || Short.TYPE == target_class) {
+                return (T) (Short) element.asShort();
+            } else if (Integer.class.isAssignableFrom(target_class) || Integer.TYPE == target_class) {
+                return (T) (Integer) element.asInt();
+            } else if (Long.class.isAssignableFrom(target_class) || Long.TYPE == target_class) {
+                return (T) (Long) element.asLong();
+            } else if (Float.class.isAssignableFrom(target_class) || Float.TYPE == target_class) {
+                return (T) (Float) element.asFloat();
+            } else if (Double.class.isAssignableFrom(target_class) || Double.TYPE == target_class) {
+                return (T) (Double) element.asDouble();
+            } else if (Boolean.class.isAssignableFrom(target_class) || Boolean.TYPE == target_class) {
+                return (T) (Boolean) element.asBoolean();
+            } else if (Character.class.isAssignableFrom(target_class) || Character.TYPE == target_class) {
+                return (T) (Character) element.asChar();
+            } else if (String.class.isAssignableFrom(target_class)) {
+                return (T) element.asString();
+            } else if (target_class.isEnum()) {
+                return target_class.getEnumConstants()[element.asInt()];
+            } else if (target_class.isArray()) {
+                Class<?> component_type = target_class.getComponentType();
+                int size = element.size();
+                Object array = Array.newInstance(component_type, size);
+                for (int i = 0; i < size; i++) {
+                    Array.set(array, i, analyze(element.peek(i), component_type));
+                }
+                return (T) array;
+            } else {
+                T rst = target_class.newInstance();
+                for (Field f : ObjectUtil.getFields(target_class)) {
+                    f.set(rst, analyze(element.peek(f.getName()), f.getGenericType()));
+                }
+                return rst;
             }
+
         } else if (target instanceof ParameterizedType) {
+
+            ParameterizedType parameterized_type = (ParameterizedType) target;
+            Class<T> target_class = (Class) parameterized_type.getRawType();
+
+            if (Iterable.class.isAssignableFrom(target_class)) {
+
+            } else if (Enumeration.class.isAssignableFrom(target_class)) {
+
+            } else if (Map.class.isAssignableFrom(target_class)) {
+
+            } else if (Dictionary.class.isAssignableFrom(target_class)) {
+
+            } else {
+
+            }
 
         } else if (target instanceof GenericArrayType) {
 
