@@ -123,6 +123,7 @@ public abstract class ObjectAnalyzer {
         if (target instanceof Class) {
 
             Class<T> target_class = (Class) target;
+
             if (JSONElement.class.isAssignableFrom(target_class)) {
                 return (T) element;
             } else if (Byte.class.isAssignableFrom(target_class) || Byte.TYPE == target_class) {
