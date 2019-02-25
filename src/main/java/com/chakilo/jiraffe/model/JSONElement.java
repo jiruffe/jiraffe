@@ -130,7 +130,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is void.
      *
-     * @return true if is void, otherwise false.
+     * @return <code>true</code> if is void, otherwise <code>false</code>.
      */
     public boolean isVoid() {
         return this instanceof JSONVoid;
@@ -139,7 +139,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is empty.
      *
-     * @return true if is empty, otherwise false.
+     * @return <code>true</code> if is empty, otherwise <code>false</code>.
      */
     public boolean isEmpty() {
         return this instanceof JSONVoid;
@@ -148,7 +148,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JS list [].
      *
-     * @return true if instance of <code>JSONList</code>, otherwise false.
+     * @return <code>true</code> if instance of <code>JSONList</code>, otherwise <code>false</code>.
      */
     public boolean isList() {
         return this instanceof JSONList;
@@ -157,7 +157,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JS map {}.
      *
-     * @return true if instance of <code>JSONMap</code>, otherwise false.
+     * @return <code>true</code> if instance of <code>JSONMap</code>, otherwise <code>false</code>.
      */
     public boolean isMap() {
         return this instanceof JSONMap;
@@ -166,7 +166,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JS primitive type.
      *
-     * @return true if instance of <code>JSONValue</code>, otherwise false.
+     * @return <code>true</code> if instance of <code>JSONValue</code>, otherwise <code>false</code>.
      */
     public boolean isValue() {
         return this instanceof JSONValue;
