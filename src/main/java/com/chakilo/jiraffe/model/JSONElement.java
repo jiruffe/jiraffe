@@ -118,10 +118,10 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Converts this element to java object.
      *
-     * @param target The target type class.
+     * @param target The target type.
      * @param <T>    The target type.
      * @return the target java object.
-     * @throws Exception if error occurred while analyzing class.
+     * @throws Exception if error occurred while analyzing type.
      */
     public <T> T toObject(Type target) throws Exception {
         return ObjectAnalyzer.analyze(this, target);

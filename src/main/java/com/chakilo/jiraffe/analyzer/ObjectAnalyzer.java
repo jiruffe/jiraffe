@@ -28,14 +28,14 @@ import java.util.Map;
 /**
  * 2019.02.18
  *
- * object &lt;=&gt; JSONElement conversion.
+ * object &lt;=&gt; <code>JSONElement</code> conversion.
  *
  * @author Chakilo
  */
 public abstract class ObjectAnalyzer {
 
     /**
-     * object =&gt; JSONElement
+     * object =&gt; <code>JSONElement</code>
      *
      * @param o the object to be converted.
      * @return a <code>JSONElement</code> converted.
@@ -105,13 +105,13 @@ public abstract class ObjectAnalyzer {
     }
 
     /**
-     * JSONElement =&gt; object
+     * <code>JSONElement</code> =&gt; object
      *
-     * @param element the JSONElement to be converted.
-     * @param target the target type class.
-     * @param <T> the target type.
+     * @param element the <code>JSONElement</code> to be converted.
+     * @param target  the target type.
+     * @param <T>     the target type.
      * @return the target java object.
-     * @throws Exception if error occurred while analyzing class.
+     * @throws Exception if error occurred while analyzing type.
      */
     public static <T> T analyze(JSONElement element, Type target) throws Exception {
 
