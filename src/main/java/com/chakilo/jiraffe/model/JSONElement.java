@@ -261,10 +261,10 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get the <code>integer</code> that this element represents.
+     * Get the <code>int</code> that this element represents.
      *
-     * @return the <code>integer</code> that this element represents.
-     * @throws Exception if this element does not represent an <code>integer</code>.
+     * @return the <code>int</code> that this element represents.
+     * @throws Exception if this element does not represent an <code>int</code>.
      */
     public int asInt() throws Exception {
         throw new UnsupportedOperationException("Could not cast int from " + ObjectUtil.getSimpleName(this));
@@ -311,20 +311,20 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get the <code>character</code> that this element represents.
+     * Get the <code>char</code> that this element represents.
      *
-     * @return the <code>character</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>character</code>.
+     * @return the <code>char</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>char</code>.
      */
     public char asChar() throws Exception {
         throw new UnsupportedOperationException("Could not cast char from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>number</code> that this element represents.
+     * Get the <code>Number</code> that this element represents.
      *
-     * @return the <code>number</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>number</code>.
+     * @return the <code>Number</code> that this element represents.
+     * @throws Exception if this element does not represent a <code>Number</code>.
      */
     public Number asNumber() throws Exception {
         throw new UnsupportedOperationException("Could not cast Number from " + ObjectUtil.getSimpleName(this));
