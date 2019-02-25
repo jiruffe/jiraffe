@@ -20,8 +20,7 @@ import com.chakilo.jiraffe.util.ObjectUtil;
 import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
+import java.lang.reflect.*;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Map;
@@ -46,6 +45,10 @@ public abstract class ObjectAnalyzer {
 
         if (null == o) {
             return JSONElement.Void();
+        }
+
+        if (o instanceof JSONElement) {
+            return (JSONElement) o;
         }
 
         Class<?> cls = o.getClass();
@@ -110,8 +113,26 @@ public abstract class ObjectAnalyzer {
      * @return the target java object.
      * @throws Exception if error occurred while analyzing class.
      */
-    public static <T> T analyze(JSONElement element, Class<T> target) throws Exception {
+    public static <T> T analyze(JSONElement element, Type target) throws Exception {
+
+        if (null == element || element.isVoid()) {
+            return null;
+        }
+
+        if (target instanceof Class) {
+
+        } else if (target instanceof ParameterizedType) {
+
+        } else if (target instanceof GenericArrayType) {
+
+        } else if (target instanceof WildcardType) {
+
+        } else if (target instanceof TypeVariable) {
+
+        }
+
         return null;
+
     }
 
 }

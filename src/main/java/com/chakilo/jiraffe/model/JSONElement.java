@@ -19,6 +19,7 @@ import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
 import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 import com.chakilo.jiraffe.util.ObjectUtil;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -122,12 +123,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return the target java object.
      * @throws Exception if error occurred while analyzing class.
      */
-    public <T> T toObject(Class<T> target) throws Exception {
-        if (JSONElement.class.isAssignableFrom(target)) {
-            return (T) this;
-        } else {
-            return ObjectAnalyzer.analyze(this, target);
-        }
+    public <T> T toObject(Type target) throws Exception {
+        return ObjectAnalyzer.analyze(this, target);
     }
 
     /**

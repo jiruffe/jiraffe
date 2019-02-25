@@ -8,6 +8,7 @@ import com.chakilo.jiraffe.util.StringUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -181,6 +182,27 @@ public class JsonTest {
         assert null != element;
 
         assert "{\"a\":1,\"b\":\"bbb\",\"c\":[1,2,3],\"d\":[\"a\",\"b\",\"c\"],\"e\":[{\"a\":5}],\"f\":{\"aaaa\":\"bbbb\"}}".equals(element.toString());
+
+    }
+
+    @Test
+    public void test13() throws Exception {
+
+        JSONElement element = JSON.deserialize("{\"a\":1,\"b\":\"bbb\",\"c\":[1,2,3],\"d\":[\"a\",\"b\",\"c\"],\"e\":[{\"a\":5}],\"f\":{\"aaaa\":\"bbbb\"}}");
+
+        DModel d = element.toObject(DModel.class);
+
+        assert null != d;
+        assert 1 == d.a;
+        assert "bbb".equals(d.b);
+        assert Arrays.equals(new int[]{1, 2, 3}, d.c);
+        assert Arrays.equals(new String[]{"a", "b", "c"}, d.d);
+        assert null != d.e;
+        assert 1 == d.e.size();
+        assert d.e.get(0).a == 5;
+        assert null != d.f;
+        assert 1 == d.f.size();
+        assert "bbbb".equals(d.f.get("aaaa"));
 
     }
 
