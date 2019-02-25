@@ -10,7 +10,7 @@ import java.util.function.Consumer;
  *
  * @author Chakilo
  */
-public final class JSONObject extends JSONElement {
+final class JSONObject extends JSONElement {
 
     private Map<Object, JSONElement> _sub_elements;
 

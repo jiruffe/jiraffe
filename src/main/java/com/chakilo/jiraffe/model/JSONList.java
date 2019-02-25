@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  *
  * @author Chakilo
  */
-public final class JSONList extends JSONElement {
+final class JSONList extends JSONElement {
 
     private List<JSONElement> _sub_elements;
 

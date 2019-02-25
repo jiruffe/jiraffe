@@ -17,7 +17,7 @@ import java.util.function.Consumer;
  *
  * @author Chakilo
  */
-public final class JSONValue extends JSONElement {
+final class JSONValue extends JSONElement {
 
     private Object _value;
 
