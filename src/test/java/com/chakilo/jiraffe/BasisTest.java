@@ -10,9 +10,8 @@ import java.util.Hashtable;
 import java.util.Map;
 
 /**
- * 2019.02.18
- *
  * @author Chakilo
+ * 2019.02.18
  */
 public class BasisTest {
 

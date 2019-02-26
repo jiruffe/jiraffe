@@ -21,11 +21,10 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * 2018.10.23
- *
  * JS list []
  *
  * @author Chakilo
+ * 2018.10.23
  */
 final class JSONList extends JSONElement {
 

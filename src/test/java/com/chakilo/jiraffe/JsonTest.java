@@ -12,9 +12,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * 2019.02.13
- *
  * @author Chakilo
+ * 2019.02.13
  */
 public class JsonTest {
 

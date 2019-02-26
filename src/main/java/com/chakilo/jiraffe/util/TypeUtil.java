@@ -19,9 +19,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * 2019.02.13
+ * Util for type conversion.
  *
  * @author Chakilo
+ * 2019.02.13
  */
 public abstract class TypeUtil {
 

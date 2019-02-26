@@ -29,8 +29,8 @@ import java.lang.reflect.Type;
  *
  * https://github.com/chakilo/jiraffe
  *
- * 2018.10.23
  * @author Chakilo
+ * 2018.10.23
  *
  ******************************************************************************/
 public abstract class JSON {

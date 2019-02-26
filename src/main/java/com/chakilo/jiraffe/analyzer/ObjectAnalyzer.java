@@ -25,11 +25,10 @@ import java.lang.reflect.*;
 import java.util.*;
 
 /**
- * 2019.02.18
- *
  * object &lt;=&gt; <code>JSONElement</code> conversion.
  *
  * @author Chakilo
+ * 2019.02.18
  */
 public abstract class ObjectAnalyzer {
 

@@ -18,12 +18,11 @@ package com.chakilo.jiraffe.analyzer;
 import java.lang.reflect.Type;
 
 /**
- * 2019.02.18
- *
  * object &lt;=&gt; json string,
  * not using <code>JSONElement</code> class during conversion.
  *
  * @author Chakilo
+ * 2019.02.18
  */
 public abstract class DirectAnalyzer {
 
@@ -41,9 +40,9 @@ public abstract class DirectAnalyzer {
     /**
      * json string =&gt; object
      *
-     * @param json the json string to be converted.
+     * @param json   the json string to be converted.
      * @param target the target type.
-     * @param <T> the target type.
+     * @param <T>    the target type.
      * @return the target java object.
      * @throws Exception if error occurred while analyzing type.
      */

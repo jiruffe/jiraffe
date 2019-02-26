@@ -27,11 +27,10 @@ import java.util.Iterator;
 import java.util.Queue;
 
 /**
- * 2018.10.25
- *
  * string &lt;=&gt; <code>JSONElement</code> conversion.
  *
  * @author Chakilo
+ * 2018.10.25
  */
 public abstract class StringAnalyzer {
 

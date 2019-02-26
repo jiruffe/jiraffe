@@ -27,11 +27,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 2018.10.23
- *
  * Represents JSON element including JS map {}, list [], or value (primitive type) such as integer, string...
  *
  * @author Chakilo
+ * 2018.10.23
  */
 public abstract class JSONElement implements Iterable<JSONElement> {
 

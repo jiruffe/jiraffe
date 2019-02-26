@@ -16,9 +16,10 @@
 package com.chakilo.jiraffe.util;
 
 /**
- * 2019.02.18
+ * Util for <code>Character</code>.
  *
  * @author Chakilo
+ * 2019.02.18
  */
 public abstract class CharacterUtil {
 

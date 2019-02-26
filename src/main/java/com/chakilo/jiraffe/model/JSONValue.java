@@ -26,11 +26,10 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 /**
- * 2018.10.23
- *
  * JS value (primitive type)
  *
  * @author Chakilo
+ * 2018.10.23
  */
 final class JSONValue extends JSONElement {
 

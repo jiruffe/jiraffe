@@ -22,9 +22,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 2019.02.20
+ * Util for <code>Object</code> or <code>Class</code>.
  *
  * @author Chakilo
+ * 2019.02.20
  */
 public abstract class ObjectUtil {
 

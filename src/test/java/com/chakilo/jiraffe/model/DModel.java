@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 2019.02.22
- *
  * @author Chakilo
+ * 2019.02.22
  */
 public class DModel extends CModel {
     public String b;

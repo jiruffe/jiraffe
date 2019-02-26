@@ -1,9 +1,8 @@
 package com.chakilo.jiraffe.model;
 
 /**
- * 2019.02.22
- *
  * @author Chakilo
+ * 2019.02.22
  */
 public class AModel {
     public BModel b;

@@ -19,11 +19,10 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * 2018.10.23
- *
  * JS map {}
  *
  * @author Chakilo
+ * 2018.10.23
  */
 final class JSONMap extends JSONElement {
 

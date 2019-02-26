@@ -16,9 +16,10 @@
 package com.chakilo.jiraffe.model;
 
 /**
- * 2019.02.18
+ * Represents JSON elements types.
  *
  * @author Chakilo
+ * 2019.02.18
  */
 public enum JSONElementType {
     UNKNOWN,

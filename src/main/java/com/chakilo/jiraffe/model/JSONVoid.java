@@ -19,11 +19,10 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * 2019.02.20
- *
  * <code>null</code>, <code>undefined</code>, <code>NaN</code>
  *
  * @author Chakilo
+ * 2019.02.20
  */
 final class JSONVoid extends JSONElement {
 
