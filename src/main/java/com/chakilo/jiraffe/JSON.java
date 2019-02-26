@@ -86,7 +86,6 @@ public abstract class JSON {
      * @return the Java {@link Object} deserialized.
      * @throws Exception if error occurred while analyzing JSON {@link String} or {@link Type}.
      */
-    @SuppressWarnings("unchecked")
     public static <T> T deserializeDirectly(String json, Type target) throws Exception {
         if (target instanceof Class && JSONElement.class.isAssignableFrom((Class) target)) {
             return (T) StringAnalyzer.analyze(json);

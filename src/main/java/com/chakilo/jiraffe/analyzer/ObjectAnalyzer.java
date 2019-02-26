@@ -112,7 +112,6 @@ public abstract class ObjectAnalyzer {
      * @return the target Java {@link Object}.
      * @throws Exception if error occurred while analyzing {@link Type}.
      */
-    @SuppressWarnings("unchecked")
     public static <T> T analyze(JSONElement element, Type target) throws Exception {
 
         if (null == element || element.isVoid() || null == target || NullType.class == target || Object.class == target) {
