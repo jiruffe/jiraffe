@@ -63,12 +63,21 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns an instance of {@link JSONVoid} which represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
+     * Returns {@link JSONVoid#VOID} which represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
      *
-     * @return a void element.
+     * @return {@link JSONVoid#VOID} which represents a void element.
      */
     public static JSONElement Void() {
         return JSONVoid.VOID;
+    }
+
+    /**
+     * Alias of {@link #Void()}.
+     *
+     * @return what {@link #Void()} returns.
+     */
+    public static JSONElement newInstance() {
+        return Void();
     }
 
     /**
