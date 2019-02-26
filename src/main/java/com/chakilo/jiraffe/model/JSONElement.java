@@ -163,7 +163,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns whether this element is an instance of JS list [].
+     * Returns whether this element is an instance of JSON list [].
      *
      * @return <code>true</code> if instance of <code>JSONList</code>, otherwise <code>false</code>.
      */
@@ -172,7 +172,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns whether this element is an instance of JS map {}.
+     * Returns whether this element is an instance of JSON map {}.
      *
      * @return <code>true</code> if instance of <code>JSONMap</code>, otherwise <code>false</code>.
      */
@@ -181,7 +181,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns whether this element is an instance of JS primitive type.
+     * Returns whether this element is an instance of JSON primitive type.
      *
      * @return <code>true</code> if instance of <code>JSONPrimitive</code>, otherwise <code>false</code>.
      */
