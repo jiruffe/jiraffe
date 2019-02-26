@@ -16,6 +16,8 @@
 
 package com.chakilo.jiraffe.analyzer;
 
+import com.chakilo.jiraffe.model.JSONElement;
+
 import java.lang.reflect.Type;
 
 /**
