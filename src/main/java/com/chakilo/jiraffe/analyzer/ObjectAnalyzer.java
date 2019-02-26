@@ -26,7 +26,7 @@ import java.lang.reflect.*;
 import java.util.*;
 
 /**
- * object &lt;=&gt; <code>JSONElement</code> conversion.
+ * object &lt;=&gt; {@link JSONElement} conversion.
  *
  * @author Chakilo
  * 2019.02.18
@@ -34,10 +34,10 @@ import java.util.*;
 public abstract class ObjectAnalyzer {
 
     /**
-     * object =&gt; <code>JSONElement</code>
+     * object =&gt; {@link JSONElement}
      *
      * @param o the object to be converted.
-     * @return a <code>JSONElement</code> converted.
+     * @return a {@link JSONElement} converted.
      * @throws Exception if error occurred while analyzing object.
      */
     public static JSONElement analyze(Object o) throws Exception {
@@ -104,9 +104,9 @@ public abstract class ObjectAnalyzer {
     }
 
     /**
-     * <code>JSONElement</code> =&gt; object
+     * {@link JSONElement} =&gt; object
      *
-     * @param element the <code>JSONElement</code> to be converted.
+     * @param element the {@link JSONElement} to be converted.
      * @param target  the target type.
      * @param <T>     the target type.
      * @return the target java object.

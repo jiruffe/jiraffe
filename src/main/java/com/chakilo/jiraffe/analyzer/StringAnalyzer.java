@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.Queue;
 
 /**
- * string &lt;=&gt; <code>JSONElement</code> conversion.
+ * string &lt;=&gt; {@link JSONElement} conversion.
  *
  * @author Chakilo
  * 2018.10.25
@@ -36,10 +36,10 @@ import java.util.Queue;
 public abstract class StringAnalyzer {
 
     /**
-     * string =&gt; <code>JSONElement</code>.
+     * string =&gt; {@link JSONElement}.
      *
      * @param json the json string.
-     * @return converted <code>JSONElement</code>.
+     * @return converted {@link JSONElement}.
      * @throws Exception if error occurred while reading json string.
      */
     public static JSONElement analyze(String json) throws Exception {
@@ -242,7 +242,7 @@ public abstract class StringAnalyzer {
     }
 
     /**
-     * <code>JSONElement</code> =&gt; string.
+     * {@link JSONElement} =&gt; string.
      *
      * @param element the element to be converted.
      * @return a json string converted.

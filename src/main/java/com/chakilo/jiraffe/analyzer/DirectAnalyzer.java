@@ -20,7 +20,7 @@ import java.lang.reflect.Type;
 
 /**
  * object &lt;=&gt; json string,
- * not using <code>JSONElement</code> class during conversion.
+ * not using {@link JSONElement} class during conversion.
  *
  * @author Chakilo
  * 2019.02.18

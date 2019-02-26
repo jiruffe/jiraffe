@@ -62,7 +62,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
+     * Returns an instance of {@link JSONVoid} which represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
      *
      * @return a void element.
      */
@@ -71,10 +71,10 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get a new instance of <code>JSONElement</code> with specified original object.
+     * Get a new instance of {@link JSONElement} with specified original object.
      *
      * @param o the original object.
-     * @return a new instance of <code>JSONElement</code> with specified original object.
+     * @return a new instance of {@link JSONElement} with specified original object.
      * @throws Exception if error occurred while analyzing object.
      */
     public static JSONElement newInstance(Object o) throws Exception {
@@ -88,57 +88,57 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get a new instance of <code>JSONList</code>.
+     * Get a new instance of {@link JSONList}.
      *
-     * @return a new instance of <code>JSONList</code>.
+     * @return a new instance of {@link JSONList}.
      */
     public static JSONElement newList() {
         return new JSONList();
     }
 
     /**
-     * Get a new instance of <code>JSONList</code> with specified sub-elements.
+     * Get a new instance of {@link JSONList} with specified sub-elements.
      *
      * @param sub_elements the sub-elements.
-     * @return a new instance of <code>JSONList</code> with specified sub-elements.
+     * @return a new instance of {@link JSONList} with specified sub-elements.
      */
     public static JSONElement newList(List<JSONElement> sub_elements) {
         return new JSONList(sub_elements);
     }
 
     /**
-     * Get a new instance of <code>JSONMap</code>.
+     * Get a new instance of {@link JSONMap}.
      *
-     * @return a new instance of <code>JSONMap</code>.
+     * @return a new instance of {@link JSONMap}.
      */
     public static JSONElement newMap() {
         return new JSONMap();
     }
 
     /**
-     * Get a new instance of <code>JSONMap</code> with specified sub-elements.
+     * Get a new instance of {@link JSONMap} with specified sub-elements.
      *
      * @param sub_elements the sub-elements.
-     * @return a new instance of <code>JSONMap</code> with specified sub-elements.
+     * @return a new instance of {@link JSONMap} with specified sub-elements.
      */
     public static JSONElement newMap(Map<Object, JSONElement> sub_elements) {
         return new JSONMap(sub_elements);
     }
 
     /**
-     * Get a new instance of <code>JSONPrimitive</code>.
+     * Get a new instance of {@link JSONPrimitive}.
      *
-     * @return a new instance of <code>JSONPrimitive</code>.
+     * @return a new instance of {@link JSONPrimitive}.
      */
     public static JSONElement newPrimitive() {
         return new JSONPrimitive();
     }
 
     /**
-     * Get a new instance of <code>JSONPrimitive</code> with specified original value.
+     * Get a new instance of {@link JSONPrimitive} with specified original value.
      *
      * @param v the original value.
-     * @return a new instance of <code>JSONPrimitive</code> with specified original value.
+     * @return a new instance of {@link JSONPrimitive} with specified original value.
      */
     public static JSONElement newPrimitive(Object v) {
         return new JSONPrimitive(v);
@@ -147,7 +147,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is void.
      *
-     * @return <code>true</code> if is void, otherwise <code>false</code>.
+     * @return <code>true</code> if is void, <code>false</code> otherwise.
      */
     public boolean isVoid() {
         return this instanceof JSONVoid;
@@ -156,7 +156,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is empty.
      *
-     * @return <code>true</code> if is empty, otherwise <code>false</code>.
+     * @return <code>true</code> if is empty, <code>false</code> otherwise.
      */
     public boolean isEmpty() {
         return this instanceof JSONVoid;
@@ -165,7 +165,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JSON list [].
      *
-     * @return <code>true</code> if instance of <code>JSONList</code>, otherwise <code>false</code>.
+     * @return <code>true</code> if instance of {@link JSONList}, <code>false</code> otherwise.
      */
     public boolean isList() {
         return this instanceof JSONList;
@@ -174,7 +174,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JSON map {}.
      *
-     * @return <code>true</code> if instance of <code>JSONMap</code>, otherwise <code>false</code>.
+     * @return <code>true</code> if instance of {@link JSONMap}, <code>false</code> otherwise.
      */
     public boolean isMap() {
         return this instanceof JSONMap;
@@ -183,7 +183,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JSON primitive type.
      *
-     * @return <code>true</code> if instance of <code>JSONPrimitive</code>, otherwise <code>false</code>.
+     * @return <code>true</code> if instance of {@link JSONPrimitive}, <code>false</code> otherwise.
      */
     public boolean isPrimitive() {
         return this instanceof JSONPrimitive;

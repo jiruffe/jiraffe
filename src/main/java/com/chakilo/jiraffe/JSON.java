@@ -37,10 +37,10 @@ import java.lang.reflect.Type;
 public abstract class JSON {
 
     /**
-     * Serializes java object to <code>JSONElement</code>.
+     * Serializes java object to {@link JSONElement}.
      *
      * @param o the object to be serialized.
-     * @return the <code>JSONElement</code> serialized.
+     * @return the {@link JSONElement} serialized.
      * @throws Exception if error occurred while analyzing object.
      */
     public static JSONElement serialize(Object o) throws Exception {
@@ -52,10 +52,10 @@ public abstract class JSON {
     }
 
     /**
-     * Deserializes json string to <code>JSONElement</code>.
+     * Deserializes json string to {@link JSONElement}.
      *
      * @param json the json string to be deserialized.
-     * @return the <code>JSONElement</code> deserialized.
+     * @return the {@link JSONElement} deserialized.
      * @throws Exception if error occurred while analyzing json string.
      */
     public static JSONElement deserialize(String json) throws Exception {
