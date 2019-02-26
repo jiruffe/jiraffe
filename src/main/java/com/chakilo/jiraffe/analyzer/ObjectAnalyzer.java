@@ -156,6 +156,7 @@ public abstract class ObjectAnalyzer {
                 }
                 return (T) array;
             } else {
+                // bean
                 T rst = target_class.newInstance();
                 for (Field f : ObjectUtil.getFields(target_class)) {
                     f.set(rst, analyze(element.peek(f.getName()), f.getGenericType()));
@@ -175,8 +176,10 @@ public abstract class ObjectAnalyzer {
                 Type v_type = actual_type_arguments[0];
                 Collection collection = null;
                 try {
+                    // using the default constructor first
                     collection = (Collection) target_class.newInstance();
                 } catch (InstantiationException | IllegalAccessException e) {
+                    // considering known derived classes
                     try {
                         if (List.class.isAssignableFrom(target_class)) {
                             collection = new ArrayList();
@@ -193,9 +196,11 @@ public abstract class ObjectAnalyzer {
 
                     }
                 }
+                // construction failure
                 if (null == collection) {
                     throw new InstantiationException("Could not create " + target.getTypeName());
                 }
+                // analyze sub-elements
                 for (JSONElement sub : element) {
                     collection.add(analyze(sub, v_type));
                 }
@@ -205,8 +210,10 @@ public abstract class ObjectAnalyzer {
                 Type v_type = actual_type_arguments[1];
                 Map map = null;
                 try {
+                    // using the default constructor first
                     map = (Map) target_class.newInstance();
                 } catch (InstantiationException | IllegalAccessException e) {
+                    // considering known derived classes
                     try {
                         if (EnumMap.class.isAssignableFrom(target_class)) {
                             map = new EnumMap((Class) k_type);
@@ -217,9 +224,11 @@ public abstract class ObjectAnalyzer {
 
                     }
                 }
+                // construction failure
                 if (null == map) {
                     throw new InstantiationException("Could not create " + target.getTypeName());
                 }
+                // analyze sub-elements
                 for (Object k : element.keys()) {
                     map.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
                 }
@@ -229,14 +238,21 @@ public abstract class ObjectAnalyzer {
                 Type v_type = actual_type_arguments[1];
                 Dictionary dictionary = null;
                 try {
+                    // using the default constructor first
                     dictionary = (Dictionary) target_class.newInstance();
                 } catch (InstantiationException | IllegalAccessException e) {
+                    // considering known derived classes
                     try {
                         dictionary = new Hashtable();
                     } catch (Exception ignored) {
 
                     }
                 }
+                // construction failure
+                if (null == dictionary) {
+                    throw new InstantiationException("Could not create " + target.getTypeName());
+                }
+                // analyze sub-elements
                 for (Object k : element.keys()) {
                     dictionary.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
                 }
