@@ -26,7 +26,7 @@ import java.lang.reflect.*;
 import java.util.*;
 
 /**
- * object &lt;=&gt; {@link JSONElement} conversion.
+ * Java {@link Object} &lt;=&gt; {@link JSONElement} conversion.
  *
  * @author Chakilo
  * 2019.02.18
@@ -34,11 +34,11 @@ import java.util.*;
 public abstract class ObjectAnalyzer {
 
     /**
-     * object =&gt; {@link JSONElement}
+     * Java {@link Object} =&gt; {@link JSONElement}.
      *
-     * @param o the object to be converted.
-     * @return a {@link JSONElement} converted.
-     * @throws Exception if error occurred while analyzing object.
+     * @param o the {@link Object} to be converted.
+     * @return the {@link JSONElement} converted.
+     * @throws Exception if error occurred while analyzing {@link Object}.
      */
     public static JSONElement analyze(Object o) throws Exception {
 
@@ -104,13 +104,13 @@ public abstract class ObjectAnalyzer {
     }
 
     /**
-     * {@link JSONElement} =&gt; object
+     * {@link JSONElement} =&gt; Java {@link Object}.
      *
      * @param element the {@link JSONElement} to be converted.
-     * @param target  the target type.
-     * @param <T>     the target type.
-     * @return the target java object.
-     * @throws Exception if error occurred while analyzing type.
+     * @param target  the target {@link Type}.
+     * @param <T>     the target {@link Type}.
+     * @return the target Java {@link Object}.
+     * @throws Exception if error occurred while analyzing {@link Type}.
      */
     @SuppressWarnings("unchecked")
     public static <T> T analyze(JSONElement element, Type target) throws Exception {

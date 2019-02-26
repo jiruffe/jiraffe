@@ -21,8 +21,8 @@ import com.chakilo.jiraffe.model.JSONElement;
 import java.lang.reflect.Type;
 
 /**
- * object &lt;=&gt; json string,
- * not using {@link JSONElement} class during conversion.
+ * {@link Object} &lt;=&gt; JSON {@link String},
+ * not using {@link JSONElement} during conversion.
  *
  * @author Chakilo
  * 2019.02.18
@@ -30,24 +30,24 @@ import java.lang.reflect.Type;
 public abstract class DirectAnalyzer {
 
     /**
-     * object =&gt; json string
+     * Java {@link Object} =&gt; JSON {@link String}.
      *
-     * @param o the object to be converted.
-     * @return the json string converted.
-     * @throws Exception if error occurred while analyzing object.
+     * @param o the {@link Object} to be converted.
+     * @return the JSON {@link String} converted.
+     * @throws Exception if error occurred while analyzing {@link Object}.
      */
     public static String analyze(Object o) throws Exception {
         return null;
     }
 
     /**
-     * json string =&gt; object
+     * JSON {@link String} =&gt; Java {@link Object}
      *
-     * @param json   the json string to be converted.
-     * @param target the target type.
-     * @param <T>    the target type.
-     * @return the target java object.
-     * @throws Exception if error occurred while analyzing type.
+     * @param json   the JSON {@link String} to be converted.
+     * @param target the target {@link Type}.
+     * @param <T>    the target {@link Type}.
+     * @return the target Java {@link Object}.
+     * @throws Exception if error occurred while analyzing {@link Type}.
      */
     public static <T> T analyze(String json, Type target) throws Exception {
         return null;

@@ -37,9 +37,9 @@ import java.util.Set;
 public abstract class JSONElement implements Iterable<JSONElement> {
 
     /**
-     * Converts this element to JSON string.
+     * Converts this element to JSON {@link String}.
      *
-     * @return JSON string.
+     * @return JSON {@link String}.
      */
     @Override
     public String toString() {
@@ -51,21 +51,21 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Converts this element to java object.
+     * Converts this element to Java {@link Object}.
      *
-     * @param target The target type.
-     * @param <T>    The target type.
-     * @return the target java object.
-     * @throws Exception if error occurred while analyzing type.
+     * @param target The target {@link Type}.
+     * @param <T>    The target {@link Type}.
+     * @return the target Java {@link Object}.
+     * @throws Exception if error occurred while analyzing {@link Type}.
      */
     public <T> T toObject(Type target) throws Exception {
         return ObjectAnalyzer.analyze(this, target);
     }
 
     /**
-     * Returns {@link JSONVoid#VOID} which represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
+     * Returns {@link JSONVoid#VOID} which represents a <code>void</code> element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
      *
-     * @return {@link JSONVoid#VOID} which represents a void element.
+     * @return {@link JSONVoid#VOID} which represents a <code>void</code> element.
      */
     public static JSONElement Void() {
         return JSONVoid.VOID;
@@ -81,11 +81,11 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get a new instance of {@link JSONElement} with specified original object.
+     * Get a new instance of {@link JSONElement} with specified original {@link Object}.
      *
-     * @param o the original object.
-     * @return a new instance of {@link JSONElement} with specified original object.
-     * @throws Exception if error occurred while analyzing object.
+     * @param o the original {@link Object}.
+     * @return a new instance of {@link JSONElement} with specified original {@link Object}.
+     * @throws Exception if error occurred while analyzing {@link Object}.
      */
     public static JSONElement newInstance(Object o) throws Exception {
         if (null == o) {
@@ -163,9 +163,9 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns whether this element is void.
+     * Returns whether this element is <code>void</code>.
      *
-     * @return <code>true</code> if is void, <code>false</code> otherwise.
+     * @return <code>true</code> if is <code>void</code>, <code>false</code> otherwise.
      */
     public boolean isVoid() {
         return this instanceof JSONVoid;
@@ -181,7 +181,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns whether this element is an instance of JSON list [].
+     * Returns whether this element is an instance of {@link JSONList}.
      *
      * @return <code>true</code> if instance of {@link JSONList}, <code>false</code> otherwise.
      */
@@ -190,7 +190,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns whether this element is an instance of JSON map {}.
+     * Returns whether this element is an instance of {@link JSONMap}.
      *
      * @return <code>true</code> if instance of {@link JSONMap}, <code>false</code> otherwise.
      */
@@ -199,7 +199,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns whether this element is an instance of JSON primitive type.
+     * Returns whether this element is an instance of {@link JSONPrimitive}.
      *
      * @return <code>true</code> if instance of {@link JSONPrimitive}, <code>false</code> otherwise.
      */
@@ -208,9 +208,9 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get the type of this element.
+     * Get the {@link JSONElementType} of this element.
      *
-     * @return type of this element.
+     * @return {@link JSONElementType} of this element.
      */
     public JSONElementType getType() {
         if (isVoid()) {
@@ -227,7 +227,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Returns the number of sub-elements in this element. If this element contains more than <code>Integer.MAX_VALUE</code> sub-elements, returns <code>Integer.MAX_VALUE</code>.
+     * Returns the number of sub-elements in this element. If this element contains more than {@link Integer#MAX_VALUE} sub-elements, returns {@link Integer#MAX_VALUE}.
      *
      * @return the number of sub-elements in this element.
      * @throws Exception if counting size is not available for this element.
@@ -281,20 +281,20 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get the <code>List</code> that this element represents.
+     * Get the {@link List} that this element represents.
      *
-     * @return the <code>List</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>List</code>.
+     * @return the {@link List} that this element represents.
+     * @throws Exception if this element does not represent a {@link List}.
      */
     public List<JSONElement> asList() throws Exception {
         throw new UnsupportedOperationException("Could not cast List from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>Map</code> that this element represents.
+     * Get the {@link Map} that this element represents.
      *
-     * @return the <code>Map</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>Map</code>.
+     * @return the {@link Map} that this element represents.
+     * @throws Exception if this element does not represent a {@link Map}.
      */
     public Map<Object, JSONElement> asMap() throws Exception {
         throw new UnsupportedOperationException("Could not cast Map from " + ObjectUtil.getSimpleName(this));
@@ -311,10 +311,10 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get the <code>String</code> that this element represents.
+     * Get the {@link String} that this element represents.
      *
-     * @return the <code>String</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>String</code>.
+     * @return the {@link String} that this element represents.
+     * @throws Exception if this element does not represent a {@link String}.
      */
     public String asString() throws Exception {
         throw new UnsupportedOperationException("Could not cast String from " + ObjectUtil.getSimpleName(this));
@@ -401,30 +401,30 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get the <code>Number</code> that this element represents.
+     * Get the {@link Number} that this element represents.
      *
-     * @return the <code>Number</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>Number</code>.
+     * @return the {@link Number} that this element represents.
+     * @throws Exception if this element does not represent a {@link Number}.
      */
     public Number asNumber() throws Exception {
         throw new UnsupportedOperationException("Could not cast Number from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>BigInteger</code> that this element represents.
+     * Get the {@link BigInteger} that this element represents.
      *
-     * @return the <code>BigInteger</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>BigInteger</code>.
+     * @return the {@link BigInteger} that this element represents.
+     * @throws Exception if this element does not represent a {@link BigInteger}.
      */
     public BigInteger asBigInteger() throws Exception {
         throw new UnsupportedOperationException("Could not cast BigInteger from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>BigDecimal</code> that this element represents.
+     * Get the {@link BigDecimal} that this element represents.
      *
-     * @return the <code>BigDecimal</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>BigDecimal</code>.
+     * @return the {@link BigDecimal} that this element represents.
+     * @throws Exception if this element does not represent a {@link BigDecimal}.
      */
     public BigDecimal asBigDecimal() throws Exception {
         throw new UnsupportedOperationException("Could not cast BigDecimal from " + ObjectUtil.getSimpleName(this));

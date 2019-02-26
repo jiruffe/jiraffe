@@ -27,7 +27,7 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 /**
- * JSON primitive value
+ * JSON primitive value such as integer, string...
  *
  * @author Chakilo
  * 2018.10.23

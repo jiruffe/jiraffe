@@ -37,11 +37,11 @@ import java.lang.reflect.Type;
 public abstract class JSON {
 
     /**
-     * Serializes java object to {@link JSONElement}.
+     * Serializes Java {@link Object} to {@link JSONElement}.
      *
-     * @param o the object to be serialized.
+     * @param o the {@link Object} to be serialized.
      * @return the {@link JSONElement} serialized.
-     * @throws Exception if error occurred while analyzing object.
+     * @throws Exception if error occurred while analyzing {@link Object}.
      */
     public static JSONElement serialize(Object o) throws Exception {
         if (o instanceof JSONElement) {
@@ -52,9 +52,9 @@ public abstract class JSON {
     }
 
     /**
-     * Deserializes json string to {@link JSONElement}.
+     * Deserializes JSON {@link String} to {@link JSONElement}.
      *
-     * @param json the json string to be deserialized.
+     * @param json the JSON {@link String} to be deserialized.
      * @return the {@link JSONElement} deserialized.
      * @throws Exception if error occurred while analyzing json string.
      */
@@ -63,11 +63,11 @@ public abstract class JSON {
     }
 
     /**
-     * Directly serializes java object to json string.
+     * Directly serializes Java {@link Object} to JSON {@link String}.
      *
-     * @param o the object to be serialized.
-     * @return the json string serialized.
-     * @throws Exception if error occurred while analyzing object.
+     * @param o the {@link Object} to be serialized.
+     * @return the JSON {@link String} serialized.
+     * @throws Exception if error occurred while analyzing {@link Object}.
      */
     public static String serializeDirectly(Object o) throws Exception {
         if (o instanceof JSONElement) {
@@ -78,13 +78,13 @@ public abstract class JSON {
     }
 
     /**
-     * Directly deserializes json string to java object.
+     * Directly deserializes JSON {@link String} to Java {@link Object}.
      *
-     * @param json the json string to be deserialized.
-     * @param target the target type class.
-     * @param <T> the target type.
-     * @return the java object deserialized.
-     * @throws Exception if error occurred while analyzing json string.
+     * @param json   the JSON {@link String} to be deserialized.
+     * @param target the target {@link Type}.
+     * @param <T>    the target {@link Type}.
+     * @return the Java {@link Object} deserialized.
+     * @throws Exception if error occurred while analyzing JSON {@link String} or {@link Type}.
      */
     @SuppressWarnings("unchecked")
     public static <T> T deserializeDirectly(String json, Type target) throws Exception {
