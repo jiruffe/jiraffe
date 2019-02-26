@@ -146,7 +146,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
             return (JSONElement) v;
         } else if (v instanceof JSONElement) {
             throw new UnsupportedOperationException("Could not cast JSONPrimitive from " + ObjectUtil.getSimpleName(v));
-        } else if (TypeUtil.isPrimitive(v) || v instanceof String) {
+        } else if (TypeUtil.isPrimitive(v) || v instanceof Number || v instanceof String) {
             return new JSONPrimitive(v);
         } else {
             throw new UnsupportedOperationException("Could not cast JSONPrimitive from " + ObjectUtil.getCanonicalName(v));
