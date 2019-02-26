@@ -221,7 +221,7 @@ public abstract class ObjectAnalyzer {
                     throw new InstantiationException("Could not create " + target.getTypeName());
                 }
                 for (Object k : element.keys()) {
-                    map.put(analyze(JSONElement.newValue(k), k_type), analyze(element.peek(k), v_type));
+                    map.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
                 }
                 return (T) map;
             } else if (Dictionary.class.isAssignableFrom(target_class)) {
@@ -238,7 +238,7 @@ public abstract class ObjectAnalyzer {
                     }
                 }
                 for (Object k : element.keys()) {
-                    dictionary.put(analyze(JSONElement.newValue(k), k_type), analyze(element.peek(k), v_type));
+                    dictionary.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
                 }
                 return (T) dictionary;
             } else {

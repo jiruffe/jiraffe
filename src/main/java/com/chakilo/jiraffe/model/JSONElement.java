@@ -15,6 +15,7 @@
  */
 package com.chakilo.jiraffe.model;
 
+import com.chakilo.jiraffe.JSON;
 import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
 import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 import com.chakilo.jiraffe.util.ObjectUtil;
@@ -68,6 +69,23 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      */
     public static JSONElement Void() {
         return JSONVoid.VOID;
+    }
+
+    /**
+     * Get a new instance of <code>JSONElement</code> with specified original object.
+     *
+     * @param o the original object.
+     * @return a new instance of <code>JSONElement</code> with specified original object.
+     * @throws Exception if error occurred while analyzing object.
+     */
+    public static JSONElement newInstance(Object o) throws Exception {
+        if (null == o) {
+            return Void();
+        } else if (o instanceof JSONElement) {
+            return (JSONElement) o;
+        } else {
+            return ObjectAnalyzer.analyze(o);
+        }
     }
 
     /**
