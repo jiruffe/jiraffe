@@ -20,10 +20,9 @@ import com.chakilo.jiraffe.util.ObjectUtil;
 import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
 
+import javax.lang.model.type.NullType;
 import java.lang.reflect.*;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 2019.02.18
@@ -116,7 +115,7 @@ public abstract class ObjectAnalyzer {
     @SuppressWarnings("unchecked")
     public static <T> T analyze(JSONElement element, Type target) throws Exception {
 
-        if (null == element || element.isVoid()) {
+        if (null == element || element.isVoid() || null == target || NullType.class == target || Object.class == target) {
             return null;
         }
 
@@ -165,29 +164,92 @@ public abstract class ObjectAnalyzer {
         } else if (target instanceof ParameterizedType) {
 
             ParameterizedType parameterized_type = (ParameterizedType) target;
+            Type[] actual_type_arguments = parameterized_type.getActualTypeArguments();
             Class<T> target_class = (Class) parameterized_type.getRawType();
 
-            if (Iterable.class.isAssignableFrom(target_class)) {
+            if (Collection.class.isAssignableFrom(target_class)) {
+                Type v_type = actual_type_arguments[0];
+                Collection collection = null;
+                try {
+                    collection = (Collection) target_class.newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    try {
+                        if (List.class.isAssignableFrom(target_class)) {
+                            collection = new ArrayList();
+                        } else if (Set.class.isAssignableFrom(target_class)) {
+                            if (EnumSet.class.isAssignableFrom(target_class)) {
+                                collection = EnumSet.noneOf((Class<Enum>) v_type);
+                            } else if (SortedSet.class.isAssignableFrom(target_class)) {
+                                collection = new TreeSet();
+                            } else {
+                                collection = new HashSet();
+                            }
+                        }
+                    } catch (Exception ignored) {
 
-            } else if (Enumeration.class.isAssignableFrom(target_class)) {
-
+                    }
+                }
+                if (null == collection) {
+                    throw new InstantiationException("Could not create " + target.getTypeName());
+                }
+                for (JSONElement sub : element) {
+                    collection.add(analyze(sub, v_type));
+                }
+                return (T) collection;
             } else if (Map.class.isAssignableFrom(target_class)) {
+                Type k_type = actual_type_arguments[0];
+                Type v_type = actual_type_arguments[1];
+                Map map = null;
+                try {
+                    map = (Map) target_class.newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    try {
+                        if (EnumMap.class.isAssignableFrom(target_class)) {
+                            map = new EnumMap((Class) k_type);
+                        } else {
+                            map = new HashMap();
+                        }
+                    } catch (Exception ignored) {
 
+                    }
+                }
+                if (null == map) {
+                    throw new InstantiationException("Could not create " + target.getTypeName());
+                }
+                for (Object k : element.keys()) {
+                    map.put(analyze(JSONElement.newValue(k), k_type), analyze(element.peek(k), v_type));
+                }
+                return (T) map;
             } else if (Dictionary.class.isAssignableFrom(target_class)) {
+                Type k_type = actual_type_arguments[0];
+                Type v_type = actual_type_arguments[1];
+                Dictionary dictionary = null;
+                try {
+                    dictionary = (Dictionary) target_class.newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    try {
+                        dictionary = new Hashtable();
+                    } catch (Exception ignored) {
 
+                    }
+                }
+                for (Object k : element.keys()) {
+                    dictionary.put(analyze(JSONElement.newValue(k), k_type), analyze(element.peek(k), v_type));
+                }
+                return (T) dictionary;
             } else {
-
+                throw new InstantiationException("Could not create " + target.getTypeName());
             }
 
         } else if (target instanceof GenericArrayType) {
-
+            throw new InstantiationException("Could not create " + target.getTypeName());
         } else if (target instanceof WildcardType) {
-
+            throw new InstantiationException("Could not create " + target.getTypeName());
         } else if (target instanceof TypeVariable) {
-
+            throw new InstantiationException("Could not create " + target.getTypeName());
+        } else {
+            throw new InstantiationException("Could not create " + target.getTypeName());
         }
-
-        return null;
 
     }
 
