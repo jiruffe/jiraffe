@@ -89,7 +89,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      */
     public static JSONElement newInstance(Object o) throws Exception {
         if (null == o) {
-            return Void();
+            return newInstance();
         } else if (o instanceof JSONElement) {
             return (JSONElement) o;
         } else {
