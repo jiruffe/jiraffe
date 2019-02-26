@@ -22,61 +22,64 @@ package com.chakilo.jiraffe.util;
  */
 public abstract class CharacterUtil {
 
-    public final static char EOI = 0; // 0x1A;
-    public final static char[] DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-    public final static int[] DIGITS_MARK = new int[(int) 'f' + 1];
-    public final static char[] CHARS_MARK = new char[93];
-    public final static char[] CHARS_MARK_REV = new char[120];
+    public final static int EOF = -1;
+    public final static char NUL = 0;
+    public final static char[] DIGIT_TO_CHAR = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    public final static int[] CHAR_TO_DIGIT = new int[(int) 'f' + 1];
+    public final static char[] ESCAPE_CHARACTER = new char[93];
+    public final static char[] UNESCAPE_CHARACTER = new char[120];
 
     static {
+
         for (int i = '0'; i <= '9'; ++i) {
-            DIGITS_MARK[i] = i - '0';
+            CHAR_TO_DIGIT[i] = i - '0';
         }
 
         for (int i = 'a'; i <= 'f'; ++i) {
-            DIGITS_MARK[i] = (i - 'a') + 10;
+            CHAR_TO_DIGIT[i] = (i - 'a') + 10;
         }
         for (int i = 'A'; i <= 'F'; ++i) {
-            DIGITS_MARK[i] = (i - 'A') + 10;
+            CHAR_TO_DIGIT[i] = (i - 'A') + 10;
         }
 
-        CHARS_MARK['\0'] = '0';
-        CHARS_MARK['\1'] = '1';
-        CHARS_MARK['\2'] = '2';
-        CHARS_MARK['\3'] = '3';
-        CHARS_MARK['\4'] = '4';
-        CHARS_MARK['\5'] = '5';
-        CHARS_MARK['\6'] = '6';
-        CHARS_MARK['\7'] = '7';
-        CHARS_MARK['\b'] = 'b'; // 8
-        CHARS_MARK['\t'] = 't'; // 9
-        CHARS_MARK['\n'] = 'n'; // 10
-        CHARS_MARK['\u000B'] = 'v'; // 11
-        CHARS_MARK['\f'] = 'f'; // 12
-        CHARS_MARK['\r'] = 'r'; // 13
-        CHARS_MARK['\"'] = '"'; // 34
-        CHARS_MARK['\''] = '\''; // 39
-        CHARS_MARK['/'] = '/'; // 47
-        CHARS_MARK['\\'] = '\\'; // 92
+        ESCAPE_CHARACTER['\0'] = '0';
+        ESCAPE_CHARACTER['\1'] = '1';
+        ESCAPE_CHARACTER['\2'] = '2';
+        ESCAPE_CHARACTER['\3'] = '3';
+        ESCAPE_CHARACTER['\4'] = '4';
+        ESCAPE_CHARACTER['\5'] = '5';
+        ESCAPE_CHARACTER['\6'] = '6';
+        ESCAPE_CHARACTER['\7'] = '7';
+        ESCAPE_CHARACTER['\b'] = 'b'; // 8
+        ESCAPE_CHARACTER['\t'] = 't'; // 9
+        ESCAPE_CHARACTER['\n'] = 'n'; // 10
+        ESCAPE_CHARACTER['\u000B'] = 'v'; // 11
+        ESCAPE_CHARACTER['\f'] = 'f'; // 12
+        ESCAPE_CHARACTER['\r'] = 'r'; // 13
+        ESCAPE_CHARACTER['\"'] = '"'; // 34
+        ESCAPE_CHARACTER['\''] = '\''; // 39
+        ESCAPE_CHARACTER['/'] = '/'; // 47
+        ESCAPE_CHARACTER['\\'] = '\\'; // 92
 
-        CHARS_MARK_REV['0'] = '\0'; //48
-        CHARS_MARK_REV['1'] = '\1';
-        CHARS_MARK_REV['2'] = '\2';
-        CHARS_MARK_REV['3'] = '\3';
-        CHARS_MARK_REV['4'] = '\4';
-        CHARS_MARK_REV['5'] = '\5';
-        CHARS_MARK_REV['6'] = '\6';
-        CHARS_MARK_REV['7'] = '\7'; //55
-        CHARS_MARK_REV['b'] = '\b'; // 98
-        CHARS_MARK_REV['t'] = '\t'; // 116
-        CHARS_MARK_REV['n'] = '\n'; // 110
-        CHARS_MARK_REV['v'] = '\u000B'; // 76
-        CHARS_MARK_REV['f'] = '\f'; // 102
-        CHARS_MARK_REV['r'] = '\r'; // 114
-        CHARS_MARK_REV['"'] = '\"'; // 34
-        CHARS_MARK_REV['\''] = '\''; // 39
-        CHARS_MARK_REV['/'] = '/'; // 47
-        CHARS_MARK_REV['\\'] = '\\'; // 92
+        UNESCAPE_CHARACTER['0'] = '\0'; //48
+        UNESCAPE_CHARACTER['1'] = '\1';
+        UNESCAPE_CHARACTER['2'] = '\2';
+        UNESCAPE_CHARACTER['3'] = '\3';
+        UNESCAPE_CHARACTER['4'] = '\4';
+        UNESCAPE_CHARACTER['5'] = '\5';
+        UNESCAPE_CHARACTER['6'] = '\6';
+        UNESCAPE_CHARACTER['7'] = '\7'; //55
+        UNESCAPE_CHARACTER['b'] = '\b'; // 98
+        UNESCAPE_CHARACTER['t'] = '\t'; // 116
+        UNESCAPE_CHARACTER['n'] = '\n'; // 110
+        UNESCAPE_CHARACTER['v'] = '\u000B'; // 76
+        UNESCAPE_CHARACTER['f'] = '\f'; // 102
+        UNESCAPE_CHARACTER['r'] = '\r'; // 114
+        UNESCAPE_CHARACTER['"'] = '\"'; // 34
+        UNESCAPE_CHARACTER['\''] = '\''; // 39
+        UNESCAPE_CHARACTER['/'] = '/'; // 47
+        UNESCAPE_CHARACTER['\\'] = '\\'; // 92
+
     }
 
     public static boolean isVisible(char c) {

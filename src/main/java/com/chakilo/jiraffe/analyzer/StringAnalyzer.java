@@ -70,16 +70,16 @@ public abstract class StringAnalyzer {
         // should set value as string
         boolean force_set_string = false;
         // the last token
-        char last_token = 0;
+        char last_token = CharacterUtil.NUL;
 
         // traversal of json string
-        while ((ci = sr.read()) != -1) {
+        while ((ci = sr.read()) != CharacterUtil.EOF) {
 
             c = (char) ci;
 
             if (CharacterUtil.isQuote(last_token)) {
                 if (last_token == c) {
-                    last_token = 0;
+                    last_token = CharacterUtil.NUL;
                 } else {
                     sb.append(c);
                 }
@@ -107,12 +107,12 @@ public abstract class StringAnalyzer {
                 case ':':
                     // new key
                     keys.offer(StringUtil.unescape(sb.toString()));
-                    sb.setLength(0);
+                    StringUtil.clear(sb);
                     last_token = c;
                     break;
 
                 case ',':
-                    if (sb.length() > 0 || force_set_string) {
+                    if (StringUtil.isNotEmpty(sb) || force_set_string) {
                         // set the value to this element
                         JSONElement self = bases.peek();
                         assert null != self;
@@ -121,7 +121,7 @@ public abstract class StringAnalyzer {
                         } else if (self.isMap()) {
                             self.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
                         }
-                        sb.setLength(0);
+                        StringUtil.clear(sb);
                         force_set_string = false;
                     } else if (!CharacterUtil.isRightBrackets(last_token)) {
                         if (!bases.isEmpty()) {
@@ -143,10 +143,10 @@ public abstract class StringAnalyzer {
                     assert null != self_map;
                     assert self_map.isMap();
                     // set the last value
-                    if (sb.length() > 0 || force_set_string) {
+                    if (StringUtil.isNotEmpty(sb) || force_set_string) {
                         assert !keys.isEmpty();
                         self_map.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
-                        sb.setLength(0);
+                        StringUtil.clear(sb);
                         force_set_string = false;
                     } else if (CharacterUtil.isColon(last_token)) {
                         self_map.offer(keys.poll(), JSONElement.Void());
@@ -162,9 +162,9 @@ public abstract class StringAnalyzer {
                     assert null != self_list;
                     assert self_list.isList();
                     // set the last value
-                    if (sb.length() > 0 || force_set_string) {
+                    if (StringUtil.isNotEmpty(sb) || force_set_string) {
                         self_list.offer(parseValue(sb.toString(), force_set_string));
-                        sb.setLength(0);
+                        StringUtil.clear(sb);
                         force_set_string = false;
                     } else if (CharacterUtil.isComma(last_token)) {
                         self_list.offer(JSONElement.Void());
@@ -175,11 +175,11 @@ public abstract class StringAnalyzer {
                     break;
 
                 default:
-                    if (sb.length() > 0) {
-                        last_token = 0;
+                    if (StringUtil.isNotEmpty(sb)) {
+                        last_token = CharacterUtil.NUL;
                         sb.append(c);
                     } else if (CharacterUtil.isVisibleAndNotSpace(c)) {
-                        last_token = 0;
+                        last_token = CharacterUtil.NUL;
                         force_set_string = false;
                         sb.append(c);
                     }

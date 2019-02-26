@@ -103,38 +103,38 @@ public abstract class StringUtil {
     }
 
     public static String escape(String s) {
-        
+
         StringBuilder sb = new StringBuilder();
-        
+
         for (int i = 0; i < s.length(); i++) {
-            
+
             char c = s.charAt(i);
-            
+
             if ('\b' == c || '\t' == c || '\n' == c || '\u000B' == c || '\f' == c || '\r' == c || '\\' == c || '"' == c || (c >= '\0' && c <= '\7')) {
                 sb.append('\\');
-                sb.append(CharacterUtil.CHARS_MARK[(int) c]);
+                sb.append(CharacterUtil.ESCAPE_CHARACTER[(int) c]);
             } else if (c < 32) {
                 sb.append('\\');
                 sb.append('u');
                 sb.append('0');
                 sb.append('0');
-                sb.append(CharacterUtil.DIGITS[(c >>> 4) & 15]);
-                sb.append(CharacterUtil.DIGITS[c & 15]);
+                sb.append(CharacterUtil.DIGIT_TO_CHAR[(c >>> 4) & 0xf]);
+                sb.append(CharacterUtil.DIGIT_TO_CHAR[c & 0xf]);
             } else if (c >= 127) {
                 sb.append('\\');
                 sb.append('u');
-                sb.append(CharacterUtil.DIGITS[(c >>> 12) & 15]);
-                sb.append(CharacterUtil.DIGITS[(c >>> 8) & 15]);
-                sb.append(CharacterUtil.DIGITS[(c >>> 4) & 15]);
-                sb.append(CharacterUtil.DIGITS[c & 15]);
+                sb.append(CharacterUtil.DIGIT_TO_CHAR[(c >>> 12) & 0xf]);
+                sb.append(CharacterUtil.DIGIT_TO_CHAR[(c >>> 8) & 0xf]);
+                sb.append(CharacterUtil.DIGIT_TO_CHAR[(c >>> 4) & 0xf]);
+                sb.append(CharacterUtil.DIGIT_TO_CHAR[c & 0xf]);
             } else {
                 sb.append(c);
             }
-            
+
         }
-        
+
         return sb.toString();
-        
+
     }
 
     public static String unescape(String s) {
@@ -150,13 +150,13 @@ public abstract class StringUtil {
                 c = s.charAt(++i);
 
                 if ('b' == c || 't' == c || 'n' == c || 'v' == c || 'f' == c || 'r' == c || '\\' == c || '/' == c || '"' == c || '\'' == c || (c >= '0' && c <= '7')) {
-                    sb.append(CharacterUtil.CHARS_MARK_REV[(int) c]);
+                    sb.append(CharacterUtil.UNESCAPE_CHARACTER[(int) c]);
                 } else if ('x' == c) {
-                    sb.append((char) (((CharacterUtil.DIGITS_MARK[(int) s.charAt(++i)]) << 4) + CharacterUtil.DIGITS_MARK[(int) s.charAt(++i)]));
+                    sb.append((char) (((CharacterUtil.CHAR_TO_DIGIT[(int) s.charAt(++i)]) << 4) + CharacterUtil.CHAR_TO_DIGIT[(int) s.charAt(++i)]));
                 } else if ('u' == c) {
                     int d = 0;
                     for (int j = 0; j < 4; j++) {
-                        d = (d << 4) + CharacterUtil.DIGITS_MARK[(int) s.charAt(++i)];
+                        d = (d << 4) + CharacterUtil.CHAR_TO_DIGIT[(int) s.charAt(++i)];
                     }
                     sb.append((char) d);
                 } else {
@@ -176,6 +176,18 @@ public abstract class StringUtil {
 
     public static String toString(Object v) {
         return String.valueOf(v);
+    }
+
+    public static boolean isNotEmpty(StringBuilder sb) {
+        return sb.length() > 0;
+    }
+
+    public static boolean isEmpty(StringBuilder sb) {
+        return !isNotEmpty(sb);
+    }
+
+    public static void clear(StringBuilder sb) {
+        sb.setLength(0);
     }
 
 }
