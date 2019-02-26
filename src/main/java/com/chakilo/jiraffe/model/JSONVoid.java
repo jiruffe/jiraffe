@@ -27,6 +27,9 @@ import java.util.function.Consumer;
  */
 final class JSONVoid extends JSONElement {
 
+    /**
+     * The singleton instance of {@link JSONVoid}.
+     */
     static final JSONVoid VOID = new JSONVoid();
 
     private JSONVoid() {
