@@ -121,6 +121,8 @@ public abstract class ObjectAnalyzer {
 
         if (target instanceof Class) {
 
+            // original
+
             Class<T> target_class = (Class) target;
 
             if (JSONElement.class.isAssignableFrom(target_class)) {
@@ -162,6 +164,8 @@ public abstract class ObjectAnalyzer {
             }
 
         } else if (target instanceof ParameterizedType) {
+
+            // generic
 
             ParameterizedType parameterized_type = (ParameterizedType) target;
             Type[] actual_type_arguments = parameterized_type.getActualTypeArguments();
