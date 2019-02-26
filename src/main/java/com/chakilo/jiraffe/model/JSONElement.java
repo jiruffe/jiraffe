@@ -19,6 +19,7 @@ package com.chakilo.jiraffe.model;
 import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
 import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 import com.chakilo.jiraffe.util.ObjectUtil;
+import com.chakilo.jiraffe.util.TypeUtil;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
@@ -141,7 +142,11 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return a new instance of {@link JSONPrimitive} with specified original value.
      */
     public static JSONElement newPrimitive(Object v) {
-        return new JSONPrimitive(v);
+        if (TypeUtil.isPrimitive(v) || v instanceof String) {
+            return new JSONPrimitive(v);
+        } else {
+            throw new UnsupportedOperationException("Could not cast JSONPrimitive from " + ObjectUtil.getCanonicalName(v));
+        }
     }
 
     /**
