@@ -142,7 +142,11 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return a new instance of {@link JSONPrimitive} with specified original value.
      */
     public static JSONElement newPrimitive(Object v) {
-        if (TypeUtil.isPrimitive(v) || v instanceof String) {
+        if (v instanceof JSONPrimitive) {
+            return (JSONElement) v;
+        } else if (v instanceof JSONElement) {
+            throw new UnsupportedOperationException("Could not cast JSONPrimitive from " + ObjectUtil.getSimpleName(v));
+        } else if (TypeUtil.isPrimitive(v) || v instanceof String) {
             return new JSONPrimitive(v);
         } else {
             throw new UnsupportedOperationException("Could not cast JSONPrimitive from " + ObjectUtil.getCanonicalName(v));
