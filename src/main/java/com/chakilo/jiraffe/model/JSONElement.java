@@ -15,7 +15,6 @@
  */
 package com.chakilo.jiraffe.model;
 
-import com.chakilo.jiraffe.JSON;
 import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
 import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 import com.chakilo.jiraffe.util.ObjectUtil;
