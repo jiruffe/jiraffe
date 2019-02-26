@@ -44,6 +44,10 @@ public abstract class StringAnalyzer {
      */
     public static JSONElement analyze(String json) throws Exception {
 
+        if (null == json) {
+            return JSONElement.Void();
+        }
+
         // ignore spaces
         json = json.trim();
 
@@ -199,7 +203,8 @@ public abstract class StringAnalyzer {
         if (!bases.isEmpty()) {
             JSONElement base = bases.peek();
             assert null != base;
-            assert !base.isValue();
+            assert !base.isVoid();
+            assert !base.isPrimitive();
             if (base.isList()) {
                 base.offer(self);
             } else if (base.isMap()) {
@@ -217,11 +222,11 @@ public abstract class StringAnalyzer {
     private static JSONElement parseValue(String s, boolean force_set_string) {
 
         if (force_set_string) {
-            return JSONElement.newValue(StringUtil.unescape(s));
+            return JSONElement.newPrimitive(StringUtil.unescape(s));
         } else if ("true".equalsIgnoreCase(s)) {
-            return JSONElement.newValue(Boolean.TRUE);
+            return JSONElement.newPrimitive(Boolean.TRUE);
         } else if ("false".equalsIgnoreCase(s)) {
-            return JSONElement.newValue(Boolean.FALSE);
+            return JSONElement.newPrimitive(Boolean.FALSE);
         } else if ("null".equalsIgnoreCase(s)) {
             return JSONElement.Void();
         } else if ("NaN".equals(s)) {
@@ -229,9 +234,9 @@ public abstract class StringAnalyzer {
         } else if ("undefined".equalsIgnoreCase(s)) {
             return JSONElement.Void();
         } else if (TypeUtil.couldCastToNumber(s)) {
-            return JSONElement.newValue(TypeUtil.castToNumber(s));
+            return JSONElement.newPrimitive(TypeUtil.castToNumber(s));
         } else {
-            return JSONElement.newValue(StringUtil.unescape(s));
+            return JSONElement.newPrimitive(StringUtil.unescape(s));
         }
 
     }
@@ -278,7 +283,7 @@ public abstract class StringAnalyzer {
                 sb.append('}');
                 break;
 
-            case VALUE:
+            case PRIMITIVE:
                 Object v = element.asValue();
                 if (v instanceof String) {
                     sb.append('"');

@@ -27,20 +27,20 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 /**
- * JS value (primitive type)
+ * JSON primitive value
  *
  * @author Chakilo
  * 2018.10.23
  */
-final class JSONValue extends JSONElement {
+final class JSONPrimitive extends JSONElement {
 
     private Object _value;
 
-    JSONValue() {
+    JSONPrimitive() {
         this(null);
     }
 
-    JSONValue(Object v) {
+    JSONPrimitive(Object v) {
         _value = v;
     }
 
@@ -65,13 +65,13 @@ final class JSONValue extends JSONElement {
     }
 
     @Override
-    public boolean isValue() {
+    public boolean isPrimitive() {
         return true;
     }
 
     @Override
     public JSONElementType getType() {
-        return JSONElementType.VALUE;
+        return JSONElementType.PRIMITIVE;
     }
 
     @Override

@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * JS list []
+ * JSON list []
  *
  * @author Chakilo
  * 2018.10.23
@@ -60,7 +60,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public boolean isValue() {
+    public boolean isPrimitive() {
         return false;
     }
 
@@ -104,7 +104,7 @@ final class JSONList extends JSONElement {
         } else if (v instanceof JSONElement) {
             _sub_elements.add((JSONElement) v);
         } else {
-            _sub_elements.add(JSONElement.newValue(v));
+            _sub_elements.add(JSONElement.newPrimitive(v));
         }
         return this;
     }

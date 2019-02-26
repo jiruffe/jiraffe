@@ -26,6 +26,6 @@ public enum JSONElementType {
     UNKNOWN,
     LIST,
     MAP,
-    VALUE,
+    PRIMITIVE,
     VOID
 }

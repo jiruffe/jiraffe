@@ -53,13 +53,13 @@ public abstract class ObjectAnalyzer {
         Class<?> cls = o.getClass();
 
         if (o instanceof String) {
-            return JSONElement.newValue(o);
+            return JSONElement.newPrimitive(o);
         } else if (o instanceof Number) {
-            return JSONElement.newValue(o);
+            return JSONElement.newPrimitive(o);
         } else if (TypeUtil.isPrimitive(o)) {
-            return JSONElement.newValue(o);
+            return JSONElement.newPrimitive(o);
         } else if (cls.isEnum()) {
-            return JSONElement.newValue(((Enum) o).ordinal());
+            return JSONElement.newPrimitive(((Enum) o).ordinal());
         } else if (cls.isArray()) {
             JSONElement list = JSONElement.newList();
             for (int i = 0; i < Array.getLength(o); i++) {

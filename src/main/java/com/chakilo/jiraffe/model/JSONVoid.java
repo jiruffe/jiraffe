@@ -20,7 +20,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * <code>null</code>, <code>undefined</code>, <code>NaN</code>
+ * JSON <code>null</code>, <code>undefined</code> or <code>NaN</code>
  *
  * @author Chakilo
  * 2019.02.20
@@ -53,7 +53,7 @@ final class JSONVoid extends JSONElement {
     }
 
     @Override
-    public boolean isValue() {
+    public boolean isPrimitive() {
         return false;
     }
 

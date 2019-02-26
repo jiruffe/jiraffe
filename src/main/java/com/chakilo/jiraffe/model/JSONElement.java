@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Represents JSON element including JS map {}, list [], or value (primitive type) such as integer, string...
+ * Represents JSON element including JSON map {}, list [], or primitive value such as integer, string...
  *
  * @author Chakilo
  * 2018.10.23
@@ -62,7 +62,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JS.
+     * Represents a void element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
      *
      * @return a void element.
      */
@@ -126,22 +126,22 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
-     * Get a new instance of <code>JSONValue</code>.
+     * Get a new instance of <code>JSONPrimitive</code>.
      *
-     * @return a new instance of <code>JSONValue</code>.
+     * @return a new instance of <code>JSONPrimitive</code>.
      */
-    public static JSONElement newValue() {
-        return new JSONValue();
+    public static JSONElement newPrimitive() {
+        return new JSONPrimitive();
     }
 
     /**
-     * Get a new instance of <code>JSONValue</code> with specified original value.
+     * Get a new instance of <code>JSONPrimitive</code> with specified original value.
      *
      * @param v the original value.
-     * @return a new instance of <code>JSONValue</code> with specified original value.
+     * @return a new instance of <code>JSONPrimitive</code> with specified original value.
      */
-    public static JSONElement newValue(Object v) {
-        return new JSONValue(v);
+    public static JSONElement newPrimitive(Object v) {
+        return new JSONPrimitive(v);
     }
 
     /**
@@ -183,10 +183,10 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of JS primitive type.
      *
-     * @return <code>true</code> if instance of <code>JSONValue</code>, otherwise <code>false</code>.
+     * @return <code>true</code> if instance of <code>JSONPrimitive</code>, otherwise <code>false</code>.
      */
-    public boolean isValue() {
-        return this instanceof JSONValue;
+    public boolean isPrimitive() {
+        return this instanceof JSONPrimitive;
     }
 
     /**
@@ -201,8 +201,8 @@ public abstract class JSONElement implements Iterable<JSONElement> {
             return JSONElementType.LIST;
         } else if (isMap()) {
             return JSONElementType.MAP;
-        } else if (isValue()) {
-            return JSONElementType.VALUE;
+        } else if (isPrimitive()) {
+            return JSONElementType.PRIMITIVE;
         } else {
             return JSONElementType.UNKNOWN;
         }

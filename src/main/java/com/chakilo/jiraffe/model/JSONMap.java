@@ -20,7 +20,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * JS map {}
+ * JSON map {}
  *
  * @author Chakilo
  * 2018.10.23
@@ -58,7 +58,7 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public boolean isValue() {
+    public boolean isPrimitive() {
         return false;
     }
 
@@ -90,7 +90,7 @@ final class JSONMap extends JSONElement {
         } else if (v instanceof JSONElement) {
             _sub_elements.put(k, (JSONElement) v);
         } else {
-            _sub_elements.put(k, JSONElement.newValue(v));
+            _sub_elements.put(k, JSONElement.newPrimitive(v));
         }
         return this;
     }
