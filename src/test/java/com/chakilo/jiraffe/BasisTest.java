@@ -70,4 +70,9 @@ public class BasisTest {
         assert DModel.class.getField("e").getGenericType() instanceof ParameterizedType;
     }
 
+    @Test
+    public void test10() throws NoSuchFieldException {
+        assert "a".equals(DModel.class.getField("a").getName());
+    }
+
 }
