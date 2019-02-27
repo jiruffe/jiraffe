@@ -17,12 +17,13 @@
 package com.chakilo.jiraffe.analyzer;
 
 import com.chakilo.jiraffe.model.JSONElement;
-import com.chakilo.jiraffe.util.ObjectUtil;
-import com.chakilo.jiraffe.util.StringUtil;
-import com.chakilo.jiraffe.util.TypeUtil;
+import com.chakilo.jiraffe.util.*;
 
+import javax.lang.model.type.NullType;
+import java.io.StringReader;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -159,7 +160,234 @@ public abstract class DirectAnalyzer {
      * @throws Exception if error occurred while analyzing {@link Type}.
      */
     public static <T> T analyze(String json, Type target) throws Exception {
+
+        if (null == json || null == target || NullType.class == target || Object.class == target) {
+            return null;
+        }
+
+        Class<?> target_class = null;
+        ParameterizedType parameterized_type = null;
+        Type[] actual_type_arguments = null;
+
+        if (target instanceof Class) {
+            target_class = (Class) target;
+        } else if (target instanceof ParameterizedType) {
+            parameterized_type = (ParameterizedType) target;
+            target_class = (Class) parameterized_type.getRawType();
+            actual_type_arguments = parameterized_type.getActualTypeArguments();
+        } else {
+            throw new InstantiationException("Could not create " + target.getTypeName());
+        }
+
+        // stack to store upper type
+        Queue<Type> types = Collections.asLifoQueue(new ArrayDeque<>());
+        // stack to store upper object
+        Queue<Object> bases = Collections.asLifoQueue(new ArrayDeque<>());
+        // stack to store keys
+        Queue<String> keys = Collections.asLifoQueue(new ArrayDeque<>());
+        // value read
+        StringBuilder sb = new StringBuilder();
+        // reader
+        StringReader sr = new StringReader(json);
+        char c;
+        int ci;
+        // the last token
+        char last_token = CharacterUtil.NUL;
+
+        // traversal of json string
+        while ((ci = sr.read()) != CharacterUtil.EOF) {
+
+            c = (char) ci;
+
+            if (CharacterUtil.isQuote(last_token)) {
+                if (last_token == c) {
+                    last_token = CharacterUtil.NUL;
+                } else {
+                    sb.append(c);
+                }
+                continue;
+            }
+
+            switch (c) {
+
+                case '"':
+                case '\'':
+                    last_token = c;
+                    break;
+
+                case '{':
+                    if (Map.class.isAssignableFrom(target_class)) {
+                        Type k_type = actual_type_arguments[0];
+                        Type v_type = actual_type_arguments[1];
+                        Map map = null;
+                        try {
+                            // using the default constructor first
+                            map = (Map) target_class.newInstance();
+                        } catch (InstantiationException | IllegalAccessException e) {
+                            // considering known derived classes
+                            try {
+                                if (EnumMap.class.isAssignableFrom(target_class)) {
+                                    map = new EnumMap((Class) k_type);
+                                } else {
+                                    map = Defaults.map();
+                                }
+                            } catch (Exception ignored) {
+
+                            }
+                        }
+                        // construction failure
+                        if (null == map) {
+                            throw new InstantiationException("Could not create " + target.getTypeName());
+                        }
+                        bases.offer(map);
+                        types.offer(target);
+                        target = v_type;
+                        if (target instanceof Class) {
+                            target_class = (Class) target;
+                        } else if (target instanceof ParameterizedType) {
+                            parameterized_type = (ParameterizedType) target;
+                            target_class = (Class) parameterized_type.getRawType();
+                            actual_type_arguments = parameterized_type.getActualTypeArguments();
+                        } else {
+                            throw new InstantiationException("Could not create " + target.getTypeName());
+                        }
+                    } else if (Dictionary.class.isAssignableFrom(target_class)) {
+                        Type k_type = actual_type_arguments[0];
+                        Type v_type = actual_type_arguments[1];
+                        Dictionary dictionary = null;
+                        try {
+                            // using the default constructor first
+                            dictionary = (Dictionary) target_class.newInstance();
+                        } catch (InstantiationException | IllegalAccessException e) {
+                            // considering known derived classes
+                            try {
+                                dictionary = Defaults.dictionary();
+                            } catch (Exception ignored) {
+
+                            }
+                        }
+                        // construction failure
+                        if (null == dictionary) {
+                            throw new InstantiationException("Could not create " + target.getTypeName());
+                        }
+                        bases.offer(dictionary);
+                        types.offer(target);
+                        target = v_type;
+                        if (target instanceof Class) {
+                            target_class = (Class) target;
+                        } else if (target instanceof ParameterizedType) {
+                            parameterized_type = (ParameterizedType) target;
+                            target_class = (Class) parameterized_type.getRawType();
+                            actual_type_arguments = parameterized_type.getActualTypeArguments();
+                        } else {
+                            throw new InstantiationException("Could not create " + target.getTypeName());
+                        }
+                    } else {
+                        bases.offer(target_class.newInstance());
+                        types.offer(target);
+                    }
+                    last_token = c;
+                    break;
+
+                case '[':
+                    if (target_class.isArray()) {
+                        // size unknown, use list instead
+                        bases.offer(Defaults.list());
+                        types.offer(target);
+                        target_class = target_class.getComponentType();
+                        target = target_class;
+                    } else if (Collection.class.isAssignableFrom(target_class)) {
+                        Type v_type = actual_type_arguments[0];
+                        Collection collection = null;
+                        try {
+                            // using the default constructor first
+                            collection = (Collection) target_class.newInstance();
+                        } catch (InstantiationException | IllegalAccessException e) {
+                            // considering known derived classes
+                            try {
+                                if (List.class.isAssignableFrom(target_class)) {
+                                    collection = Defaults.list();
+                                } else if (Set.class.isAssignableFrom(target_class)) {
+                                    if (EnumSet.class.isAssignableFrom(target_class)) {
+                                        collection = EnumSet.noneOf((Class<Enum>) v_type);
+                                    } else if (SortedSet.class.isAssignableFrom(target_class)) {
+                                        collection = Defaults.sortedSet();
+                                    } else {
+                                        collection = Defaults.set();
+                                    }
+                                }
+                            } catch (Exception ignored) {
+
+                            }
+                        }
+                        // construction failure
+                        if (null == collection) {
+                            throw new InstantiationException("Could not create " + target.getTypeName());
+                        }
+                        bases.offer(collection);
+                        types.offer(target);
+                        target = v_type;
+                        if (target instanceof Class) {
+                            target_class = (Class) target;
+                        } else if (target instanceof ParameterizedType) {
+                            parameterized_type = (ParameterizedType) target;
+                            target_class = (Class) parameterized_type.getRawType();
+                            actual_type_arguments = parameterized_type.getActualTypeArguments();
+                        } else {
+                            throw new InstantiationException("Could not create " + target.getTypeName());
+                        }
+                    } else {
+                        throw new ClassCastException("Expect " + target.getTypeName() + " but found syntax '['.");
+                    }
+                    last_token = c;
+                    break;
+
+                case ':':
+                    // new key
+                    keys.offer(StringUtil.unescape(sb.toString()));
+                    StringUtil.clear(sb);
+                    last_token = c;
+                    break;
+
+                case ',':
+                    if (StringUtil.isNotEmpty(sb)) {
+                        // set the value to this element
+                        Object self = bases.peek();
+                        if (self.getClass().isArray()) {
+                            // won't happen
+                        } else if (self instanceof Collection) {
+                            ((Collection) self).add(TypeUtil.castFromString(sb.toString(), target_class));
+                        } else if (self instanceof Map) {
+                            ((Map) self).put(keys.poll(), TypeUtil.castFromString(sb.toString(), target_class));
+                        } else if (self instanceof Dictionary) {
+                            ((Dictionary) self).put(keys.poll(), TypeUtil.castFromString(sb.toString(), target_class));
+                        } else {
+                            String k = keys.poll();
+                            Field f = self.getClass().getField(k);
+                            f.set(self, TypeUtil.castFromString(sb.toString(), target_class));
+                        }
+                        StringUtil.clear(sb);
+                    } else if (!CharacterUtil.isRightBrackets(last_token)) {
+                        if (!bases.isEmpty()) {
+                            Object self = bases.peek();
+                            if (!self.getClass().isArray() && !(self instanceof Collection)) {
+                                keys.poll();
+                            }
+                        }
+                    }
+                    last_token = c;
+                    break;
+
+                case '}':
+                    last_token = c;
+                    break;
+
+            }
+
+        }
+
         return null;
+
     }
 
 }
