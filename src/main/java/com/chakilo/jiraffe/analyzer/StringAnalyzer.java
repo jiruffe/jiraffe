@@ -223,15 +223,15 @@ public abstract class StringAnalyzer {
 
         if (force_set_string) {
             return JSONElement.newPrimitive(StringUtil.unescape(s));
-        } else if ("true".equalsIgnoreCase(s)) {
+        } else if (StringUtil.TRUE.equalsIgnoreCase(s)) {
             return JSONElement.newPrimitive(Boolean.TRUE);
-        } else if ("false".equalsIgnoreCase(s)) {
+        } else if (StringUtil.FALSE.equalsIgnoreCase(s)) {
             return JSONElement.newPrimitive(Boolean.FALSE);
-        } else if ("null".equalsIgnoreCase(s)) {
+        } else if (StringUtil.NULL.equalsIgnoreCase(s)) {
             return JSONElement.Void();
-        } else if ("NaN".equals(s)) {
+        } else if (StringUtil.NAN.equals(s)) {
             return JSONElement.Void();
-        } else if ("undefined".equalsIgnoreCase(s)) {
+        } else if (StringUtil.UNDEFINED.equalsIgnoreCase(s)) {
             return JSONElement.Void();
         } else if (TypeUtil.couldCastToNumber(s)) {
             return JSONElement.newPrimitive(TypeUtil.castToNumber(s));
@@ -295,7 +295,7 @@ public abstract class StringAnalyzer {
                 break;
 
             case VOID:
-                sb.append("null");
+                sb.append(StringUtil.NULL);
                 break;
 
             default:

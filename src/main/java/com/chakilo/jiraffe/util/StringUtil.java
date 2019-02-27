@@ -26,6 +26,16 @@ public abstract class StringUtil {
 
     public static final String EMPTY = "";
 
+    public static final String NULL = "null";
+
+    public static final String UNDEFINED = "undefined";
+
+    public static final String NAN = "NaN";
+
+    public static final String TRUE = "true";
+
+    public static final String FALSE = "false";
+
     public static boolean isRealNumber(String s) {
 
         if (s == null || "".equals(s))
