@@ -17,6 +17,7 @@
 package com.chakilo.jiraffe.analyzer;
 
 import com.chakilo.jiraffe.model.JSONElement;
+import com.chakilo.jiraffe.util.Defaults;
 import com.chakilo.jiraffe.util.ObjectUtil;
 import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
@@ -181,14 +182,14 @@ public abstract class ObjectAnalyzer {
                     // considering known derived classes
                     try {
                         if (List.class.isAssignableFrom(target_class)) {
-                            collection = new ArrayList();
+                            collection = Defaults.list();
                         } else if (Set.class.isAssignableFrom(target_class)) {
                             if (EnumSet.class.isAssignableFrom(target_class)) {
                                 collection = EnumSet.noneOf((Class<Enum>) v_type);
                             } else if (SortedSet.class.isAssignableFrom(target_class)) {
-                                collection = new TreeSet();
+                                collection = Defaults.sortedSet();
                             } else {
-                                collection = new HashSet();
+                                collection = Defaults.set();
                             }
                         }
                     } catch (Exception ignored) {
@@ -217,7 +218,7 @@ public abstract class ObjectAnalyzer {
                         if (EnumMap.class.isAssignableFrom(target_class)) {
                             map = new EnumMap((Class) k_type);
                         } else {
-                            map = new HashMap();
+                            map = Defaults.map();
                         }
                     } catch (Exception ignored) {
 
@@ -242,7 +243,7 @@ public abstract class ObjectAnalyzer {
                 } catch (InstantiationException | IllegalAccessException e) {
                     // considering known derived classes
                     try {
-                        dictionary = new Hashtable();
+                        dictionary = Defaults.dictionary();
                     } catch (Exception ignored) {
 
                     }

@@ -16,6 +16,8 @@
 
 package com.chakilo.jiraffe.model;
 
+import com.chakilo.jiraffe.util.Defaults;
+
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -30,7 +32,7 @@ final class JSONMap extends JSONElement {
     private Map<Object, JSONElement> _sub_elements;
 
     JSONMap() {
-        this(new LinkedHashMap<>());
+        this(Defaults.map());
     }
 
     JSONMap(Map<Object, JSONElement> sub_elements) {

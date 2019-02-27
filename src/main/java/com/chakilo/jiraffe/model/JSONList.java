@@ -16,6 +16,7 @@
 
 package com.chakilo.jiraffe.model;
 
+import com.chakilo.jiraffe.util.Defaults;
 import com.chakilo.jiraffe.util.TypeUtil;
 
 import java.util.*;
@@ -32,7 +33,7 @@ final class JSONList extends JSONElement {
     private List<JSONElement> _sub_elements;
 
     JSONList() {
-        this(new ArrayList<>());
+        this(Defaults.list());
     }
 
     JSONList(List<JSONElement> sub_elements) {
