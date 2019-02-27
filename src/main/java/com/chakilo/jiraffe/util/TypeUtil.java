@@ -436,4 +436,34 @@ public abstract class TypeUtil {
         return StringUtil.toString(o);
     }
 
+    public static <T> T castFromString(String s, Class<?> target) {
+
+        if (Byte.class.isAssignableFrom(target) || Byte.TYPE == target) {
+            return (T) (Byte) castToByte(s);
+        } else if (Short.class.isAssignableFrom(target) || Short.TYPE == target) {
+            return (T) (Short) castToShort(s);
+        } else if (Integer.class.isAssignableFrom(target) || Integer.TYPE == target) {
+            return (T) (Integer) castToInteger(s);
+        } else if (Long.class.isAssignableFrom(target) || Long.TYPE == target) {
+            return (T) (Long) castToLong(s);
+        } else if (Float.class.isAssignableFrom(target) || Float.TYPE == target) {
+            return (T) (Float) castToFloat(s);
+        } else if (Double.class.isAssignableFrom(target) || Double.TYPE == target) {
+            return (T) (Double) castToDouble(s);
+        } else if (Boolean.class.isAssignableFrom(target) || Boolean.TYPE == target) {
+            return (T) (Boolean) castToBoolean(s);
+        } else if (Character.class.isAssignableFrom(target) || Character.TYPE == target) {
+            return (T) (Character) castToCharacter(s);
+        } else if (BigInteger.class.isAssignableFrom(target)) {
+            return (T) castToBigInteger(s);
+        } else if (BigDecimal.class.isAssignableFrom(target)) {
+            return (T) castToBigDecimal(s);
+        } else if (String.class.isAssignableFrom(target)) {
+            return (T) StringUtil.unescape(s);
+        } else {
+            throw new ClassCastException("Could not cast java.lang.String to " + target.getCanonicalName());
+        }
+
+    }
+
 }
