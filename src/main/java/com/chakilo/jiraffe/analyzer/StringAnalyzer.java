@@ -193,7 +193,7 @@ public abstract class StringAnalyzer {
 
         }
 
-        return null;
+        return JSONElement.Void();
 
     }
 
