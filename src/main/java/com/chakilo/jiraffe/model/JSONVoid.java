@@ -30,7 +30,7 @@ final class JSONVoid extends JSONElement {
     /**
      * The singleton instance of {@link JSONVoid}.
      */
-    static final JSONVoid VOID = new JSONVoid();
+    static final JSONVoid INSTANCE = new JSONVoid();
 
     private JSONVoid() {
     }
