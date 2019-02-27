@@ -205,4 +205,23 @@ public class JsonTest {
 
     }
 
+    @Test
+    public void test14() throws Exception {
+
+        DModel d = new DModel();
+        d.a = 1;
+        d.b = "bbb";
+        d.c = new int[]{1, 2, 3};
+        d.d = new String[]{"a", "b", "c"};
+        EModel e = new EModel();
+        e.a = 5;
+        d.e = new ArrayList<>();
+        d.e.add(e);
+        d.f = new HashMap<>();
+        d.f.put("aaaa", "bbbb");
+
+        assert "{\"a\":1,\"b\":\"bbb\",\"c\":[1,2,3],\"d\":[\"a\",\"b\",\"c\"],\"e\":[{\"a\":5}],\"f\":{\"aaaa\":\"bbbb\"}}".equals(JSON.serializeDirectly(d));
+
+    }
+
 }

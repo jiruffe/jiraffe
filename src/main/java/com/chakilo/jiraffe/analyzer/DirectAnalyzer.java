@@ -17,8 +17,14 @@
 package com.chakilo.jiraffe.analyzer;
 
 import com.chakilo.jiraffe.model.JSONElement;
+import com.chakilo.jiraffe.util.ObjectUtil;
+import com.chakilo.jiraffe.util.StringUtil;
+import com.chakilo.jiraffe.util.TypeUtil;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.util.*;
 
 /**
  * {@link Object} &lt;=&gt; JSON {@link String},
@@ -37,7 +43,110 @@ public abstract class DirectAnalyzer {
      * @throws Exception if error occurred while analyzing {@link Object}.
      */
     public static String analyze(Object o) throws Exception {
-        return null;
+
+        if (null == o) {
+            return StringUtil.NULL;
+        }
+
+        if (o instanceof JSONElement) {
+            return StringAnalyzer.analyze((JSONElement) o);
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        Class<?> cls = o.getClass();
+
+        if (o instanceof String) {
+            sb.append('"');
+            sb.append((String) o);
+            sb.append('"');
+        } else if (o instanceof Number) {
+            sb.append(StringUtil.toString(o));
+        } else if (TypeUtil.isPrimitive(o)) {
+            sb.append(StringUtil.toString(o));
+        } else if (cls.isEnum()) {
+            sb.append(StringUtil.toString(((Enum) o).ordinal()));
+        } else if (cls.isArray()) {
+            sb.append('[');
+            int len = Array.getLength(o);
+            for (int i = 0; i < len; i++) {
+                sb.append(analyze(Array.get(o, i)));
+                if (i != len - 1) {
+                    sb.append(',');
+                }
+            }
+            sb.append(']');
+        } else if (o instanceof Iterable) {
+            sb.append('[');
+            Iterator iterator = ((Iterable) o).iterator();
+            while (iterator.hasNext()) {
+                sb.append(analyze(iterator.next()));
+                if (iterator.hasNext()) {
+                    sb.append(',');
+                }
+            }
+            sb.append(']');
+        } else if (o instanceof Enumeration) {
+            sb.append('[');
+            Enumeration enumeration = (Enumeration) o;
+            while (enumeration.hasMoreElements()) {
+                sb.append(analyze(enumeration.nextElement()));
+                if (enumeration.hasMoreElements()) {
+                    sb.append(',');
+                }
+            }
+            sb.append(']');
+        } else if (o instanceof Map) {
+            sb.append('{');
+            Map map = (Map) o;
+            Iterator iterator = map.keySet().iterator();
+            while (iterator.hasNext()) {
+                Object k = iterator.next();
+                sb.append('"');
+                sb.append(StringUtil.toString(k));
+                sb.append('"');
+                sb.append(':');
+                sb.append(analyze(map.get(k)));
+                if (iterator.hasNext()) {
+                    sb.append(',');
+                }
+            }
+            sb.append('}');
+        } else if (o instanceof Dictionary) {
+            sb.append('{');
+            Dictionary map = (Dictionary) o;
+            Enumeration enumeration = map.keys();
+            while (enumeration.hasMoreElements()) {
+                Object k = enumeration.nextElement();
+                sb.append('"');
+                sb.append(StringUtil.toString(k));
+                sb.append('"');
+                sb.append(':');
+                sb.append(analyze(map.get(k)));
+                if (enumeration.hasMoreElements()) {
+                    sb.append(',');
+                }
+            }
+            sb.append('}');
+        } else {
+            sb.append('{');
+            Iterator<Field> iterator = ObjectUtil.getFields(cls).iterator();
+            while (iterator.hasNext()) {
+                Field f = iterator.next();
+                sb.append('"');
+                sb.append(f.getName());
+                sb.append('"');
+                sb.append(':');
+                sb.append(analyze(f.get(o)));
+                if (iterator.hasNext()) {
+                    sb.append(',');
+                }
+            }
+            sb.append('}');
+        }
+
+        return sb.toString();
+
     }
 
     /**
