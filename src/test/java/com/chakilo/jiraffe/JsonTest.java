@@ -220,14 +220,14 @@ public class JsonTest {
         d.f = new HashMap<>();
         d.f.put("aaaa", "bbbb");
 
-        assert "{\"a\":1,\"b\":\"bbb\",\"c\":[1,2,3],\"d\":[\"a\",\"b\",\"c\"],\"e\":[{\"a\":5}],\"f\":{\"aaaa\":\"bbbb\"}}".equals(JSON.serializeDirectly(d));
+        assert "{\"a\":1,\"b\":\"bbb\",\"c\":[1,2,3],\"d\":[\"a\",\"b\",\"c\"],\"e\":[{\"a\":5}],\"f\":{\"aaaa\":\"bbbb\"}}".equals(JSON.stringify(d));
 
     }
 
     @Test
     public void test15() throws Exception {
 
-        DModel d = JSON.deserializeDirectly("{\"a\":1,\"b\":\"bbb\",\"c\":[1,2,3],\"d\":[\"a\",\"b\",\"c\"],\"e\":[{\"a\":5}],\"f\":{\"aaaa\":\"bbbb\"}}", DModel.class);
+        DModel d = JSON.parse("{\"a\":1,\"b\":\"bbb\",\"c\":[1,2,3],\"d\":[\"a\",\"b\",\"c\"],\"e\":[{\"a\":5}],\"f\":{\"aaaa\":\"bbbb\"}}", DModel.class);
 
         assert null != d;
         assert 1 == d.a;
