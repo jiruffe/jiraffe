@@ -38,6 +38,25 @@ public abstract class TypeUtil {
                 o instanceof Character;
     }
 
+    public static boolean isPrimitive(Class t) {
+        return Byte.class.isAssignableFrom(t) ||
+                Byte.TYPE == t ||
+                Short.class.isAssignableFrom(t) ||
+                Short.TYPE == t ||
+                Integer.class.isAssignableFrom(t) ||
+                Integer.TYPE == t ||
+                Long.class.isAssignableFrom(t) ||
+                Long.TYPE == t ||
+                Float.class.isAssignableFrom(t) ||
+                Float.TYPE == t ||
+                Double.class.isAssignableFrom(t) ||
+                Double.TYPE == t ||
+                Boolean.class.isAssignableFrom(t) ||
+                Boolean.TYPE == t ||
+                Character.class.isAssignableFrom(t) ||
+                Character.TYPE == t;
+    }
+
     public static boolean isNumber(Object o) {
         return o instanceof Number;
     }
