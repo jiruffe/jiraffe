@@ -119,7 +119,6 @@ public abstract class StringAnalyzer {
                     if (StringUtil.isNotEmpty(sb) || force_set_string) {
                         // set the value to this element
                         JSONElement self = bases.peek();
-                        assert null != self;
                         if (self.isList()) {
                             self.offer(parseValue(sb.toString(), force_set_string));
                         } else if (self.isMap()) {
@@ -144,11 +143,8 @@ public abstract class StringAnalyzer {
                 case '}':
                     // current map
                     JSONElement self_map = bases.poll();
-                    assert null != self_map;
-                    assert self_map.isMap();
                     // set the last value
                     if (StringUtil.isNotEmpty(sb) || force_set_string) {
-                        assert !keys.isEmpty();
                         self_map.offer(keys.poll(), parseValue(sb.toString(), force_set_string));
                         StringUtil.clear(sb);
                         force_set_string = false;
@@ -163,8 +159,6 @@ public abstract class StringAnalyzer {
                 case ']':
                     // current list
                     JSONElement self_list = bases.poll();
-                    assert null != self_list;
-                    assert self_list.isList();
                     // set the last value
                     if (StringUtil.isNotEmpty(sb) || force_set_string) {
                         self_list.offer(parseValue(sb.toString(), force_set_string));
@@ -202,13 +196,9 @@ public abstract class StringAnalyzer {
         // upper element exists, set self to it
         if (!bases.isEmpty()) {
             JSONElement base = bases.peek();
-            assert null != base;
-            assert !base.isVoid();
-            assert !base.isPrimitive();
             if (base.isList()) {
                 base.offer(self);
             } else if (base.isMap()) {
-                assert !keys.isEmpty();
                 base.offer(keys.poll(), self);
             }
             return false;
