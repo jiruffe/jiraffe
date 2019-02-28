@@ -224,4 +224,23 @@ public class JsonTest {
 
     }
 
+    @Test
+    public void test15() throws Exception {
+
+        DModel d = JSON.deserializeDirectly("{\"a\":1,\"b\":\"bbb\",\"c\":[1,2,3],\"d\":[\"a\",\"b\",\"c\"],\"e\":[{\"a\":5}],\"f\":{\"aaaa\":\"bbbb\"}}", DModel.class);
+
+        assert null != d;
+        assert 1 == d.a;
+        assert "bbb".equals(d.b);
+        assert Arrays.equals(new int[]{1, 2, 3}, d.c);
+        assert Arrays.equals(new String[]{"a", "b", "c"}, d.d);
+        assert null != d.e;
+        assert 1 == d.e.size();
+        assert d.e.get(0).a == 5;
+        assert null != d.f;
+        assert 1 == d.f.size();
+        assert "bbbb".equals(d.f.get("aaaa"));
+
+    }
+
 }

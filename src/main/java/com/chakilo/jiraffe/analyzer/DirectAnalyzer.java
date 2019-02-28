@@ -344,8 +344,16 @@ public abstract class DirectAnalyzer {
 
                 case ':':
                     // new key
-                    keys.offer(StringUtil.unescape(sb.toString()));
+                    String nk = sb.toString();
                     StringUtil.clear(sb);
+                    keys.offer(StringUtil.unescape(nk));
+                    Object sf = bases.peek();
+                    if (!sf.getClass().isArray() && !(sf instanceof Collection) && !(sf instanceof Map) && !(sf instanceof Dictionary)) {
+                        Field f = sf.getClass().getField(nk);
+                        types.offer(target);
+                        target_class = f.getType();
+                        target = target_class;
+                    }
                     last_token = c;
                     break;
 
@@ -362,9 +370,21 @@ public abstract class DirectAnalyzer {
                         } else if (self instanceof Dictionary) {
                             ((Dictionary) self).put(keys.poll(), TypeUtil.castFromString(sb.toString(), target_class));
                         } else {
-                            String k = keys.poll();
-                            Field f = self.getClass().getField(k);
-                            f.set(self, TypeUtil.castFromString(sb.toString(), target_class));
+                            if (!CharacterUtil.isRightBrackets(last_token)) {
+                                String k = keys.poll();
+                                Field f = self.getClass().getField(k);
+                                f.set(self, TypeUtil.castFromString(sb.toString(), target_class));
+                                target = types.poll();
+                                if (target instanceof Class) {
+                                    target_class = (Class) target;
+                                } else if (target instanceof ParameterizedType) {
+                                    parameterized_type = (ParameterizedType) target;
+                                    target_class = (Class) parameterized_type.getRawType();
+                                    actual_type_arguments = parameterized_type.getActualTypeArguments();
+                                } else {
+                                    throw new InstantiationException("Could not create " + target.getTypeName());
+                                }
+                            }
                         }
                         StringUtil.clear(sb);
                     } else if (!CharacterUtil.isRightBrackets(last_token)) {
@@ -379,7 +399,117 @@ public abstract class DirectAnalyzer {
                     break;
 
                 case '}':
+                    // current object
+                    Object current_object = bases.poll();
+                    // set the last value
+                    if (StringUtil.isNotEmpty(sb)) {
+                        String v = sb.toString();
+                        if (current_object instanceof Map) {
+                            ((Map) current_object).put(keys.poll(), TypeUtil.castFromString(v, target_class));
+                        } else if (current_object instanceof Dictionary) {
+                            ((Dictionary) current_object).put(keys.poll(), TypeUtil.castFromString(v, target_class));
+                        } else {
+                            String k = keys.poll();
+                            Field f = current_object.getClass().getField(k);
+                            f.set(current_object, TypeUtil.castFromString(v, target_class));
+                        }
+                        StringUtil.clear(sb);
+                    } else if (!CharacterUtil.isRightBrackets(last_token)) {
+                        if (!bases.isEmpty()) {
+                            Object self = bases.peek();
+                            if (!self.getClass().isArray() && !(self instanceof Collection)) {
+                                keys.poll();
+                            }
+                        }
+                    }
+                    target = types.poll();
+                    if (target instanceof Class) {
+                        target_class = (Class) target;
+                    } else if (target instanceof ParameterizedType) {
+                        parameterized_type = (ParameterizedType) target;
+                        target_class = (Class) parameterized_type.getRawType();
+                        actual_type_arguments = parameterized_type.getActualTypeArguments();
+                    } else {
+
+                    }
+                    if (bases.isEmpty()) {
+                        return (T) current_object;
+                    } else {
+                        Object base = bases.peek();
+                        if (base.getClass().isArray()) {
+                            // won't happen
+                        } else if (base instanceof Collection) {
+                            ((Collection) base).add(current_object);
+                        } else if (base instanceof Map) {
+                            ((Map) base).put(keys.poll(), current_object);
+                        } else if (base instanceof Dictionary) {
+                            ((Dictionary) base).put(keys.poll(), current_object);
+                        } else {
+                            String k = keys.poll();
+                            Field f = base.getClass().getField(k);
+                            f.set(base, current_object);
+                        }
+                    }
                     last_token = c;
+                    break;
+
+                case ']':
+                    // current array
+                    Object current_array = bases.poll();
+                    // set the last value
+                    if (StringUtil.isNotEmpty(sb)) {
+                        String v = sb.toString();
+                        if (current_array.getClass().isArray()) {
+                            // won't happen
+                        } else if (current_array instanceof Collection) {
+                            ((Collection) current_array).add(TypeUtil.castFromString(v, target_class));
+                        } else {
+                            throw new ClassCastException("Expect " + target.getTypeName() + " but found syntax ']'.");
+                        }
+                    }
+                    target = types.poll();
+                    if (target instanceof Class) {
+                        target_class = (Class) target;
+                    } else if (target instanceof ParameterizedType) {
+                        parameterized_type = (ParameterizedType) target;
+                        target_class = (Class) parameterized_type.getRawType();
+                        actual_type_arguments = parameterized_type.getActualTypeArguments();
+                    } else {
+                        Object base = bases.peek();
+                        if (base.getClass().isArray()) {
+                            // won't happen
+                        } else if (base instanceof Collection) {
+                            ((Collection) base).add(current_array);
+                        } else if (base instanceof Map) {
+                            ((Map) base).put(keys.poll(), current_array);
+                        } else if (base instanceof Dictionary) {
+                            ((Dictionary) base).put(keys.poll(), current_array);
+                        } else {
+                            String k = keys.poll();
+                            Field f = base.getClass().getField(k);
+                            if (f.getType().isArray()) {
+                                f.set(base, ((Collection) current_array).toArray());
+                            } else {
+                                f.set(base, current_array);
+                            }
+                        }
+                    }
+                    if (bases.isEmpty()) {
+                        return (T) current_array;
+                    } else {
+
+                    }
+                    last_token = c;
+                    break;
+
+                default:
+                    if (StringUtil.isNotEmpty(sb)) {
+                        last_token = CharacterUtil.NUL;
+                        sb.append(c);
+                    } else if (CharacterUtil.isVisibleAndNotSpace(c)) {
+                        last_token = CharacterUtil.NUL;
+                        sb.append(c);
+                    }
                     break;
 
             }
