@@ -168,6 +168,7 @@ public abstract class DirectAnalyzer {
         // ignore spaces
         json = json.trim();
 
+        // ignore first bracket
         if (json.startsWith("[") || json.startsWith("{")) {
             json = json.substring(1);
         }
@@ -176,12 +177,13 @@ public abstract class DirectAnalyzer {
 
     }
 
-    public static <T> T analyze(StringReader sr, Type target) throws Exception {
+    private static <T> T analyze(StringReader sr, Type target) throws Exception {
 
         if (null == target || NullType.class == target || Object.class == target) {
             return null;
         }
 
+        // target type
         Class<?> target_class = null;
         ParameterizedType parameterized_type = null;
         Type[] actual_type_arguments = null;
@@ -200,6 +202,7 @@ public abstract class DirectAnalyzer {
 
         Object rst = null;
         if (target_class.isArray()) {
+            // use list instead of array to dynamically add sub-elements
             rst = Defaults.list();
             v_type = target_class.getComponentType();
         } else {
@@ -348,6 +351,7 @@ public abstract class DirectAnalyzer {
                         StringUtil.clear(sb);
                     }
                     if (target_class.isArray()) {
+                        // list to array
                         List lst = (List) rst;
                         int len = lst.size();
                         Object array = Array.newInstance((Class) v_type, len);
