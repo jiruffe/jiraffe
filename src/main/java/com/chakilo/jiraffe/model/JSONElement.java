@@ -19,6 +19,7 @@ package com.chakilo.jiraffe.model;
 import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
 import com.chakilo.jiraffe.analyzer.StringAnalyzer;
 import com.chakilo.jiraffe.util.ObjectUtil;
+import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
 
 import java.lang.reflect.Type;
@@ -178,7 +179,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is <code>void</code>.
      *
-     * @return <code>true</code> if is <code>void</code>, <code>false</code> otherwise.
+     * @return {@code true} if is <code>void</code>, {@code false} otherwise.
      */
     public boolean isVoid() {
         return this instanceof JSONVoid;
@@ -187,7 +188,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is empty.
      *
-     * @return <code>true</code> if is empty, <code>false</code> otherwise.
+     * @return {@code true} if is empty, {@code false} otherwise.
      */
     public boolean isEmpty() {
         return this instanceof JSONVoid;
@@ -196,7 +197,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of {@link JSONList}.
      *
-     * @return <code>true</code> if instance of {@link JSONList}, <code>false</code> otherwise.
+     * @return {@code true} if instance of {@link JSONList}, {@code false} otherwise.
      */
     public boolean isList() {
         return this instanceof JSONList;
@@ -205,7 +206,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of {@link JSONMap}.
      *
-     * @return <code>true</code> if instance of {@link JSONMap}, <code>false</code> otherwise.
+     * @return {@code true} if instance of {@link JSONMap}, {@code false} otherwise.
      */
     public boolean isMap() {
         return this instanceof JSONMap;
@@ -214,7 +215,7 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     /**
      * Returns whether this element is an instance of {@link JSONPrimitive}.
      *
-     * @return <code>true</code> if instance of {@link JSONPrimitive}, <code>false</code> otherwise.
+     * @return {@code true} if instance of {@link JSONPrimitive}, {@code false} otherwise.
      */
     public boolean isPrimitive() {
         return this instanceof JSONPrimitive;
@@ -291,6 +292,28 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      */
     public JSONElement offer(Object k, Object v) throws Exception {
         throw new UnsupportedOperationException("Could not offer k, v to " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
+     * Returns if this element contains specified key.
+     *
+     * @param k the specified key.
+     * @return {@code true} if this element contains specified key, {@code false} otherwise.
+     * @throws Exception if error occurred.
+     */
+    public boolean containsKey(Object k) throws Exception {
+        return false;
+    }
+
+    /**
+     * Returns if this element contains specified sub-element.
+     *
+     * @param v the specified sub-element.
+     * @return {@code true} if this element contains specified sub-element, {@code false} otherwise.
+     * @throws Exception if error occurred.
+     */
+    public boolean containsValue(Object v) throws Exception {
+        return equals(v);
     }
 
     /**
@@ -441,6 +464,39 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      */
     public BigDecimal asBigDecimal() throws Exception {
         throw new ClassCastException("Could not cast BigDecimal from " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object.
+     */
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param obj the reference object with which to compare.
+     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (null == obj) {
+            return false;
+        }
+        if (!(obj instanceof JSONElement)) {
+            try {
+                obj = JSONElement.newInstance(obj);
+            } catch (Exception ignored) {
+
+            }
+        }
+        return toString().equals(StringUtil.toString(obj));
     }
 
 }

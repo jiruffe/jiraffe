@@ -17,6 +17,7 @@
 package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.util.Defaults;
+import com.chakilo.jiraffe.util.StringUtil;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -95,6 +96,27 @@ final class JSONMap extends JSONElement {
             _sub_elements.put(k, JSONElement.newPrimitive(v));
         }
         return this;
+    }
+
+    @Override
+    public boolean containsKey(Object k) throws Exception {
+        if (null == k || null == _sub_elements) {
+            return false;
+        } else {
+            return _sub_elements.containsKey(k);
+        }
+    }
+
+    @Override
+    public boolean containsValue(Object v) throws Exception {
+        if (this == v) {
+            return true;
+        } else if (null == v || null == _sub_elements) {
+            return false;
+        } else {
+            JSONElement ev = JSONElement.newInstance(v);
+            return _sub_elements.containsValue(ev) || equals(ev);
+        }
     }
 
     @Override

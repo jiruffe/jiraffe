@@ -111,6 +111,30 @@ final class JSONList extends JSONElement {
     }
 
     @Override
+    public boolean containsKey(Object k) throws Exception {
+        if (null == k || null == _sub_elements) {
+            return false;
+        } else if (TypeUtil.couldCastToInteger(k)) {
+            int ik = TypeUtil.castToInteger(k);
+            return ik >= 0 && ik < _sub_elements.size();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean containsValue(Object v) throws Exception {
+        if (this == v) {
+            return true;
+        } else if (null == v || null == _sub_elements) {
+            return false;
+        } else {
+            JSONElement ev = JSONElement.newInstance(v);
+            return _sub_elements.contains(JSONElement.newInstance(ev)) || equals(ev);
+        }
+    }
+
+    @Override
     public List<JSONElement> asList() throws Exception {
         return _sub_elements;
     }
