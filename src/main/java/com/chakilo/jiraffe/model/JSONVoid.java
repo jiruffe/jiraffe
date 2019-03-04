@@ -66,17 +66,17 @@ final class JSONVoid extends JSONElement {
     }
 
     @Override
-    public Iterator<JSONElement> iterator() {
+    public Iterator<Entry> iterator() {
         return Collections.emptyIterator();
     }
 
     @Override
-    public void forEach(Consumer<? super JSONElement> action) {
+    public void forEach(Consumer<? super Entry> action) {
         Objects.requireNonNull(action);
     }
 
     @Override
-    public Spliterator<JSONElement> spliterator() {
+    public Spliterator<Entry> spliterator() {
         return Spliterators.emptySpliterator();
     }
 

@@ -141,18 +141,18 @@ final class JSONPrimitive extends JSONElement {
     }
 
     @Override
-    public Iterator<JSONElement> iterator() {
-        return Collections.singleton((JSONElement) this).iterator();
+    public Iterator<Entry> iterator() {
+        return Collections.singleton(new Entry(null, this)).iterator();
     }
 
     @Override
-    public void forEach(Consumer<? super JSONElement> action) {
-        action.accept(this);
+    public void forEach(Consumer<? super Entry> action) {
+        action.accept(new Entry(null, this));
     }
 
     @Override
-    public Spliterator<JSONElement> spliterator() {
-        return Collections.singleton((JSONElement) this).spliterator();
+    public Spliterator<Entry> spliterator() {
+        return Collections.singleton(new Entry(null, this)).spliterator();
     }
 
 }

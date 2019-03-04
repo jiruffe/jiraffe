@@ -17,7 +17,6 @@
 package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.util.Defaults;
-import com.chakilo.jiraffe.util.StringUtil;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -76,14 +75,32 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public Set<Object> keys() {
+    public Collection<Entry> entries() {
+        if (null == _sub_elements) {
+            return Collections.emptyList();
+        } else {
+            Collection<Entry> entries = Defaults.list();
+            for (Object k : _sub_elements.keySet()) {
+                entries.add(new Entry(k, _sub_elements.get(k)));
+            }
+            return entries;
+        }
+    }
+
+    @Override
+    public Collection<Object> keys() {
         return null != _sub_elements ? _sub_elements.keySet() : Collections.emptySet();
+    }
+
+    @Override
+    public Collection<JSONElement> values() throws Exception {
+        return null != _sub_elements ? _sub_elements.values() : Collections.emptyList();
     }
 
     @Override
     public JSONElement peek(Object k) {
         JSONElement v = _sub_elements.get(k);
-        return null == v ? JSONElement.Void() : v;
+        return null != v ? v : JSONElement.Void();
     }
 
     @Override
@@ -125,20 +142,20 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public Iterator<JSONElement> iterator() {
-        return null != _sub_elements ? _sub_elements.values().iterator() : Collections.emptyIterator();
+    public Iterator<Entry> iterator() {
+        return null != _sub_elements ? entries().iterator() : Collections.emptyIterator();
     }
 
     @Override
-    public void forEach(Consumer<? super JSONElement> action) {
+    public void forEach(Consumer<? super Entry> action) {
         if (null != _sub_elements) {
-            _sub_elements.values().forEach(action);
+            entries().forEach(action);
         }
     }
 
     @Override
-    public Spliterator<JSONElement> spliterator() {
-        return null != _sub_elements ? _sub_elements.values().spliterator() : Spliterators.emptySpliterator();
+    public Spliterator<Entry> spliterator() {
+        return null != _sub_elements ? entries().spliterator() : Spliterators.emptySpliterator();
     }
 
 }

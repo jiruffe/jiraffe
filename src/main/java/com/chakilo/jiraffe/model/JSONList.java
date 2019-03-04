@@ -76,7 +76,20 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public Set<Object> keys() {
+    public Collection<Entry> entries() {
+        if (null == _sub_elements) {
+            return Collections.emptyList();
+        } else {
+            Collection<Entry> entries = Defaults.list();
+            for (int i = 0; i < _sub_elements.size(); i++) {
+                entries.add(new Entry(i, _sub_elements.get(i)));
+            }
+            return entries;
+        }
+    }
+
+    @Override
+    public Collection<Object> keys() {
         if (null != _sub_elements) {
             Set<Object> s = new HashSet<>();
             for (int i = 0; i < _sub_elements.size(); i++) {
@@ -89,10 +102,15 @@ final class JSONList extends JSONElement {
     }
 
     @Override
+    public Collection<JSONElement> values() throws Exception {
+        return null != _sub_elements ? _sub_elements : Collections.emptyList();
+    }
+
+    @Override
     public JSONElement peek(Object k) throws IllegalArgumentException {
         if (TypeUtil.couldCastToInteger(k)) {
             JSONElement v = _sub_elements.get(TypeUtil.castToInteger(k));
-            return null == v ? JSONElement.Void() : v;
+            return null != v ? v : JSONElement.Void();
         } else {
             throw new IllegalArgumentException("Argument k must be Integer for JSONList.peek");
         }
@@ -140,20 +158,20 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public Iterator<JSONElement> iterator() {
-        return null != _sub_elements ? _sub_elements.iterator() : Collections.emptyIterator();
+    public Iterator<Entry> iterator() {
+        return null != _sub_elements ? entries().iterator() : Collections.emptyIterator();
     }
 
     @Override
-    public void forEach(Consumer<? super JSONElement> action) {
+    public void forEach(Consumer<? super Entry> action) {
         if (null != _sub_elements) {
-            _sub_elements.forEach(action);
+            entries().forEach(action);
         }
     }
 
     @Override
-    public Spliterator<JSONElement> spliterator() {
-        return null != _sub_elements ? _sub_elements.spliterator() : Spliterators.emptySpliterator();
+    public Spliterator<Entry> spliterator() {
+        return null != _sub_elements ? entries().spliterator() : Spliterators.emptySpliterator();
     }
 
 }

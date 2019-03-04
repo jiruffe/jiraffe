@@ -246,9 +246,9 @@ public abstract class StringAnalyzer {
 
             case LIST:
                 sb.append('[');
-                Iterator<JSONElement> iterator = element.iterator();
+                Iterator<JSONElement.Entry> iterator = element.iterator();
                 while (iterator.hasNext()) {
-                    sb.append(analyze(iterator.next()));
+                    sb.append(analyze(iterator.next().getValue()));
                     if (iterator.hasNext()) {
                         sb.append(',');
                     }

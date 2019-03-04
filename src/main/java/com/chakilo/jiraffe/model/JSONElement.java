@@ -25,9 +25,9 @@ import com.chakilo.jiraffe.util.TypeUtil;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Represents JSON element including JSON map {}, list [], or primitive value such as integer, string...
@@ -35,7 +35,7 @@ import java.util.Set;
  * @author Chakilo
  * 2018.10.23
  */
-public abstract class JSONElement implements Iterable<JSONElement> {
+public abstract class JSONElement implements Iterable<JSONElement.Entry> {
 
     /**
      * Converts this element to JSON {@link String}.
@@ -251,13 +251,33 @@ public abstract class JSONElement implements Iterable<JSONElement> {
     }
 
     /**
+     * Get all the entries of this element.
+     *
+     * @return a {@link Collection} of entries.
+     * @throws Exception if element contains no entries.
+     */
+    public Collection<Entry> entries() throws Exception {
+        throw new UnsupportedOperationException("Could not get entries from " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
      * Get all the keys of this element.
      *
-     * @return a set of keys.
+     * @return a {@link Collection} of keys.
      * @throws Exception if element contains no keys.
      */
-    public Set<Object> keys() throws Exception {
+    public Collection<Object> keys() throws Exception {
         throw new UnsupportedOperationException("Could not get keys from " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
+     * Get all the values of this element.
+     *
+     * @return a {@link Collection} of values.
+     * @throws Exception if element contains no values.
+     */
+    public Collection<JSONElement> values() throws Exception {
+        throw new UnsupportedOperationException("Could not get values from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -497,6 +517,34 @@ public abstract class JSONElement implements Iterable<JSONElement> {
             }
         }
         return toString().equals(StringUtil.toString(obj));
+    }
+
+    public class Entry {
+
+        private Object key;
+        private JSONElement value;
+
+        public Entry(Object key, JSONElement value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public Object getKey() {
+            return key;
+        }
+
+        public void setKey(Object key) {
+            this.key = key;
+        }
+
+        public JSONElement getValue() {
+            return value;
+        }
+
+        public void setValue(JSONElement value) {
+            this.value = value;
+        }
+
     }
 
 }

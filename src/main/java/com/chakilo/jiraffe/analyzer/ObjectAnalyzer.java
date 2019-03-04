@@ -201,8 +201,8 @@ public abstract class ObjectAnalyzer {
                     throw new InstantiationException("Could not create " + target.getTypeName());
                 }
                 // analyze sub-elements
-                for (JSONElement sub : element) {
-                    collection.add(analyze(sub, v_type));
+                for (JSONElement.Entry sub : element) {
+                    collection.add(analyze(sub.getValue(), v_type));
                 }
                 return (T) collection;
             } else if (Map.class.isAssignableFrom(target_class)) {
