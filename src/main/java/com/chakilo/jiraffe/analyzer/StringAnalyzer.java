@@ -248,7 +248,7 @@ public abstract class StringAnalyzer {
                 sb.append('[');
                 Iterator<JSONElement.Entry> iterator = element.iterator();
                 while (iterator.hasNext()) {
-                    sb.append(analyze(iterator.next().getValue()));
+                    sb.append(analyze(iterator.next().getElement()));
                     if (iterator.hasNext()) {
                         sb.append(',');
                     }

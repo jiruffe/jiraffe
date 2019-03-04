@@ -522,11 +522,11 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     public class Entry {
 
         private Object key;
-        private JSONElement value;
+        private JSONElement element;
 
-        public Entry(Object key, JSONElement value) {
+        public Entry(Object key, JSONElement element) {
             this.key = key;
-            this.value = value;
+            this.element = element;
         }
 
         public Object getKey() {
@@ -537,12 +537,12 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
             this.key = key;
         }
 
-        public JSONElement getValue() {
-            return value;
+        public JSONElement getElement() {
+            return element;
         }
 
-        public void setValue(JSONElement value) {
-            this.value = value;
+        public void setElement(JSONElement element) {
+            this.element = element;
         }
 
     }

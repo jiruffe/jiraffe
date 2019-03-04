@@ -202,7 +202,7 @@ public abstract class ObjectAnalyzer {
                 }
                 // analyze sub-elements
                 for (JSONElement.Entry sub : element) {
-                    collection.add(analyze(sub.getValue(), v_type));
+                    collection.add(analyze(sub.getElement(), v_type));
                 }
                 return (T) collection;
             } else if (Map.class.isAssignableFrom(target_class)) {
