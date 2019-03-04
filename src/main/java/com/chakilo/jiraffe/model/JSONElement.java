@@ -251,7 +251,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Get all the entries of this element.
+     * Get all the entries (key-value pair) of this element.
      *
      * @return a {@link Collection} of entries.
      * @throws Exception if element contains no entries.
@@ -519,6 +519,10 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
         return toString().equals(StringUtil.toString(obj));
     }
 
+    /**
+     * An element entry (key-value pair).
+     * @see JSONElement#entries()
+     */
     public class Entry {
 
         private Object key;
