@@ -10,6 +10,10 @@ import java.util.*;
  */
 public abstract class Defaults {
 
+    public static Object primitive() {
+        return 0;
+    }
+
     public static <K, V> Map<K, V> map() {
         return new LinkedHashMap<>();
     }

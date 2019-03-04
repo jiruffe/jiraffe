@@ -16,6 +16,7 @@
 
 package com.chakilo.jiraffe.model;
 
+import com.chakilo.jiraffe.util.Defaults;
 import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
 
@@ -37,7 +38,7 @@ final class JSONPrimitive extends JSONElement {
     private Object _value;
 
     JSONPrimitive() {
-        this(null);
+        this(Defaults.primitive());
     }
 
     JSONPrimitive(Object v) {

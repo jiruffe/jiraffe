@@ -75,7 +75,10 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * Alias of {@link #Void()}.
      *
      * @return what {@link #Void()} returns.
+     * @deprecated use {@link #Void()}, {@link #newList()}, {@link #newList(List)}, {@link #newMap()}, {@link #newMap(Map)},
+     * {@link #newPrimitive()}, {@link #newPrimitive(Object)} or {@link #newInstance(Object)} instead.
      */
+    @Deprecated()
     public static JSONElement newInstance() {
         return Void();
     }
@@ -113,7 +116,11 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return a new instance of {@link JSONList} with specified sub-elements.
      */
     public static JSONElement newList(List<JSONElement> sub_elements) {
-        return new JSONList(sub_elements);
+        if (null == sub_elements) {
+            return newList();
+        } else {
+            return new JSONList(sub_elements);
+        }
     }
 
     /**
@@ -132,7 +139,11 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return a new instance of {@link JSONMap} with specified sub-elements.
      */
     public static JSONElement newMap(Map<Object, JSONElement> sub_elements) {
-        return new JSONMap(sub_elements);
+        if (null == sub_elements) {
+            return newMap();
+        } else {
+            return new JSONMap(sub_elements);
+        }
     }
 
     /**
@@ -151,7 +162,9 @@ public abstract class JSONElement implements Iterable<JSONElement> {
      * @return a new instance of {@link JSONPrimitive} with specified original value.
      */
     public static JSONElement newPrimitive(Object v) {
-        if (v instanceof JSONPrimitive) {
+        if (null == v) {
+            return newPrimitive();
+        } else if (v instanceof JSONPrimitive) {
             return (JSONElement) v;
         } else if (v instanceof JSONElement) {
             throw new ClassCastException("Could not cast JSONPrimitive from " + ObjectUtil.getSimpleName(v));
