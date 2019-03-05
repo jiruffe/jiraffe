@@ -253,11 +253,13 @@ public abstract class DirectAnalyzer {
 
                     }
                 } else {
+                    // unknown interface/abstract class/class without default constructor
                     return null;
                 }
             }
         }
         if (null == rst) {
+            // instantiation failure
             return null;
         }
 

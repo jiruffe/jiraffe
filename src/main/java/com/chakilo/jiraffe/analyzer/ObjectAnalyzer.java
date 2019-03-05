@@ -269,6 +269,7 @@ public abstract class ObjectAnalyzer {
                 }
                 return (T) dictionary;
             } else {
+                // unknown generic type
                 return null;
             }
 
@@ -279,6 +280,7 @@ public abstract class ObjectAnalyzer {
         } else if (target instanceof TypeVariable) {
             return null;
         } else {
+            // won't happen
             return null;
         }
 
