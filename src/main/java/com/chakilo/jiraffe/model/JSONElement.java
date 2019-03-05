@@ -337,6 +337,17 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
+     * Merge another element to this element.
+     *
+     * @param e the other element.
+     * @return this element itself.
+     * @throws Exception if not supported.
+     */
+    public JSONElement merge(JSONElement e) throws Exception {
+        throw new UnsupportedOperationException("Could not merge to " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
      * Returns if this element contains specified key.
      *
      * @param k the specified key.

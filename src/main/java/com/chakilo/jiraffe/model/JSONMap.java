@@ -83,7 +83,7 @@ final class JSONMap extends JSONElement {
     @Override
     public JSONElement offer(Entry e) throws Exception {
         if (null == e) {
-            throw new IllegalArgumentException("Argument e should not be null");
+            throw new IllegalArgumentException("Argument e must not be null");
         } else {
             offer(e.getKey(), e.getElement());
         }
@@ -98,6 +98,16 @@ final class JSONMap extends JSONElement {
             _sub_elements.put(k, (JSONElement) v);
         } else {
             _sub_elements.put(k, JSONElement.newPrimitive(v));
+        }
+        return this;
+    }
+
+    @Override
+    public JSONElement merge(JSONElement e) throws Exception {
+        if (e instanceof JSONMap) {
+            _sub_elements.putAll(e.asMap());
+        } else {
+            throw new IllegalArgumentException("Argument e must be instance of JSONMap");
         }
         return this;
     }

@@ -116,6 +116,16 @@ final class JSONList extends JSONElement {
     }
 
     @Override
+    public JSONElement merge(JSONElement e) throws Exception {
+        if (e instanceof JSONList) {
+            _sub_elements.addAll(e.asList());
+        } else {
+            throw new IllegalArgumentException("Argument e must be instance of JSONList");
+        }
+        return this;
+    }
+
+    @Override
     public boolean containsKey(Object k) throws Exception {
         if (null == k) {
             return false;
