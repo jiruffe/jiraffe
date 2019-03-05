@@ -41,7 +41,7 @@ final class JSONMap extends JSONElement {
 
     @Override
     public boolean isEmpty() {
-        return isVoid() || _sub_elements.isEmpty();
+        return _sub_elements.isEmpty();
     }
 
     @Override
