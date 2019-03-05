@@ -45,7 +45,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     @Override
     public String toString() {
         try {
-            return StringAnalyzer.analyze(this);
+            return asString();
         } catch (Exception e) {
             return super.toString();
         }
@@ -395,7 +395,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * @throws Exception if this element does not represent a {@link String}.
      */
     public String asString() throws Exception {
-        throw new ClassCastException("Could not cast String from " + ObjectUtil.getSimpleName(this));
+        return StringAnalyzer.analyze(this);
     }
 
     /**
