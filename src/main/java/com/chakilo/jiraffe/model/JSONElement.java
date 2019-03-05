@@ -166,7 +166,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Returns {@link JSONVoid#INSTANCE} which represents a <code>void</code> element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
+     * Returns {@link JSONVoid#INSTANCE} which represents a <code>void</code> element,
+     * also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
      *
      * @return {@link JSONVoid#INSTANCE} which represents a <code>void</code> element.
      */
@@ -239,7 +240,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Returns the number of sub-elements in this element. If this element contains more than {@link Integer#MAX_VALUE} sub-elements, returns {@link Integer#MAX_VALUE}.
+     * Returns the number of sub-elements in this element.
+     * If this element contains more than {@link Integer#MAX_VALUE} sub-elements, returns {@link Integer#MAX_VALUE}.
      *
      * @return the number of sub-elements in this element.
      */
