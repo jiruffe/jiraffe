@@ -37,7 +37,7 @@ public class BasisTest {
         JSONElement.newMap().offer(JSONElement.newPrimitive());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void test4() {
         JSONElement.newList().offer(new Object(), JSONElement.newPrimitive());
     }

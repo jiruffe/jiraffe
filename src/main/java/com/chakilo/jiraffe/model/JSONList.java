@@ -77,11 +77,12 @@ final class JSONList extends JSONElement {
     public JSONElement peek(Object k) {
         if (TypeUtil.couldCastToInteger(k)) {
             int ik = TypeUtil.castToInteger(k);
-            if (ik >= 0 && ik < _sub_elements.size()) {
+            int sz = _sub_elements.size();
+            if (ik >= 0 && ik < sz) {
                 JSONElement v = _sub_elements.get(ik);
                 return null != v ? v : JSONElement.theVoid();
             } else {
-                return JSONElement.theVoid();
+                throw new IndexOutOfBoundsException("Index: " + ik + ", Size: " + sz);
             }
         } else {
             throw new IllegalArgumentException("Argument k must be Integer");
@@ -92,11 +93,12 @@ final class JSONList extends JSONElement {
     public JSONElement poll(Object k) {
         if (TypeUtil.couldCastToInteger(k)) {
             int ik = TypeUtil.castToInteger(k);
-            if (ik >= 0 && ik < _sub_elements.size()) {
+            int sz = _sub_elements.size();
+            if (ik >= 0 && ik < sz) {
                 JSONElement v = _sub_elements.remove(ik);
                 return null != v ? v : JSONElement.theVoid();
             } else {
-                return JSONElement.theVoid();
+                throw new IndexOutOfBoundsException("Index: " + ik + ", Size: " + sz);
             }
         } else {
             throw new IllegalArgumentException("Argument k must be Integer");
@@ -113,6 +115,30 @@ final class JSONList extends JSONElement {
             _sub_elements.add(JSONElement.newMap().offer(v));
         } else {
             _sub_elements.add(JSONElement.newPrimitive(v));
+        }
+        return this;
+    }
+
+    @Override
+    public JSONElement offer(Object k, Object v) {
+        if (TypeUtil.couldCastToInteger(k)) {
+            int ik = TypeUtil.castToInteger(k);
+            int sz = _sub_elements.size();
+            if (ik >= 0 && ik < sz) {
+                if (null == v) {
+                    _sub_elements.set(ik, JSONElement.theVoid());
+                } else if (v instanceof JSONElement) {
+                    _sub_elements.set(ik, (JSONElement) v);
+                } else if (v instanceof Entry) {
+                    _sub_elements.set(ik, JSONElement.newMap().offer(v));
+                } else {
+                    _sub_elements.set(ik, JSONElement.newPrimitive(v));
+                }
+            } else {
+                throw new IndexOutOfBoundsException("Index: " + ik + ", Size: " + sz);
+            }
+        } else {
+            throw new IllegalArgumentException("Argument k must be Integer");
         }
         return this;
     }
