@@ -379,20 +379,21 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Get the value that this element represents.
+     * Get the original value that this element represents.
      *
-     * @return the value that this element represents.
+     * @return the original value that this element represents.
      * @throws Exception if this element does not represent a value.
      */
     public Object asValue() throws Exception {
-        throw new ClassCastException("Could not cast value from " + ObjectUtil.getSimpleName(this));
+        return this;
     }
 
     /**
-     * Get the {@link String} that this element represents.
+     * Returns the {@link String} that this element represents if instance of {@link JSONPrimitive},
+     * or the JSON expression of this element otherwise.
      *
-     * @return the {@link String} that this element represents.
-     * @throws Exception if this element does not represent a {@link String}.
+     * @return the {@link String} that this element represents or the JSON expression of this element.
+     * @throws Exception if error occurred analyzing {@link JSONElement} or if this element does not represent a {@link String}.
      */
     public String asString() throws Exception {
         return StringAnalyzer.analyze(this);
