@@ -47,7 +47,7 @@ final class JSONPrimitive extends JSONElement {
 
     @Override
     public boolean isEmpty() {
-        return isVoid() || StringUtil.EMPTY.equals(StringUtil.toString(_value));
+        return StringUtil.EMPTY.equals(StringUtil.toString(_value));
     }
 
     @Override
