@@ -74,7 +74,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public JSONElement peek(Object k) throws IllegalArgumentException {
+    public JSONElement peek(Object k) {
         if (TypeUtil.couldCastToInteger(k)) {
             int ik = TypeUtil.castToInteger(k);
             if (ik >= 0 && ik < _sub_elements.size()) {
