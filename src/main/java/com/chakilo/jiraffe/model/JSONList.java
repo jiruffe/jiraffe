@@ -46,7 +46,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public int size() throws Exception {
+    public int size() {
         return _sub_elements.size();
     }
 
@@ -69,7 +69,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public Collection<JSONElement> values() throws Exception {
+    public Collection<JSONElement> values() {
         return _sub_elements;
     }
 
@@ -89,7 +89,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public JSONElement poll(Object k) throws Exception {
+    public JSONElement poll(Object k) {
         if (TypeUtil.couldCastToInteger(k)) {
             int ik = TypeUtil.castToInteger(k);
             if (ik >= 0 && ik < _sub_elements.size()) {
@@ -104,7 +104,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public JSONElement offer(Object v) throws Exception {
+    public JSONElement offer(Object v) {
         if (null == v) {
             _sub_elements.add(JSONElement.theVoid());
         } else if (v instanceof JSONElement) {
@@ -118,7 +118,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public JSONElement merge(JSONElement e) throws Exception {
+    public JSONElement merge(JSONElement e) {
         if (e instanceof JSONList) {
             _sub_elements.addAll(e.asList());
         } else {
@@ -128,7 +128,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public boolean containsKey(Object k) throws Exception {
+    public boolean containsKey(Object k) {
         if (null == k) {
             return false;
         } else if (TypeUtil.couldCastToInteger(k)) {
@@ -140,7 +140,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public boolean containsValue(Object v) throws Exception {
+    public boolean containsValue(Object v) {
         if (this == v) {
             return true;
         } else if (null == v) {
@@ -152,7 +152,7 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public List<JSONElement> asList() throws Exception {
+    public List<JSONElement> asList() {
         return _sub_elements;
     }
 

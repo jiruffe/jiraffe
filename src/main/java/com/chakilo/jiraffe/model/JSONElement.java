@@ -46,7 +46,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     public String toString() {
         try {
             return asString();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
             return super.toString();
         }
     }
@@ -57,9 +57,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * @param target The target {@link Type}.
      * @param <T>    The target {@link Type}.
      * @return the target Java {@link Object}.
-     * @throws Exception if error occurred while analyzing {@link Type}.
      */
-    public <T> T toObject(Type target) throws Exception {
+    public <T> T toObject(Type target) {
         return ObjectAnalyzer.analyze(this, target);
     }
 
@@ -80,9 +79,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      *
      * @param o the original {@link Object}.
      * @return a new instance of {@link JSONElement} with specified original {@link Object}.
-     * @throws Exception if error occurred while analyzing {@link Object}.
      */
-    public static JSONElement newInstance(Object o) throws Exception {
+    public static JSONElement newInstance(Object o) {
         if (null == o) {
             return newInstance();
         } else if (o instanceof JSONElement) {
@@ -244,9 +242,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Returns the number of sub-elements in this element. If this element contains more than {@link Integer#MAX_VALUE} sub-elements, returns {@link Integer#MAX_VALUE}.
      *
      * @return the number of sub-elements in this element.
-     * @throws Exception if counting size is not available for this element.
      */
-    public int size() throws Exception {
+    public int size() {
         throw new UnsupportedOperationException("Could not get size from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -254,9 +251,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get all the entries (key-value pair) of this element.
      *
      * @return a {@link Collection} of entries.
-     * @throws Exception if element contains no entries.
      */
-    public Collection<Entry> entries() throws Exception {
+    public Collection<Entry> entries() {
         throw new UnsupportedOperationException("Could not get entries from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -264,9 +260,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get all the keys of this element.
      *
      * @return a {@link Collection} of keys.
-     * @throws Exception if element contains no keys.
      */
-    public Collection<Object> keys() throws Exception {
+    public Collection<Object> keys() {
         throw new UnsupportedOperationException("Could not get keys from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -274,9 +269,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get all the values of this element.
      *
      * @return a {@link Collection} of values.
-     * @throws Exception if element contains no values.
      */
-    public Collection<JSONElement> values() throws Exception {
+    public Collection<JSONElement> values() {
         throw new UnsupportedOperationException("Could not get values from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -285,9 +279,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      *
      * @param k the specified key.
      * @return the sub-element.
-     * @throws Exception if not supported.
      */
-    public JSONElement peek(Object k) throws Exception {
+    public JSONElement peek(Object k) {
         throw new UnsupportedOperationException("Could not peek from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -296,9 +289,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      *
      * @param k the specified key.
      * @return the removed sub-element.
-     * @throws Exception if not supported.
      */
-    public JSONElement poll(Object k) throws Exception {
+    public JSONElement poll(Object k) {
         throw new UnsupportedOperationException("Could not poll from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -307,9 +299,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      *
      * @param v the sub-element.
      * @return this element itself.
-     * @throws Exception if not supported.
      */
-    public JSONElement offer(Object v) throws Exception {
+    public JSONElement offer(Object v) {
         throw new UnsupportedOperationException("Could not offer v to " + ObjectUtil.getSimpleName(this));
     }
 
@@ -319,9 +310,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * @param k the key.
      * @param v the sub-element.
      * @return this element itself.
-     * @throws Exception if not supported.
      */
-    public JSONElement offer(Object k, Object v) throws Exception {
+    public JSONElement offer(Object k, Object v) {
         throw new UnsupportedOperationException("Could not offer k, v to " + ObjectUtil.getSimpleName(this));
     }
 
@@ -330,9 +320,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      *
      * @param e the other element.
      * @return this element itself.
-     * @throws Exception if not supported.
      */
-    public JSONElement merge(JSONElement e) throws Exception {
+    public JSONElement merge(JSONElement e) {
         throw new UnsupportedOperationException("Only merging JSONList into JSONList or merging JSONMap into JSONMap are supported");
     }
 
@@ -341,9 +330,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      *
      * @param k the specified key.
      * @return {@code true} if this element contains specified key, {@code false} otherwise.
-     * @throws Exception if error occurred.
      */
-    public boolean containsKey(Object k) throws Exception {
+    public boolean containsKey(Object k) {
         return false;
     }
 
@@ -352,9 +340,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      *
      * @param v the specified sub-element.
      * @return {@code true} if this element contains specified sub-element, {@code false} otherwise.
-     * @throws Exception if error occurred.
      */
-    public boolean containsValue(Object v) throws Exception {
+    public boolean containsValue(Object v) {
         return equals(v);
     }
 
@@ -362,9 +349,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the {@link List} that this element represents.
      *
      * @return the {@link List} that this element represents.
-     * @throws Exception if this element does not represent a {@link List}.
      */
-    public List<JSONElement> asList() throws Exception {
+    public List<JSONElement> asList() {
         throw new ClassCastException("Could not cast List from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -372,9 +358,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the {@link Map} that this element represents.
      *
      * @return the {@link Map} that this element represents.
-     * @throws Exception if this element does not represent a {@link Map}.
      */
-    public Map<Object, JSONElement> asMap() throws Exception {
+    public Map<Object, JSONElement> asMap() {
         throw new ClassCastException("Could not cast Map from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -382,9 +367,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the original value that this element represents.
      *
      * @return the original value that this element represents.
-     * @throws Exception if this element does not represent a value.
      */
-    public Object asValue() throws Exception {
+    public Object asValue() {
         return this;
     }
 
@@ -393,9 +377,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * or the JSON expression of this element otherwise.
      *
      * @return the {@link String} that this element represents or the JSON expression of this element.
-     * @throws Exception if error occurred analyzing {@link JSONElement} or if this element does not represent a {@link String}.
      */
-    public String asString() throws Exception {
+    public String asString() {
         return StringAnalyzer.analyze(this);
     }
 
@@ -403,9 +386,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the <code>byte</code> that this element represents.
      *
      * @return the <code>byte</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>byte</code>.
      */
-    public byte asByte() throws Exception {
+    public byte asByte() {
         throw new ClassCastException("Could not cast byte from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -413,9 +395,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the <code>short</code> that this element represents.
      *
      * @return the <code>short</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>short</code>.
      */
-    public short asShort() throws Exception {
+    public short asShort() {
         throw new ClassCastException("Could not cast short from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -423,9 +404,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the <code>int</code> that this element represents.
      *
      * @return the <code>int</code> that this element represents.
-     * @throws Exception if this element does not represent an <code>int</code>.
      */
-    public int asInt() throws Exception {
+    public int asInt() {
         throw new ClassCastException("Could not cast int from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -433,9 +413,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the <code>long</code> that this element represents.
      *
      * @return the <code>long</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>long</code>.
      */
-    public long asLong() throws Exception {
+    public long asLong() {
         throw new ClassCastException("Could not cast long from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -443,9 +422,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the <code>float</code> that this element represents.
      *
      * @return the <code>float</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>float</code>.
      */
-    public float asFloat() throws Exception {
+    public float asFloat() {
         throw new ClassCastException("Could not cast float from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -453,9 +431,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the <code>double</code> that this element represents.
      *
      * @return the <code>double</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>double</code>.
      */
-    public double asDouble() throws Exception {
+    public double asDouble() {
         throw new ClassCastException("Could not cast double from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -463,9 +440,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the <code>boolean</code> that this element represents.
      *
      * @return the <code>boolean</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>boolean</code>.
      */
-    public boolean asBoolean() throws Exception {
+    public boolean asBoolean() {
         throw new ClassCastException("Could not cast boolean from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -473,9 +449,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the <code>char</code> that this element represents.
      *
      * @return the <code>char</code> that this element represents.
-     * @throws Exception if this element does not represent a <code>char</code>.
      */
-    public char asChar() throws Exception {
+    public char asChar() {
         throw new ClassCastException("Could not cast char from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -483,9 +458,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the {@link Number} that this element represents.
      *
      * @return the {@link Number} that this element represents.
-     * @throws Exception if this element does not represent a {@link Number}.
      */
-    public Number asNumber() throws Exception {
+    public Number asNumber() {
         throw new ClassCastException("Could not cast Number from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -493,9 +467,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the {@link BigInteger} that this element represents.
      *
      * @return the {@link BigInteger} that this element represents.
-     * @throws Exception if this element does not represent a {@link BigInteger}.
      */
-    public BigInteger asBigInteger() throws Exception {
+    public BigInteger asBigInteger() {
         throw new ClassCastException("Could not cast BigInteger from " + ObjectUtil.getSimpleName(this));
     }
 
@@ -503,9 +476,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * Get the {@link BigDecimal} that this element represents.
      *
      * @return the {@link BigDecimal} that this element represents.
-     * @throws Exception if this element does not represent a {@link BigDecimal}.
      */
-    public BigDecimal asBigDecimal() throws Exception {
+    public BigDecimal asBigDecimal() {
         throw new ClassCastException("Could not cast BigDecimal from " + ObjectUtil.getSimpleName(this));
     }
 

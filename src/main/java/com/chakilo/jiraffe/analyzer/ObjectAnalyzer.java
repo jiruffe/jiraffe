@@ -39,9 +39,8 @@ public abstract class ObjectAnalyzer {
      *
      * @param o the {@link Object} to be converted.
      * @return the {@link JSONElement} converted.
-     * @throws Exception if error occurred while analyzing {@link Object}.
      */
-    public static JSONElement analyze(Object o) throws Exception {
+    public static JSONElement analyze(Object o) {
 
         if (null == o) {
             return JSONElement.theVoid();
@@ -97,7 +96,11 @@ public abstract class ObjectAnalyzer {
         } else {
             JSONElement map = JSONElement.newMap();
             for (Field f : ObjectUtil.getFields(cls)) {
-                map.offer(f.getName(), analyze(f.get(o)));
+                try {
+                    map.offer(f.getName(), analyze(f.get(o)));
+                } catch (IllegalAccessException ignored) {
+
+                }
             }
             return map;
         }
@@ -111,9 +114,8 @@ public abstract class ObjectAnalyzer {
      * @param target  the target {@link Type}.
      * @param <T>     the target {@link Type}.
      * @return the target Java {@link Object}.
-     * @throws Exception if error occurred while analyzing {@link Type}.
      */
-    public static <T> T analyze(JSONElement element, Type target) throws Exception {
+    public static <T> T analyze(JSONElement element, Type target) {
 
         if (null == element || element.isVoid() || null == target || NullType.class == target || Object.class == target) {
             return null;
@@ -157,9 +159,18 @@ public abstract class ObjectAnalyzer {
                 return (T) array;
             } else {
                 // bean
-                T rst = target_class.newInstance();
+                T rst = null;
+                try {
+                    rst = target_class.newInstance();
+                } catch (InstantiationException | IllegalAccessException ignored) {
+
+                }
                 for (Field f : ObjectUtil.getFields(target_class)) {
-                    f.set(rst, analyze(element.peek(f.getName()), f.getGenericType()));
+                    try {
+                        f.set(rst, analyze(element.peek(f.getName()), f.getGenericType()));
+                    } catch (IllegalAccessException ignored) {
+
+                    }
                 }
                 return rst;
             }
@@ -178,7 +189,7 @@ public abstract class ObjectAnalyzer {
                 try {
                     // using the default constructor first
                     collection = (Collection) target_class.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException ignored) {
                     // considering known derived classes
                     try {
                         if (List.class.isAssignableFrom(target_class)) {
@@ -192,13 +203,13 @@ public abstract class ObjectAnalyzer {
                                 collection = Defaults.set();
                             }
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception ignored1) {
 
                     }
                 }
                 // construction failure
                 if (null == collection) {
-                    throw new InstantiationException("Could not create " + target.getTypeName());
+                    return null;
                 }
                 // analyze sub-elements
                 for (JSONElement.Entry sub : element) {
@@ -212,7 +223,7 @@ public abstract class ObjectAnalyzer {
                 try {
                     // using the default constructor first
                     map = (Map) target_class.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException ignored) {
                     // considering known derived classes
                     try {
                         if (EnumMap.class.isAssignableFrom(target_class)) {
@@ -220,13 +231,13 @@ public abstract class ObjectAnalyzer {
                         } else {
                             map = Defaults.map();
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception ignored1) {
 
                     }
                 }
                 // construction failure
                 if (null == map) {
-                    throw new InstantiationException("Could not create " + target.getTypeName());
+                    return null;
                 }
                 // analyze sub-elements
                 for (Object k : element.keys()) {
@@ -240,17 +251,17 @@ public abstract class ObjectAnalyzer {
                 try {
                     // using the default constructor first
                     dictionary = (Dictionary) target_class.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException ignored) {
                     // considering known derived classes
                     try {
                         dictionary = Defaults.dictionary();
-                    } catch (Exception ignored) {
+                    } catch (Exception ignored1) {
 
                     }
                 }
                 // construction failure
                 if (null == dictionary) {
-                    throw new InstantiationException("Could not create " + target.getTypeName());
+                    return null;
                 }
                 // analyze sub-elements
                 for (Object k : element.keys()) {
@@ -258,17 +269,17 @@ public abstract class ObjectAnalyzer {
                 }
                 return (T) dictionary;
             } else {
-                throw new InstantiationException("Could not create " + target.getTypeName());
+                return null;
             }
 
         } else if (target instanceof GenericArrayType) {
-            throw new InstantiationException("Could not create " + target.getTypeName());
+            return null;
         } else if (target instanceof WildcardType) {
-            throw new InstantiationException("Could not create " + target.getTypeName());
+            return null;
         } else if (target instanceof TypeVariable) {
-            throw new InstantiationException("Could not create " + target.getTypeName());
+            return null;
         } else {
-            throw new InstantiationException("Could not create " + target.getTypeName());
+            return null;
         }
 
     }

@@ -51,67 +51,67 @@ final class JSONPrimitive extends JSONElement {
     }
 
     @Override
-    public Object asValue() throws Exception {
+    public Object asValue() {
         return _value;
     }
 
     @Override
-    public String asString() throws Exception {
+    public String asString() {
         return TypeUtil.castToString(_value);
     }
 
     @Override
-    public byte asByte() throws Exception {
+    public byte asByte() {
         return TypeUtil.castToByte(_value);
     }
 
     @Override
-    public short asShort() throws Exception {
+    public short asShort() {
         return TypeUtil.castToShort(_value);
     }
 
     @Override
-    public int asInt() throws Exception {
+    public int asInt() {
         return TypeUtil.castToInteger(_value);
     }
 
     @Override
-    public long asLong() throws Exception {
+    public long asLong() {
         return TypeUtil.castToLong(_value);
     }
 
     @Override
-    public float asFloat() throws Exception {
+    public float asFloat() {
         return TypeUtil.castToFloat(_value);
     }
 
     @Override
-    public double asDouble() throws Exception {
+    public double asDouble() {
         return TypeUtil.castToDouble(_value);
     }
 
     @Override
-    public boolean asBoolean() throws Exception {
+    public boolean asBoolean() {
         return TypeUtil.castToBoolean(_value);
     }
 
     @Override
-    public char asChar() throws Exception {
+    public char asChar() {
         return TypeUtil.castToCharacter(_value);
     }
 
     @Override
-    public Number asNumber() throws Exception {
+    public Number asNumber() {
         return TypeUtil.castToNumber(_value);
     }
 
     @Override
-    public BigInteger asBigInteger() throws Exception {
+    public BigInteger asBigInteger() {
         return TypeUtil.castToBigInteger(_value);
     }
 
     @Override
-    public BigDecimal asBigDecimal() throws Exception {
+    public BigDecimal asBigDecimal() {
         return TypeUtil.castToBigDecimal(_value);
     }
 

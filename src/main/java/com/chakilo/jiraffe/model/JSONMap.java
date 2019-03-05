@@ -48,7 +48,7 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public int size() throws Exception {
+    public int size() {
         return _sub_elements.size();
     }
 
@@ -67,7 +67,7 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public Collection<JSONElement> values() throws Exception {
+    public Collection<JSONElement> values() {
         return _sub_elements.values();
     }
 
@@ -78,13 +78,13 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public JSONElement poll(Object k) throws Exception {
+    public JSONElement poll(Object k) {
         JSONElement v = _sub_elements.remove(k);
         return null != v ? v : JSONElement.theVoid();
     }
 
     @Override
-    public JSONElement offer(Object v) throws Exception {
+    public JSONElement offer(Object v) {
         if (v instanceof Entry) {
             offer(((Entry) v).getKey(), ((Entry) v).getElement());
         } else {
@@ -106,7 +106,7 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public JSONElement merge(JSONElement e) throws Exception {
+    public JSONElement merge(JSONElement e) {
         if (e instanceof JSONMap) {
             _sub_elements.putAll(e.asMap());
         } else {
@@ -116,7 +116,7 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public boolean containsKey(Object k) throws Exception {
+    public boolean containsKey(Object k) {
         if (null == k) {
             return false;
         } else {
@@ -125,7 +125,7 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public boolean containsValue(Object v) throws Exception {
+    public boolean containsValue(Object v) {
         if (this == v) {
             return true;
         } else if (null == v) {
@@ -137,7 +137,7 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public Map<Object, JSONElement> asMap() throws Exception {
+    public Map<Object, JSONElement> asMap() {
         return _sub_elements;
     }
 

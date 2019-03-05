@@ -28,17 +28,17 @@ public class BasisTest {
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void test2() throws Exception {
+    public void test2() {
         JSONElement.newPrimitive().peek(new Object());
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void test3() throws Exception {
+    public void test3() {
         JSONElement.newMap().offer(JSONElement.newPrimitive());
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void test4() throws Exception {
+    public void test4() {
         JSONElement.newList().offer(new Object(), JSONElement.newPrimitive());
     }
 

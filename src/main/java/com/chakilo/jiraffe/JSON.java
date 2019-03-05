@@ -41,9 +41,8 @@ public abstract class JSON {
      *
      * @param o the {@link Object} to be serialized.
      * @return the {@link JSONElement} serialized.
-     * @throws Exception if error occurred while analyzing {@link Object}.
      */
-    public static JSONElement serialize(Object o) throws Exception {
+    public static JSONElement serialize(Object o) {
         if (o instanceof JSONElement) {
             return (JSONElement) o;
         } else {
@@ -56,9 +55,8 @@ public abstract class JSON {
      *
      * @param json the JSON {@link String} to be deserialized.
      * @return the {@link JSONElement} deserialized.
-     * @throws Exception if error occurred while analyzing json string.
      */
-    public static JSONElement deserialize(String json) throws Exception {
+    public static JSONElement deserialize(String json) {
         return StringAnalyzer.analyze(json);
     }
 
@@ -67,9 +65,8 @@ public abstract class JSON {
      *
      * @param o the {@link Object} to be serialized.
      * @return the JSON {@link String} serialized.
-     * @throws Exception if error occurred while analyzing {@link Object}.
      */
-    public static String stringify(Object o) throws Exception {
+    public static String stringify(Object o) {
         if (o instanceof JSONElement) {
             return StringAnalyzer.analyze((JSONElement) o);
         } else {
@@ -84,9 +81,8 @@ public abstract class JSON {
      * @param target the target {@link Type}.
      * @param <T>    the target {@link Type}.
      * @return the Java {@link Object} deserialized.
-     * @throws Exception if error occurred while analyzing JSON {@link String} or {@link Type}.
      */
-    public static <T> T parse(String json, Type target) throws Exception {
+    public static <T> T parse(String json, Type target) {
         if (target instanceof Class && JSONElement.class.isAssignableFrom((Class) target)) {
             return (T) StringAnalyzer.analyze(json);
         } else {

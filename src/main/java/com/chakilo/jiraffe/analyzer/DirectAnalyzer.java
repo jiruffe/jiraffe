@@ -20,6 +20,7 @@ import com.chakilo.jiraffe.model.JSONElement;
 import com.chakilo.jiraffe.util.*;
 
 import javax.lang.model.type.NullType;
+import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -41,9 +42,8 @@ public abstract class DirectAnalyzer {
      *
      * @param o the {@link Object} to be converted.
      * @return the JSON {@link String} converted.
-     * @throws Exception if error occurred while analyzing {@link Object}.
      */
-    public static String analyze(Object o) throws Exception {
+    public static String analyze(Object o) {
 
         if (null == o) {
             return StringUtil.NULL;
@@ -138,7 +138,11 @@ public abstract class DirectAnalyzer {
                 sb.append(f.getName());
                 sb.append('"');
                 sb.append(':');
-                sb.append(analyze(f.get(o)));
+                try {
+                    sb.append(analyze(f.get(o)));
+                } catch (IllegalAccessException ignored) {
+
+                }
                 if (iterator.hasNext()) {
                     sb.append(',');
                 }
@@ -157,9 +161,8 @@ public abstract class DirectAnalyzer {
      * @param target the target {@link Type}.
      * @param <T>    the target {@link Type}.
      * @return the target Java {@link Object}.
-     * @throws Exception if error occurred while analyzing {@link Type}.
      */
-    public static <T> T analyze(String json, Type target) throws Exception {
+    public static <T> T analyze(String json, Type target) {
 
         if (null == json) {
             return null;
@@ -177,7 +180,7 @@ public abstract class DirectAnalyzer {
 
     }
 
-    private static <T> T analyze(StringReader sr, Type target) throws Exception {
+    private static <T> T analyze(StringReader sr, Type target) {
 
         if (null == target || NullType.class == target || Object.class == target) {
             return null;
@@ -197,7 +200,7 @@ public abstract class DirectAnalyzer {
             target_class = (Class) parameterized_type.getRawType();
             actual_type_arguments = parameterized_type.getActualTypeArguments();
         } else {
-            throw new InstantiationException("Could not create " + target.getTypeName());
+            return null;
         }
 
         Object rst = null;
@@ -208,7 +211,7 @@ public abstract class DirectAnalyzer {
         } else {
             try {
                 rst = target_class.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException ignored) {
                 if (Collection.class.isAssignableFrom(target_class)) {
                     v_type = actual_type_arguments[0];
                     // considering known derived classes
@@ -224,7 +227,7 @@ public abstract class DirectAnalyzer {
                                 rst = Defaults.set();
                             }
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception ignored1) {
 
                     }
                 } else if (Map.class.isAssignableFrom(target_class)) {
@@ -237,7 +240,7 @@ public abstract class DirectAnalyzer {
                         } else {
                             rst = Defaults.map();
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception ignored1) {
 
                     }
                 } else if (Dictionary.class.isAssignableFrom(target_class)) {
@@ -246,16 +249,16 @@ public abstract class DirectAnalyzer {
                     // considering known derived classes
                     try {
                         rst = Defaults.dictionary();
-                    } catch (Exception ignored) {
+                    } catch (Exception ignored1) {
 
                     }
                 } else {
-                    throw new InstantiationException("Could not create " + target.getTypeName());
+                    return null;
                 }
             }
         }
         if (null == rst) {
-            throw new InstantiationException("Could not create " + target.getTypeName());
+            return null;
         }
 
         // key
@@ -263,12 +266,18 @@ public abstract class DirectAnalyzer {
         // value read
         StringBuilder sb = new StringBuilder();
         char c;
-        int ci;
+        int ci = 0;
         // the last token
         char last_token = CharacterUtil.NUL;
 
         // traversal of json string
-        while ((ci = sr.read()) != CharacterUtil.EOF) {
+        while (true) {
+
+            try {
+                if ((ci = sr.read()) == CharacterUtil.EOF) break;
+            } catch (IOException ignored) {
+
+            }
 
             c = (char) ci;
 
@@ -297,8 +306,17 @@ public abstract class DirectAnalyzer {
                     } else if (rst instanceof Dictionary) {
                         ((Dictionary) rst).put(now_key, analyze(sr, v_type));
                     } else {
-                        Field f = target_class.getField(now_key);
-                        f.set(rst, analyze(sr, f.getGenericType()));
+                        Field f = null;
+                        try {
+                            f = target_class.getField(now_key);
+                        } catch (NoSuchFieldException ignored) {
+
+                        }
+                        try {
+                            f.set(rst, analyze(sr, f.getGenericType()));
+                        } catch (IllegalAccessException ignored) {
+
+                        }
                     }
                     last_token = c;
                     break;
@@ -318,8 +336,13 @@ public abstract class DirectAnalyzer {
                         } else if (rst instanceof Dictionary) {
                             ((Dictionary) rst).put(now_key, TypeUtil.castFromString(sb.toString(), (Class) v_type));
                         } else {
-                            Field f = target_class.getField(now_key);
-                            f.set(rst, TypeUtil.castFromString(sb.toString(), f.getType()));
+                            Field f = null;
+                            try {
+                                f = target_class.getField(now_key);
+                                f.set(rst, TypeUtil.castFromString(sb.toString(), f.getType()));
+                            } catch (NoSuchFieldException | IllegalAccessException ignored) {
+
+                            }
                         }
                         StringUtil.clear(sb);
                     }
@@ -335,8 +358,14 @@ public abstract class DirectAnalyzer {
                         } else if (rst instanceof Dictionary) {
                             ((Dictionary) rst).put(now_key, TypeUtil.castFromString(sb.toString(), (Class) v_type));
                         } else {
-                            Field f = target_class.getField(now_key);
-                            f.set(rst, TypeUtil.castFromString(sb.toString(), f.getType()));
+                            Field f = null;
+                            try {
+                                f = target_class.getField(now_key);
+                                f.set(rst, TypeUtil.castFromString(sb.toString(), f.getType()));
+                            } catch (NoSuchFieldException | IllegalAccessException ignored) {
+
+                            }
+
                         }
                         StringUtil.clear(sb);
                     }

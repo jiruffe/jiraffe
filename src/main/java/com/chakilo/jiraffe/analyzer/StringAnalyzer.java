@@ -21,6 +21,7 @@ import com.chakilo.jiraffe.util.CharacterUtil;
 import com.chakilo.jiraffe.util.StringUtil;
 import com.chakilo.jiraffe.util.TypeUtil;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayDeque;
 import java.util.Collections;
@@ -40,9 +41,8 @@ public abstract class StringAnalyzer {
      *
      * @param json the JSON {@link String}.
      * @return the {@link JSONElement} converted.
-     * @throws Exception if error occurred while reading JSON {@link String}.
      */
-    public static JSONElement analyze(String json) throws Exception {
+    public static JSONElement analyze(String json) {
 
         if (null == json) {
             return JSONElement.theVoid();
@@ -70,14 +70,20 @@ public abstract class StringAnalyzer {
         // reader
         StringReader sr = new StringReader(json);
         char c;
-        int ci;
+        int ci = 0;
         // should set value as string
         boolean force_set_string = false;
         // the last token
         char last_token = CharacterUtil.NUL;
 
         // traversal of json string
-        while ((ci = sr.read()) != CharacterUtil.EOF) {
+        while (true) {
+
+            try {
+                if ((ci = sr.read()) == CharacterUtil.EOF) break;
+            } catch (IOException ignored) {
+
+            }
 
             c = (char) ci;
 
@@ -191,7 +197,7 @@ public abstract class StringAnalyzer {
 
     }
 
-    private static boolean isSelfTheFinalElement(Queue<JSONElement> bases, Queue<String> keys, JSONElement self) throws Exception {
+    private static boolean isSelfTheFinalElement(Queue<JSONElement> bases, Queue<String> keys, JSONElement self) {
 
         // upper element exists, set self to it
         if (!bases.isEmpty()) {
@@ -236,9 +242,8 @@ public abstract class StringAnalyzer {
      *
      * @param element the {@link JSONElement} to be converted.
      * @return the JSON {@link String} converted.
-     * @throws Exception if error occurred analyzing {@link JSONElement}.
      */
-    public static String analyze(JSONElement element) throws Exception {
+    public static String analyze(JSONElement element) {
 
         StringBuilder sb = new StringBuilder();
 
