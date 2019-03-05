@@ -40,73 +40,60 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public boolean isVoid() {
-        return null == _sub_elements;
-    }
-
-    @Override
     public boolean isEmpty() {
         return isVoid() || _sub_elements.isEmpty();
     }
 
     @Override
-    public boolean isList() {
-        return false;
-    }
-
-    @Override
-    public boolean isMap() {
-        return true;
-    }
-
-    @Override
-    public boolean isPrimitive() {
-        return false;
-    }
-
-    @Override
-    public JSONElementType getType() {
-        return JSONElementType.MAP;
-    }
-
-    @Override
     public int size() throws Exception {
-        return null != _sub_elements ? _sub_elements.size() : 0;
+        return _sub_elements.size();
     }
 
     @Override
     public Collection<Entry> entries() {
-        if (null == _sub_elements) {
-            return Collections.emptyList();
-        } else {
-            Collection<Entry> entries = Defaults.list();
-            for (Object k : _sub_elements.keySet()) {
-                entries.add(new Entry(k, _sub_elements.get(k)));
-            }
-            return entries;
+        Collection<Entry> entries = Defaults.list();
+        for (Object k : _sub_elements.keySet()) {
+            entries.add(new Entry(k, _sub_elements.get(k)));
         }
+        return entries;
     }
 
     @Override
     public Collection<Object> keys() {
-        return null != _sub_elements ? _sub_elements.keySet() : Collections.emptySet();
+        return _sub_elements.keySet();
     }
 
     @Override
     public Collection<JSONElement> values() throws Exception {
-        return null != _sub_elements ? _sub_elements.values() : Collections.emptyList();
+        return _sub_elements.values();
     }
 
     @Override
     public JSONElement peek(Object k) {
         JSONElement v = _sub_elements.get(k);
-        return null != v ? v : JSONElement.Void();
+        return null != v ? v : JSONElement.theVoid();
+    }
+
+    @Override
+    public JSONElement poll(Object k) throws Exception {
+        JSONElement v = _sub_elements.remove(k);
+        return null != v ? v : JSONElement.theVoid();
+    }
+
+    @Override
+    public JSONElement offer(Entry e) throws Exception {
+        if (null == e) {
+            throw new IllegalArgumentException("Argument e should not be null");
+        } else {
+            offer(e.getKey(), e.getElement());
+        }
+        return this;
     }
 
     @Override
     public JSONElement offer(Object k, Object v) {
         if (null == v) {
-            _sub_elements.put(k, JSONElement.Void());
+            _sub_elements.put(k, JSONElement.theVoid());
         } else if (v instanceof JSONElement) {
             _sub_elements.put(k, (JSONElement) v);
         } else {
@@ -117,7 +104,7 @@ final class JSONMap extends JSONElement {
 
     @Override
     public boolean containsKey(Object k) throws Exception {
-        if (null == k || null == _sub_elements) {
+        if (null == k) {
             return false;
         } else {
             return _sub_elements.containsKey(k);
@@ -128,7 +115,7 @@ final class JSONMap extends JSONElement {
     public boolean containsValue(Object v) throws Exception {
         if (this == v) {
             return true;
-        } else if (null == v || null == _sub_elements) {
+        } else if (null == v) {
             return false;
         } else {
             JSONElement ev = JSONElement.newInstance(v);
@@ -143,19 +130,17 @@ final class JSONMap extends JSONElement {
 
     @Override
     public Iterator<Entry> iterator() {
-        return null != _sub_elements ? entries().iterator() : Collections.emptyIterator();
+        return entries().iterator();
     }
 
     @Override
     public void forEach(Consumer<? super Entry> action) {
-        if (null != _sub_elements) {
-            entries().forEach(action);
-        }
+        entries().forEach(action);
     }
 
     @Override
     public Spliterator<Entry> spliterator() {
-        return null != _sub_elements ? entries().spliterator() : Spliterators.emptySpliterator();
+        return entries().spliterator();
     }
 
 }

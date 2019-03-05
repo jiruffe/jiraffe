@@ -64,24 +64,15 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Returns {@link JSONVoid#INSTANCE} which represents a <code>void</code> element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
+     * Alias of {@link #theVoid()}.
      *
-     * @return {@link JSONVoid#INSTANCE} which represents a <code>void</code> element.
-     */
-    public static JSONElement Void() {
-        return JSONVoid.INSTANCE;
-    }
-
-    /**
-     * Alias of {@link #Void()}.
-     *
-     * @return what {@link #Void()} returns.
-     * @deprecated use {@link #Void()}, {@link #newList()}, {@link #newList(List)}, {@link #newMap()}, {@link #newMap(Map)},
+     * @return what {@link #theVoid()} returns.
+     * @deprecated use {@link #theVoid()}, {@link #newList()}, {@link #newList(List)}, {@link #newMap()}, {@link #newMap(Map)},
      * {@link #newPrimitive()}, {@link #newPrimitive(Object)} or {@link #newInstance(Object)} instead.
      */
     @Deprecated()
     public static JSONElement newInstance() {
-        return Void();
+        return theVoid();
     }
 
     /**
@@ -177,12 +168,12 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Returns whether this element is <code>void</code>.
+     * Returns {@link JSONVoid#INSTANCE} which represents a <code>void</code> element, also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
      *
-     * @return {@code true} if is <code>void</code>, {@code false} otherwise.
+     * @return {@link JSONVoid#INSTANCE} which represents a <code>void</code> element.
      */
-    public boolean isVoid() {
-        return this instanceof JSONVoid;
+    public static JSONElement theVoid() {
+        return JSONVoid.INSTANCE;
     }
 
     /**
@@ -191,6 +182,15 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * @return {@code true} if is empty, {@code false} otherwise.
      */
     public boolean isEmpty() {
+        throw new UnsupportedOperationException("Could not check whether is empty or not from " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
+     * Returns whether this element is <code>void</code>.
+     *
+     * @return {@code true} if is <code>void</code>, {@code false} otherwise.
+     */
+    public boolean isVoid() {
         return this instanceof JSONVoid;
     }
 
@@ -283,12 +283,23 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     /**
      * Returns the sub-element with specified key.
      *
-     * @param k the key.
+     * @param k the specified key.
      * @return the sub-element.
      * @throws Exception if not supported.
      */
     public JSONElement peek(Object k) throws Exception {
         throw new UnsupportedOperationException("Could not peek from " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
+     * Remove the sub-element with specified key.
+     *
+     * @param k the specified key.
+     * @return the removed sub-element.
+     * @throws Exception if not supported.
+     */
+    public JSONElement poll(Object k) throws Exception {
+        throw new UnsupportedOperationException("Could not poll from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -300,6 +311,17 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      */
     public JSONElement offer(Object v) throws Exception {
         throw new UnsupportedOperationException("Could not offer v to " + ObjectUtil.getSimpleName(this));
+    }
+
+    /**
+     * Offers a sub-element entry to this element.
+     *
+     * @param e the sub-element entry.
+     * @return this element itself.
+     * @throws Exception if not supported.
+     */
+    public JSONElement offer(Entry e) throws Exception {
+        throw new UnsupportedOperationException("Could not offer entry to " + ObjectUtil.getSimpleName(this));
     }
 
     /**
@@ -521,6 +543,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
 
     /**
      * An element entry (key-value pair).
+     *
      * @see JSONElement#entries()
      */
     public class Entry {

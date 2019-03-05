@@ -45,7 +45,7 @@ public abstract class StringAnalyzer {
     public static JSONElement analyze(String json) throws Exception {
 
         if (null == json) {
-            return JSONElement.Void();
+            return JSONElement.theVoid();
         }
 
         // ignore spaces
@@ -131,9 +131,9 @@ public abstract class StringAnalyzer {
                             // set void
                             JSONElement self = bases.peek();
                             if (self.isList()) {
-                                self.offer(JSONElement.Void());
+                                self.offer(JSONElement.theVoid());
                             } else if (self.isMap()) {
-                                self.offer(keys.poll(), JSONElement.Void());
+                                self.offer(keys.poll(), JSONElement.theVoid());
                             }
                         }
                     }
@@ -149,7 +149,7 @@ public abstract class StringAnalyzer {
                         StringUtil.clear(sb);
                         force_set_string = false;
                     } else if (CharacterUtil.isColon(last_token)) {
-                        self_map.offer(keys.poll(), JSONElement.Void());
+                        self_map.offer(keys.poll(), JSONElement.theVoid());
                     }
                     // if there was no upper element, conversion is finished, ignore extra chars
                     if (isSelfTheFinalElement(bases, keys, self_map)) return self_map;
@@ -165,7 +165,7 @@ public abstract class StringAnalyzer {
                         StringUtil.clear(sb);
                         force_set_string = false;
                     } else if (CharacterUtil.isComma(last_token)) {
-                        self_list.offer(JSONElement.Void());
+                        self_list.offer(JSONElement.theVoid());
                     }
                     // if there was no upper element, conversion is finished, ignore extra chars
                     if (isSelfTheFinalElement(bases, keys, self_list)) return self_list;
@@ -187,7 +187,7 @@ public abstract class StringAnalyzer {
 
         }
 
-        return JSONElement.Void();
+        return JSONElement.theVoid();
 
     }
 
@@ -218,11 +218,11 @@ public abstract class StringAnalyzer {
         } else if (StringUtil.FALSE.equalsIgnoreCase(s)) {
             return JSONElement.newPrimitive(Boolean.FALSE);
         } else if (StringUtil.NULL.equalsIgnoreCase(s)) {
-            return JSONElement.Void();
+            return JSONElement.theVoid();
         } else if (StringUtil.NAN.equals(s)) {
-            return JSONElement.Void();
+            return JSONElement.theVoid();
         } else if (StringUtil.UNDEFINED.equalsIgnoreCase(s)) {
-            return JSONElement.Void();
+            return JSONElement.theVoid();
         } else if (TypeUtil.couldCastToNumber(s)) {
             return JSONElement.newPrimitive(TypeUtil.castToNumber(s));
         } else {

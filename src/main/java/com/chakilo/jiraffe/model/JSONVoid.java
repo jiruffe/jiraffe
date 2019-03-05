@@ -36,33 +36,8 @@ final class JSONVoid extends JSONElement {
     }
 
     @Override
-    public boolean isVoid() {
-        return true;
-    }
-
-    @Override
     public boolean isEmpty() {
         return true;
-    }
-
-    @Override
-    public boolean isList() {
-        return false;
-    }
-
-    @Override
-    public boolean isMap() {
-        return false;
-    }
-
-    @Override
-    public boolean isPrimitive() {
-        return false;
-    }
-
-    @Override
-    public JSONElementType getType() {
-        return JSONElementType.VOID;
     }
 
     @Override

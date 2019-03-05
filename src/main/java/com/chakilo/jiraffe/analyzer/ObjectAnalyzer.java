@@ -44,7 +44,7 @@ public abstract class ObjectAnalyzer {
     public static JSONElement analyze(Object o) throws Exception {
 
         if (null == o) {
-            return JSONElement.Void();
+            return JSONElement.theVoid();
         }
 
         if (o instanceof JSONElement) {

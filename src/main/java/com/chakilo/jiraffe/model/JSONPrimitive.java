@@ -46,33 +46,8 @@ final class JSONPrimitive extends JSONElement {
     }
 
     @Override
-    public boolean isVoid() {
-        return null == _value;
-    }
-
-    @Override
     public boolean isEmpty() {
         return isVoid() || StringUtil.EMPTY.equals(StringUtil.toString(_value));
-    }
-
-    @Override
-    public boolean isList() {
-        return false;
-    }
-
-    @Override
-    public boolean isMap() {
-        return false;
-    }
-
-    @Override
-    public boolean isPrimitive() {
-        return true;
-    }
-
-    @Override
-    public JSONElementType getType() {
-        return JSONElementType.PRIMITIVE;
     }
 
     @Override

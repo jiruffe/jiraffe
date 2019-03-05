@@ -41,85 +41,72 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public boolean isVoid() {
-        return null == _sub_elements;
-    }
-
-    @Override
     public boolean isEmpty() {
-        return isVoid() || _sub_elements.isEmpty();
-    }
-
-    @Override
-    public boolean isList() {
-        return true;
-    }
-
-    @Override
-    public boolean isMap() {
-        return false;
-    }
-
-    @Override
-    public boolean isPrimitive() {
-        return false;
-    }
-
-    @Override
-    public JSONElementType getType() {
-        return JSONElementType.LIST;
+        return _sub_elements.isEmpty();
     }
 
     @Override
     public int size() throws Exception {
-        return null != _sub_elements ? _sub_elements.size() : 0;
+        return _sub_elements.size();
     }
 
     @Override
     public Collection<Entry> entries() {
-        if (null == _sub_elements) {
-            return Collections.emptyList();
-        } else {
-            Collection<Entry> entries = Defaults.list();
-            for (int i = 0; i < _sub_elements.size(); i++) {
-                entries.add(new Entry(i, _sub_elements.get(i)));
-            }
-            return entries;
+        Collection<Entry> entries = Defaults.list();
+        for (int i = 0; i < _sub_elements.size(); i++) {
+            entries.add(new Entry(i, _sub_elements.get(i)));
         }
+        return entries;
     }
 
     @Override
     public Collection<Object> keys() {
-        if (null != _sub_elements) {
-            Set<Object> s = new HashSet<>();
-            for (int i = 0; i < _sub_elements.size(); i++) {
-                s.add(i);
-            }
-            return s;
-        } else {
-            return Collections.emptySet();
+        Set<Object> s = new HashSet<>();
+        for (int i = 0; i < _sub_elements.size(); i++) {
+            s.add(i);
         }
+        return s;
     }
 
     @Override
     public Collection<JSONElement> values() throws Exception {
-        return null != _sub_elements ? _sub_elements : Collections.emptyList();
+        return _sub_elements;
     }
 
     @Override
     public JSONElement peek(Object k) throws IllegalArgumentException {
         if (TypeUtil.couldCastToInteger(k)) {
-            JSONElement v = _sub_elements.get(TypeUtil.castToInteger(k));
-            return null != v ? v : JSONElement.Void();
+            int ik = TypeUtil.castToInteger(k);
+            if (ik >= 0 && ik < _sub_elements.size()) {
+                JSONElement v = _sub_elements.get(ik);
+                return null != v ? v : JSONElement.theVoid();
+            } else {
+                return JSONElement.theVoid();
+            }
         } else {
-            throw new IllegalArgumentException("Argument k must be Integer for JSONList.peek");
+            throw new IllegalArgumentException("Argument k must be Integer");
+        }
+    }
+
+    @Override
+    public JSONElement poll(Object k) throws Exception {
+        if (TypeUtil.couldCastToInteger(k)) {
+            int ik = TypeUtil.castToInteger(k);
+            if (ik >= 0 && ik < _sub_elements.size()) {
+                JSONElement v = _sub_elements.remove(ik);
+                return null != v ? v : JSONElement.theVoid();
+            } else {
+                return JSONElement.theVoid();
+            }
+        } else {
+            throw new IllegalArgumentException("Argument k must be Integer");
         }
     }
 
     @Override
     public JSONElement offer(Object v) {
         if (null == v) {
-            _sub_elements.add(JSONElement.Void());
+            _sub_elements.add(JSONElement.theVoid());
         } else if (v instanceof JSONElement) {
             _sub_elements.add((JSONElement) v);
         } else {
@@ -130,7 +117,7 @@ final class JSONList extends JSONElement {
 
     @Override
     public boolean containsKey(Object k) throws Exception {
-        if (null == k || null == _sub_elements) {
+        if (null == k) {
             return false;
         } else if (TypeUtil.couldCastToInteger(k)) {
             int ik = TypeUtil.castToInteger(k);
@@ -144,7 +131,7 @@ final class JSONList extends JSONElement {
     public boolean containsValue(Object v) throws Exception {
         if (this == v) {
             return true;
-        } else if (null == v || null == _sub_elements) {
+        } else if (null == v) {
             return false;
         } else {
             JSONElement ev = JSONElement.newInstance(v);
@@ -159,19 +146,17 @@ final class JSONList extends JSONElement {
 
     @Override
     public Iterator<Entry> iterator() {
-        return null != _sub_elements ? entries().iterator() : Collections.emptyIterator();
+        return entries().iterator();
     }
 
     @Override
     public void forEach(Consumer<? super Entry> action) {
-        if (null != _sub_elements) {
-            entries().forEach(action);
-        }
+        entries().forEach(action);
     }
 
     @Override
     public Spliterator<Entry> spliterator() {
-        return null != _sub_elements ? entries().spliterator() : Spliterators.emptySpliterator();
+        return entries().spliterator();
     }
 
 }
