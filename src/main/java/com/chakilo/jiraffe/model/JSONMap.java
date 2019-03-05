@@ -18,7 +18,10 @@ package com.chakilo.jiraffe.model;
 
 import com.chakilo.jiraffe.util.Defaults;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Spliterator;
 import java.util.function.Consumer;
 
 /**
@@ -81,11 +84,11 @@ final class JSONMap extends JSONElement {
     }
 
     @Override
-    public JSONElement offer(Entry e) throws Exception {
-        if (null == e) {
-            throw new IllegalArgumentException("Argument e must not be null");
+    public JSONElement offer(Object v) throws Exception {
+        if (v instanceof Entry) {
+            offer(((Entry) v).getKey(), ((Entry) v).getElement());
         } else {
-            offer(e.getKey(), e.getElement());
+            super.offer(v);
         }
         return this;
     }
@@ -107,7 +110,7 @@ final class JSONMap extends JSONElement {
         if (e instanceof JSONMap) {
             _sub_elements.putAll(e.asMap());
         } else {
-            throw new IllegalArgumentException("Argument e must be instance of JSONMap");
+            super.merge(e);
         }
         return this;
     }

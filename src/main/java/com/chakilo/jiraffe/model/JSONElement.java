@@ -314,17 +314,6 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Offers a sub-element entry to this element.
-     *
-     * @param e the sub-element entry.
-     * @return this element itself.
-     * @throws Exception if not supported.
-     */
-    public JSONElement offer(Entry e) throws Exception {
-        throw new UnsupportedOperationException("Could not offer entry to " + ObjectUtil.getSimpleName(this));
-    }
-
-    /**
      * Offers a sub-element with specified key to this element.
      *
      * @param k the key.
@@ -344,7 +333,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * @throws Exception if not supported.
      */
     public JSONElement merge(JSONElement e) throws Exception {
-        throw new UnsupportedOperationException("Could not merge to " + ObjectUtil.getSimpleName(this));
+        throw new UnsupportedOperationException("Only merging JSONList into JSONList or merging JSONMap into JSONMap are supported");
     }
 
     /**

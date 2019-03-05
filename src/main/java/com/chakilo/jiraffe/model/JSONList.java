@@ -104,11 +104,13 @@ final class JSONList extends JSONElement {
     }
 
     @Override
-    public JSONElement offer(Object v) {
+    public JSONElement offer(Object v) throws Exception {
         if (null == v) {
             _sub_elements.add(JSONElement.theVoid());
         } else if (v instanceof JSONElement) {
             _sub_elements.add((JSONElement) v);
+        } else if (v instanceof Entry) {
+            _sub_elements.add(JSONElement.newMap().offer(v));
         } else {
             _sub_elements.add(JSONElement.newPrimitive(v));
         }
@@ -120,7 +122,7 @@ final class JSONList extends JSONElement {
         if (e instanceof JSONList) {
             _sub_elements.addAll(e.asList());
         } else {
-            throw new IllegalArgumentException("Argument e must be instance of JSONList");
+            super.merge(e);
         }
         return this;
     }
