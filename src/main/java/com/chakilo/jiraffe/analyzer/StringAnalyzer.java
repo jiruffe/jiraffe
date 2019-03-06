@@ -158,7 +158,7 @@ public abstract class StringAnalyzer {
                         self_map.offer(keys.poll(), JSONElement.theVoid());
                     }
                     // if there was no upper element, conversion is finished, ignore extra chars
-                    if (isSelfTheFinalElement(bases, keys, self_map)) return self_map;
+                    if (isSelfTheTopElement(bases, keys, self_map)) return self_map;
                     last_token = c;
                     break;
 
@@ -174,7 +174,7 @@ public abstract class StringAnalyzer {
                         self_list.offer(JSONElement.theVoid());
                     }
                     // if there was no upper element, conversion is finished, ignore extra chars
-                    if (isSelfTheFinalElement(bases, keys, self_list)) return self_list;
+                    if (isSelfTheTopElement(bases, keys, self_list)) return self_list;
                     last_token = c;
                     break;
 
@@ -197,7 +197,7 @@ public abstract class StringAnalyzer {
 
     }
 
-    private static boolean isSelfTheFinalElement(Queue<JSONElement> bases, Queue<String> keys, JSONElement self) {
+    private static boolean isSelfTheTopElement(Queue<JSONElement> bases, Queue<String> keys, JSONElement self) {
 
         // upper element exists, set self to it
         if (!bases.isEmpty()) {
