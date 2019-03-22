@@ -44,11 +44,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      */
     @Override
     public String toString() {
-        try {
-            return asString();
-        } catch (Exception ignored) {
-            return super.toString();
-        }
+        return asString();
     }
 
     /**
@@ -507,11 +503,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
             return false;
         }
         if (!(obj instanceof JSONElement)) {
-            try {
-                obj = JSONElement.newInstance(obj);
-            } catch (Exception ignored) {
-
-            }
+            obj = JSONElement.newInstance(obj);
         }
         return toString().equals(StringUtil.toString(obj));
     }
