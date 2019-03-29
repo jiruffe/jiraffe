@@ -132,15 +132,13 @@ public abstract class StringAnalyzer {
                         }
                         StringUtil.clear(sb);
                         force_set_string = false;
-                    } else if (!CharacterUtil.isRightBrackets(last_token)) {
-                        if (!bases.isEmpty()) {
-                            // set void
-                            JSONElement self = bases.peek();
-                            if (self.isList()) {
-                                self.offer(JSONElement.theVoid());
-                            } else if (self.isMap()) {
-                                self.offer(keys.poll(), JSONElement.theVoid());
-                            }
+                    } else if (!CharacterUtil.isRightBrackets(last_token) && !bases.isEmpty()) {
+                        // set void
+                        JSONElement self = bases.peek();
+                        if (self.isList()) {
+                            self.offer(JSONElement.theVoid());
+                        } else if (self.isMap()) {
+                            self.offer(keys.poll(), JSONElement.theVoid());
                         }
                     }
                     last_token = c;
