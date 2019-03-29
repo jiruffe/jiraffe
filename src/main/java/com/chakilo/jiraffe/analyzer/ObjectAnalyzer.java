@@ -122,157 +122,11 @@ public abstract class ObjectAnalyzer {
         }
 
         if (target instanceof Class) {
-
             // original
-
-            Class<T> target_class = (Class) target;
-
-            if (JSONElement.class.isAssignableFrom(target_class)) {
-                return (T) element;
-            } else if (Byte.class.isAssignableFrom(target_class) || Byte.TYPE == target_class) {
-                return (T) (Byte) element.asByte();
-            } else if (Short.class.isAssignableFrom(target_class) || Short.TYPE == target_class) {
-                return (T) (Short) element.asShort();
-            } else if (Integer.class.isAssignableFrom(target_class) || Integer.TYPE == target_class) {
-                return (T) (Integer) element.asInt();
-            } else if (Long.class.isAssignableFrom(target_class) || Long.TYPE == target_class) {
-                return (T) (Long) element.asLong();
-            } else if (Float.class.isAssignableFrom(target_class) || Float.TYPE == target_class) {
-                return (T) (Float) element.asFloat();
-            } else if (Double.class.isAssignableFrom(target_class) || Double.TYPE == target_class) {
-                return (T) (Double) element.asDouble();
-            } else if (Boolean.class.isAssignableFrom(target_class) || Boolean.TYPE == target_class) {
-                return (T) (Boolean) element.asBoolean();
-            } else if (Character.class.isAssignableFrom(target_class) || Character.TYPE == target_class) {
-                return (T) (Character) element.asChar();
-            } else if (String.class.isAssignableFrom(target_class)) {
-                return (T) element.asString();
-            } else if (target_class.isEnum()) {
-                return target_class.getEnumConstants()[element.asInt()];
-            } else if (target_class.isArray()) {
-                Class<?> component_type = target_class.getComponentType();
-                int size = element.size();
-                Object array = Array.newInstance(component_type, size);
-                for (int i = 0; i < size; i++) {
-                    Array.set(array, i, analyze(element.peek(i), component_type));
-                }
-                return (T) array;
-            } else {
-                // bean
-                T rst = null;
-                try {
-                    rst = target_class.newInstance();
-                } catch (InstantiationException | IllegalAccessException ignored) {
-
-                }
-                for (Field f : ObjectUtil.getFields(target_class)) {
-                    try {
-                        f.set(rst, analyze(element.peek(f.getName()), f.getGenericType()));
-                    } catch (IllegalAccessException ignored) {
-
-                    }
-                }
-                return rst;
-            }
-
+            return (T) analyze(element, (Class) target);
         } else if (target instanceof ParameterizedType) {
-
             // generic
-
-            ParameterizedType parameterized_type = (ParameterizedType) target;
-            Type[] actual_type_arguments = parameterized_type.getActualTypeArguments();
-            Class<T> target_class = (Class) parameterized_type.getRawType();
-
-            if (Collection.class.isAssignableFrom(target_class)) {
-                Type v_type = actual_type_arguments[0];
-                Collection collection = null;
-                try {
-                    // using the default constructor first
-                    collection = (Collection) target_class.newInstance();
-                } catch (InstantiationException | IllegalAccessException ignored) {
-                    // considering known derived classes
-                    try {
-                        if (List.class.isAssignableFrom(target_class)) {
-                            collection = Defaults.list();
-                        } else if (Set.class.isAssignableFrom(target_class)) {
-                            if (EnumSet.class.isAssignableFrom(target_class)) {
-                                collection = EnumSet.noneOf((Class<Enum>) v_type);
-                            } else if (SortedSet.class.isAssignableFrom(target_class)) {
-                                collection = Defaults.sortedSet();
-                            } else {
-                                collection = Defaults.set();
-                            }
-                        }
-                    } catch (Exception ignored1) {
-
-                    }
-                }
-                // construction failure
-                if (null == collection) {
-                    return null;
-                }
-                // analyze sub-elements
-                for (JSONElement.Entry sub : element) {
-                    collection.add(analyze(sub.getElement(), v_type));
-                }
-                return (T) collection;
-            } else if (Map.class.isAssignableFrom(target_class)) {
-                Type k_type = actual_type_arguments[0];
-                Type v_type = actual_type_arguments[1];
-                Map map = null;
-                try {
-                    // using the default constructor first
-                    map = (Map) target_class.newInstance();
-                } catch (InstantiationException | IllegalAccessException ignored) {
-                    // considering known derived classes
-                    try {
-                        if (EnumMap.class.isAssignableFrom(target_class)) {
-                            map = new EnumMap((Class) k_type);
-                        } else {
-                            map = Defaults.map();
-                        }
-                    } catch (Exception ignored1) {
-
-                    }
-                }
-                // construction failure
-                if (null == map) {
-                    return null;
-                }
-                // analyze sub-elements
-                for (Object k : element.keys()) {
-                    map.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
-                }
-                return (T) map;
-            } else if (Dictionary.class.isAssignableFrom(target_class)) {
-                Type k_type = actual_type_arguments[0];
-                Type v_type = actual_type_arguments[1];
-                Dictionary dictionary = null;
-                try {
-                    // using the default constructor first
-                    dictionary = (Dictionary) target_class.newInstance();
-                } catch (InstantiationException | IllegalAccessException ignored) {
-                    // considering known derived classes
-                    try {
-                        dictionary = Defaults.dictionary();
-                    } catch (Exception ignored1) {
-
-                    }
-                }
-                // construction failure
-                if (null == dictionary) {
-                    return null;
-                }
-                // analyze sub-elements
-                for (Object k : element.keys()) {
-                    dictionary.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
-                }
-                return (T) dictionary;
-            } else {
-                // unknown generic type
-                return null;
-            }
-
+            return (T) analyze(element, (ParameterizedType) target);
         } else if (target instanceof GenericArrayType) {
             return null;
         } else if (target instanceof WildcardType) {
@@ -281,6 +135,155 @@ public abstract class ObjectAnalyzer {
             return null;
         } else {
             // won't happen
+            return null;
+        }
+
+    }
+
+    private static <T> T analyze(JSONElement element, Class<T> target_class) {
+
+        if (JSONElement.class.isAssignableFrom(target_class)) {
+            return (T) element;
+        } else if (Byte.class.isAssignableFrom(target_class) || Byte.TYPE == target_class) {
+            return (T) (Byte) element.asByte();
+        } else if (Short.class.isAssignableFrom(target_class) || Short.TYPE == target_class) {
+            return (T) (Short) element.asShort();
+        } else if (Integer.class.isAssignableFrom(target_class) || Integer.TYPE == target_class) {
+            return (T) (Integer) element.asInt();
+        } else if (Long.class.isAssignableFrom(target_class) || Long.TYPE == target_class) {
+            return (T) (Long) element.asLong();
+        } else if (Float.class.isAssignableFrom(target_class) || Float.TYPE == target_class) {
+            return (T) (Float) element.asFloat();
+        } else if (Double.class.isAssignableFrom(target_class) || Double.TYPE == target_class) {
+            return (T) (Double) element.asDouble();
+        } else if (Boolean.class.isAssignableFrom(target_class) || Boolean.TYPE == target_class) {
+            return (T) (Boolean) element.asBoolean();
+        } else if (Character.class.isAssignableFrom(target_class) || Character.TYPE == target_class) {
+            return (T) (Character) element.asChar();
+        } else if (String.class.isAssignableFrom(target_class)) {
+            return (T) element.asString();
+        } else if (target_class.isEnum()) {
+            return target_class.getEnumConstants()[element.asInt()];
+        } else if (target_class.isArray()) {
+            Class<?> component_type = target_class.getComponentType();
+            int size = element.size();
+            Object array = Array.newInstance(component_type, size);
+            for (int i = 0; i < size; i++) {
+                Array.set(array, i, analyze(element.peek(i), component_type));
+            }
+            return (T) array;
+        } else {
+            // bean
+            T rst = null;
+            try {
+                rst = target_class.newInstance();
+            } catch (InstantiationException | IllegalAccessException ignored) {
+
+            }
+            for (Field f : ObjectUtil.getFields(target_class)) {
+                try {
+                    f.set(rst, analyze(element.peek(f.getName()), f.getGenericType()));
+                } catch (IllegalAccessException ignored) {
+
+                }
+            }
+            return rst;
+        }
+
+    }
+
+    private static <T> T analyze(JSONElement element, ParameterizedType parameterized_type) {
+
+        Type[] actual_type_arguments = parameterized_type.getActualTypeArguments();
+        Class<T> target_class = (Class) parameterized_type.getRawType();
+
+        if (Collection.class.isAssignableFrom(target_class)) {
+            Type v_type = actual_type_arguments[0];
+            Collection collection = null;
+            try {
+                // using the default constructor first
+                collection = (Collection) target_class.newInstance();
+            } catch (InstantiationException | IllegalAccessException ignored) {
+                // considering known derived classes
+                try {
+                    if (List.class.isAssignableFrom(target_class)) {
+                        collection = Defaults.list();
+                    } else if (Set.class.isAssignableFrom(target_class)) {
+                        if (EnumSet.class.isAssignableFrom(target_class)) {
+                            collection = EnumSet.noneOf((Class<Enum>) v_type);
+                        } else if (SortedSet.class.isAssignableFrom(target_class)) {
+                            collection = Defaults.sortedSet();
+                        } else {
+                            collection = Defaults.set();
+                        }
+                    }
+                } catch (Exception ignored1) {
+
+                }
+            }
+            // construction failure
+            if (null == collection) {
+                return null;
+            }
+            // analyze sub-elements
+            for (JSONElement.Entry sub : element) {
+                collection.add(analyze(sub.getElement(), v_type));
+            }
+            return (T) collection;
+        } else if (Map.class.isAssignableFrom(target_class)) {
+            Type k_type = actual_type_arguments[0];
+            Type v_type = actual_type_arguments[1];
+            Map map = null;
+            try {
+                // using the default constructor first
+                map = (Map) target_class.newInstance();
+            } catch (InstantiationException | IllegalAccessException ignored) {
+                // considering known derived classes
+                try {
+                    if (EnumMap.class.isAssignableFrom(target_class)) {
+                        map = new EnumMap((Class) k_type);
+                    } else {
+                        map = Defaults.map();
+                    }
+                } catch (Exception ignored1) {
+
+                }
+            }
+            // construction failure
+            if (null == map) {
+                return null;
+            }
+            // analyze sub-elements
+            for (Object k : element.keys()) {
+                map.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
+            }
+            return (T) map;
+        } else if (Dictionary.class.isAssignableFrom(target_class)) {
+            Type k_type = actual_type_arguments[0];
+            Type v_type = actual_type_arguments[1];
+            Dictionary dictionary = null;
+            try {
+                // using the default constructor first
+                dictionary = (Dictionary) target_class.newInstance();
+            } catch (InstantiationException | IllegalAccessException ignored) {
+                // considering known derived classes
+                try {
+                    dictionary = Defaults.dictionary();
+                } catch (Exception ignored1) {
+
+                }
+            }
+            // construction failure
+            if (null == dictionary) {
+                return null;
+            }
+            // analyze sub-elements
+            for (Object k : element.keys()) {
+                dictionary.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
+            }
+            return (T) dictionary;
+        } else {
+            // unknown generic type
             return null;
         }
 

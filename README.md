@@ -1,10 +1,10 @@
-# jiraffe
+# Jiraffe
 
-A Java library for JSON conversion.
+A simple Java library for JSON conversion.
 
-## How-to
+## Examples
 
-* Analyze JSON String and use `JSONElement` just like using a `Map` or `List`.
+  * Parsing JSON
 
     ```java
     JSONElement element = JSON.deserialize("{a:{b:{c:{d:{e:'f'}}}}}");
@@ -16,7 +16,7 @@ A Java library for JSON conversion.
                              .asString());
     ```
 
-* Create a `JSONElement`, build data, convert it to JSON.
+  * Creating JSON
 
     ```java
     JSONElement element = JSONElement.newList();
@@ -31,7 +31,7 @@ A Java library for JSON conversion.
     assert "[123,123.45,\"123.45\",\"2019-01-02 03:04:05\",true,false,null,{}]".equals(element.toString());
     ```
 
-* Parse JSON to Java Object or stringify an Object.
+  * Parsing JSON to Java Object or stringifying an Object.
 
     ```java
     class CModel {

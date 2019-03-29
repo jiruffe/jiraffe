@@ -492,20 +492,20 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     /**
      * Indicates whether some other object is "equal to" this one.
      *
-     * @param obj the reference object with which to compare.
-     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+     * @param another the reference object with which to compare.
+     * @return {@code true} if this object is the same as the another argument; {@code false} otherwise.
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object another) {
+        if (this == another) {
             return true;
-        } else if (null == obj) {
+        } else if (null == another) {
             return false;
         }
-        if (!(obj instanceof JSONElement)) {
-            obj = JSONElement.newInstance(obj);
+        if (!(another instanceof JSONElement)) {
+            another = JSONElement.newInstance(another);
         }
-        return toString().equals(StringUtil.toString(obj));
+        return toString().equals(StringUtil.toString(another));
     }
 
     /**

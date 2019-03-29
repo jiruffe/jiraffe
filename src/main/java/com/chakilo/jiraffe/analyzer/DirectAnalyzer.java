@@ -169,14 +169,14 @@ public abstract class DirectAnalyzer {
         }
 
         // ignore spaces
-        json = json.trim();
+        String trimmed_json = json.trim();
 
         // ignore first bracket
-        if (json.startsWith("[") || json.startsWith("{")) {
-            json = json.substring(1);
+        if (trimmed_json.startsWith("[") || trimmed_json.startsWith("{")) {
+            trimmed_json = trimmed_json.substring(1);
         }
 
-        return analyze(new StringReader(json), target);
+        return analyze(new StringReader(trimmed_json), target);
 
     }
 
