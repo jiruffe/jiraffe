@@ -1,4 +1,10 @@
 language: java
-
 jdk:
-  - oraclejdk8
+- oraclejdk8
+after_success:
+- mvn clean test
+- mvn jacoco:report
+- mvn coveralls:report -DrepoToken="${COVERALLS_TOKEN}"
+env:
+  global:
+  - secure: SD5stuK9GQPrIE+53OKfNkUhs0vyBU0skAaxtl6SRwbgJ4YlbyCnXydaTTD5UR26TIXdA3FaM3zpfQyHLbNgDlDgqked+yXvMdrOrBLRunERlKUTkPEsmOBwMNxnxlqGjIc1mJcZ/h1nbXUbkhwSnZ2RTQws4rAEHmrPTWdnUTEjCtL69twMo5VHj/t007c+pSM5RILhA66ct92SLBVh1geDX8pWxkJHPWv+SL19LZkmMHYBcqk49K33Qlnh2Bp6Koaw7OPuNzSZOPsPOQW4pqQ+exn20szyYcxhGFghGL/kEK3QU2OXxRH2Og/LdFerS25lGjzlEsItZsXAbpO6x0bzgZYtR/XBMdCl60WJ5l1iEnsJOI/LJvlGfsJ5OjCz2yg6VfyOV9evDCltvRHwNR3tPaBLjbgqgqZxbyT2p8NdgEznOU/Uh1pYP8wovt5Ofu9WcCS8uviOr4x0hNnywPdaymxBETm2371NW6WAeieaCiCOhnvjOegxw5qdtdl93Qw//Y2JmRvt0yNUBB0ofD03BjKvYV1ZAR9hKCTYEv7kQ6PaqbLs1Y/UTF/ch/8EgoTP/bBa55qNP68Rjv2/ArUZeLgL4zVUeQltj+8dsBijzArj5UvjamI8KUYfumm03ImNCQ6P2sQAFxzN9auYzR8qaz6v1bEOBdarAkqFPd8=
