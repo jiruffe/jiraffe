@@ -1,6 +1,6 @@
 
 [![Build Status](https://travis-ci.org/jiruffe/jiraffe.svg?branch=master)](https://travis-ci.org/chakilo/jiraffe)
-[![Coverage Status](https://coveralls.io/repos/github/chakilo/jiraffe/badge.svg?branch=master)](https://coveralls.io/github/chakilo/jiraffe?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/jiruffe/jiraffe/badge.svg?branch=master)](https://coveralls.io/github/chakilo/jiraffe?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3e4beccbed464f67b89e3c8b4c6b8ebb)](https://www.codacy.com/app/chakilo/jiraffe?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chakilo/jiraffe&amp;utm_campaign=Badge_Grade)
 
 # Jiraffe
