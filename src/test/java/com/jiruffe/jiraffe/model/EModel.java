@@ -1,7 +1,7 @@
-package com.chakilo.jiraffe.model;
+package com.jiruffe.jiraffe.model;
 
 /**
- * @author Chakilo
+ * @author Jiruffe
  * 2019.02.22
  */
 public class EModel {

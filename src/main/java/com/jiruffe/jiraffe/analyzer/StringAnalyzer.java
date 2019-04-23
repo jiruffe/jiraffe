@@ -1,5 +1,5 @@
 /*
- *    Copyright 2018 Chakilo
+ *    Copyright 2018 Jiruffe
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-package com.chakilo.jiraffe.analyzer;
+package com.jiruffe.jiraffe.analyzer;
 
-import com.chakilo.jiraffe.model.JSONElement;
-import com.chakilo.jiraffe.util.CharacterUtil;
-import com.chakilo.jiraffe.util.StringUtil;
-import com.chakilo.jiraffe.util.TypeUtil;
+import com.jiruffe.jiraffe.model.JSONElement;
+import com.jiruffe.jiraffe.util.CharacterUtil;
+import com.jiruffe.jiraffe.util.StringUtil;
+import com.jiruffe.jiraffe.util.TypeUtil;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -31,7 +31,7 @@ import java.util.Queue;
 /**
  * JSON {@link String} &lt;=&gt; {@link JSONElement} conversion.
  *
- * @author Chakilo
+ * @author Jiruffe
  * 2018.10.25
  */
 public abstract class StringAnalyzer {

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2018 Chakilo
+ *    Copyright 2018 Jiruffe
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  *    limitations under the License.
  */
 
-package com.chakilo.jiraffe.analyzer;
+package com.jiruffe.jiraffe.analyzer;
 
-import com.chakilo.jiraffe.model.JSONElement;
-import com.chakilo.jiraffe.util.*;
+import com.jiruffe.jiraffe.model.JSONElement;
+import com.jiruffe.jiraffe.util.*;
 
 import javax.lang.model.type.NullType;
 import java.io.IOException;
@@ -32,7 +32,7 @@ import java.util.*;
  * {@link Object} &lt;=&gt; JSON {@link String},
  * not using {@link JSONElement} during conversion.
  *
- * @author Chakilo
+ * @author Jiruffe
  * 2019.02.18
  */
 public abstract class DirectAnalyzer {

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2018 Chakilo
+ *    Copyright 2018 Jiruffe
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-package com.chakilo.jiraffe.util;
+package com.jiruffe.jiraffe.util;
 
 /**
  * Util for <code>String</code>.
  *
- * @author Chakilo
+ * @author Jiruffe
  * 2019.02.13
  */
 public abstract class StringUtil {

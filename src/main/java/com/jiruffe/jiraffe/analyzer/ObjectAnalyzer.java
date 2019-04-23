@@ -1,5 +1,5 @@
 /*
- *    Copyright 2018 Chakilo
+ *    Copyright 2018 Jiruffe
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,13 +14,13 @@
  *    limitations under the License.
  */
 
-package com.chakilo.jiraffe.analyzer;
+package com.jiruffe.jiraffe.analyzer;
 
-import com.chakilo.jiraffe.model.JSONElement;
-import com.chakilo.jiraffe.util.Defaults;
-import com.chakilo.jiraffe.util.ObjectUtil;
-import com.chakilo.jiraffe.util.StringUtil;
-import com.chakilo.jiraffe.util.TypeUtil;
+import com.jiruffe.jiraffe.model.JSONElement;
+import com.jiruffe.jiraffe.util.Defaults;
+import com.jiruffe.jiraffe.util.ObjectUtil;
+import com.jiruffe.jiraffe.util.StringUtil;
+import com.jiruffe.jiraffe.util.TypeUtil;
 
 import javax.lang.model.type.NullType;
 import java.lang.reflect.*;
@@ -29,7 +29,7 @@ import java.util.*;
 /**
  * Java {@link Object} &lt;=&gt; {@link JSONElement} conversion.
  *
- * @author Chakilo
+ * @author Jiruffe
  * 2019.02.18
  */
 public abstract class ObjectAnalyzer {

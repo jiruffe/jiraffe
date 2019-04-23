@@ -1,8 +1,8 @@
-package com.chakilo.jiraffe;
+package com.jiruffe.jiraffe;
 
-import com.chakilo.jiraffe.model.DModel;
-import com.chakilo.jiraffe.model.JSONElement;
-import com.chakilo.jiraffe.util.ObjectUtil;
+import com.jiruffe.jiraffe.model.DModel;
+import com.jiruffe.jiraffe.model.JSONElement;
+import com.jiruffe.jiraffe.util.ObjectUtil;
 import org.junit.Test;
 
 import java.lang.reflect.ParameterizedType;
@@ -10,7 +10,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 /**
- * @author Chakilo
+ * @author Jiruffe
  * 2019.02.18
  */
 public class BasisTest {

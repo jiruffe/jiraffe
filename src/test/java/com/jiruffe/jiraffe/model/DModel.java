@@ -1,10 +1,10 @@
-package com.chakilo.jiraffe.model;
+package com.jiruffe.jiraffe.model;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author Chakilo
+ * @author Jiruffe
  * 2019.02.22
  */
 public class DModel extends CModel {

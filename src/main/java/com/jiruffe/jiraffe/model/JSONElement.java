@@ -1,5 +1,5 @@
 /*
- *    Copyright 2018 Chakilo
+ *    Copyright 2018 Jiruffe
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,13 +14,13 @@
  *    limitations under the License.
  */
 
-package com.chakilo.jiraffe.model;
+package com.jiruffe.jiraffe.model;
 
-import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
-import com.chakilo.jiraffe.analyzer.StringAnalyzer;
-import com.chakilo.jiraffe.util.ObjectUtil;
-import com.chakilo.jiraffe.util.StringUtil;
-import com.chakilo.jiraffe.util.TypeUtil;
+import com.jiruffe.jiraffe.analyzer.ObjectAnalyzer;
+import com.jiruffe.jiraffe.analyzer.StringAnalyzer;
+import com.jiruffe.jiraffe.util.ObjectUtil;
+import com.jiruffe.jiraffe.util.StringUtil;
+import com.jiruffe.jiraffe.util.TypeUtil;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Represents JSON element including JSON map {}, list [], or primitive value such as integer, string...
  *
- * @author Chakilo
+ * @author Jiruffe
  * 2018.10.23
  */
 public abstract class JSONElement implements Iterable<JSONElement.Entry> {

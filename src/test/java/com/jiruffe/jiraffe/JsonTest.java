@@ -1,10 +1,9 @@
-package com.chakilo.jiraffe;
+package com.jiruffe.jiraffe;
 
-
-import com.chakilo.jiraffe.model.DModel;
-import com.chakilo.jiraffe.model.EModel;
-import com.chakilo.jiraffe.model.JSONElement;
-import com.chakilo.jiraffe.util.StringUtil;
+import com.jiruffe.jiraffe.model.DModel;
+import com.jiruffe.jiraffe.model.EModel;
+import com.jiruffe.jiraffe.model.JSONElement;
+import com.jiruffe.jiraffe.util.StringUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * @author Chakilo
+ * @author Jiruffe
  * 2019.02.13
  */
 public class JsonTest {

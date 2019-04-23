@@ -1,5 +1,5 @@
 /*
- *    Copyright 2018 Chakilo
+ *    Copyright 2018 Jiruffe
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-package com.chakilo.jiraffe;
+package com.jiruffe.jiraffe;
 
-import com.chakilo.jiraffe.analyzer.DirectAnalyzer;
-import com.chakilo.jiraffe.analyzer.ObjectAnalyzer;
-import com.chakilo.jiraffe.analyzer.StringAnalyzer;
-import com.chakilo.jiraffe.model.JSONElement;
+import com.jiruffe.jiraffe.analyzer.DirectAnalyzer;
+import com.jiruffe.jiraffe.analyzer.ObjectAnalyzer;
+import com.jiruffe.jiraffe.analyzer.StringAnalyzer;
+import com.jiruffe.jiraffe.model.JSONElement;
 
 import java.lang.reflect.Type;
 
@@ -28,9 +28,9 @@ import java.lang.reflect.Type;
  * jiraffe
  * A Java library for JSON conversion.
  *
- * https://github.com/chakilo/jiraffe
+ * https://github.com/jiruffe/jiraffe
  *
- * @author Chakilo
+ * @author Jiruffe
  * 2018.10.23
  *
  ******************************************************************************/

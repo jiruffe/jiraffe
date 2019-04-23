@@ -1,5 +1,5 @@
 /*
- *    Copyright 2018 Chakilo
+ *    Copyright 2018 Jiruffe
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  *    limitations under the License.
  */
 
-package com.chakilo.jiraffe.model;
+package com.jiruffe.jiraffe.model;
 
-import com.chakilo.jiraffe.util.Defaults;
-import com.chakilo.jiraffe.util.TypeUtil;
+import com.jiruffe.jiraffe.util.Defaults;
+import com.jiruffe.jiraffe.util.TypeUtil;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 /**
  * JSON list []
  *
- * @author Chakilo
+ * @author Jiruffe
  * 2018.10.23
  */
 final class JSONList extends JSONElement {
