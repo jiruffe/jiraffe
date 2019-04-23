@@ -254,8 +254,8 @@ public abstract class ObjectAnalyzer {
                 return null;
             }
             // analyze sub-elements
-            for (Object k : element.keys()) {
-                map.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
+            for (JSONElement.Entry e : element.entries()) {
+                map.put(analyze(JSONElement.newInstance(e.getKey()), k_type), analyze(e.getElement(), v_type));
             }
             return (T) map;
         } else if (Dictionary.class.isAssignableFrom(target_class)) {
@@ -278,8 +278,8 @@ public abstract class ObjectAnalyzer {
                 return null;
             }
             // analyze sub-elements
-            for (Object k : element.keys()) {
-                dictionary.put(analyze(JSONElement.newInstance(k), k_type), analyze(element.peek(k), v_type));
+            for (JSONElement.Entry e : element.entries()) {
+                dictionary.put(analyze(JSONElement.newInstance(e.getKey()), k_type), analyze(e.getElement(), v_type));
             }
             return (T) dictionary;
         } else {

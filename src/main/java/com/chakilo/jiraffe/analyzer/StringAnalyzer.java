@@ -261,14 +261,14 @@ public abstract class StringAnalyzer {
 
             case MAP:
                 sb.append('{');
-                Iterator<Object> iterator1 = element.keys().iterator();
+                Iterator<JSONElement.Entry> iterator1 = element.entries().iterator();
                 while (iterator1.hasNext()) {
-                    Object k = iterator1.next();
+                    JSONElement.Entry e = iterator1.next();
                     sb.append('"');
-                    sb.append(StringUtil.escape(StringUtil.toString(k)));
+                    sb.append(StringUtil.escape(StringUtil.toString(e.getKey())));
                     sb.append('"');
                     sb.append(':');
-                    sb.append(analyze(element.peek(k)));
+                    sb.append(analyze(e.getElement()));
                     if (iterator1.hasNext()) {
                         sb.append(',');
                     }
