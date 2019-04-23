@@ -261,7 +261,7 @@ public abstract class StringAnalyzer {
 
             case MAP:
                 sb.append('{');
-                Iterator<JSONElement.Entry> iterator1 = element.entries().iterator();
+                Iterator<JSONElement.Entry> iterator1 = element.iterator();
                 while (iterator1.hasNext()) {
                     JSONElement.Entry e = iterator1.next();
                     sb.append('"');
