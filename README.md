@@ -9,7 +9,7 @@ A simple Java library for JSON conversion.
 
 ## Examples
 
-  * Parsing JSON
+* Parsing JSON
 
     ```java
     JSONElement element = JSON.deserialize("{a:{b:{c:{d:{e:'f'}}}}}");
@@ -21,7 +21,7 @@ A simple Java library for JSON conversion.
                              .asString());
     ```
 
-  * Creating JSON
+* Creating JSON
 
     ```java
     JSONElement element = JSONElement.newList();
@@ -36,7 +36,7 @@ A simple Java library for JSON conversion.
     assert "[123,123.45,\"123.45\",\"2019-01-02 03:04:05\",true,false,null,{}]".equals(element.toString());
     ```
 
-  * Parsing JSON to Java Object or stringifying an Object.
+* Parsing JSON to Java Object or stringifying an Object.
 
     ```java
     class CModel {
