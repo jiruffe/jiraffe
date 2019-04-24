@@ -160,6 +160,8 @@ public abstract class ObjectAnalyzer {
             return (T) (Boolean) element.asBoolean();
         } else if (Character.class.isAssignableFrom(target_class) || Character.TYPE == target_class) {
             return (T) (Character) element.asChar();
+        } else if (Number.class.isAssignableFrom(target_class)) {
+            return (T) element.asNumber();
         } else if (String.class.isAssignableFrom(target_class)) {
             return (T) element.asString();
         } else if (target_class.isEnum()) {

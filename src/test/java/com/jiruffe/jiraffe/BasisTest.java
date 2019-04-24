@@ -1,12 +1,12 @@
 package com.jiruffe.jiraffe;
 
-import com.jiruffe.jiraffe.model.DModel;
 import com.jiruffe.jiraffe.model.JSONElement;
-import com.jiruffe.jiraffe.util.ObjectUtil;
+import com.jiruffe.jiraffe.model.JSONElementType;
 import org.junit.Test;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,64 +15,74 @@ import java.util.Map;
  */
 public class BasisTest {
 
-    @Test
-    public void test0() {
-        int a = 1;
-        assert (((Object) a) instanceof Integer);
-    }
-
-    @Test
-    public void test1() {
-        Character a = 1;
-        assert 1d == (double) (a);
-    }
-
     @Test(expected = UnsupportedOperationException.class)
-    public void test2() {
+    public void test1() {
         JSONElement.newPrimitive().peek(new Object());
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void test3() {
+    public void test2() {
         JSONElement.newMap().offer(JSONElement.newPrimitive());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test4() {
+    public void test3() {
         JSONElement.newList().offer(new Object(), JSONElement.newPrimitive());
     }
 
     @Test
+    public void test4() {
+        List<JSONElement> l = new ArrayList<>();
+        l.add(JSONElement.theVoid());
+        assert JSONElementType.VOID == JSONElement.newList(l).peek(0).getType();
+    }
+
+    @Test
     public void test5() {
-        assert "1".equals(((Object) new Integer(1)).toString());
+        Map<String, JSONElement> m = new HashMap<>();
+        m.put("", JSONElement.theVoid());
+        assert JSONElementType.VOID == JSONElement.newMap(m).peek("").getType();
     }
 
     @Test
     public void test6() {
-        System.out.println(String.valueOf(Long.MAX_VALUE).length());
+        assert JSONElement.newMap().isEmpty();
+        assert JSONElement.newList().isEmpty();
+        assert !JSONElement.newMap().offer("", JSONElement.theVoid()).isEmpty();
+        assert !JSONElement.newList().offer(JSONElement.theVoid()).isEmpty();
     }
 
     @Test
     public void test7() {
-        Object o = null;
-        System.out.println(ObjectUtil.getCanonicalName(o));
+        assert !JSONElement.newMap().offer("", JSONElement.theVoid()).entries().isEmpty();
+        assert !JSONElement.newMap().offer("", JSONElement.theVoid()).keys().isEmpty();
+        assert !JSONElement.newMap().offer("", JSONElement.theVoid()).values().isEmpty();
+        assert !JSONElement.newList().offer(JSONElement.theVoid()).entries().isEmpty();
+        assert !JSONElement.newList().offer(JSONElement.theVoid()).keys().isEmpty();
+        assert !JSONElement.newList().offer(JSONElement.theVoid()).values().isEmpty();
     }
 
     @Test
     public void test8() {
-        Hashtable d = new Hashtable();
-        System.out.println(d instanceof Map);
+        JSONElement m = JSONElement.newMap().offer("", JSONElement.theVoid());
+        assert !m.isEmpty();
+        assert JSONElementType.VOID == m.poll("").getType();
+        assert m.isEmpty();
+        JSONElement l = JSONElement.newList().offer(JSONElement.theVoid());
+        assert !l.isEmpty();
+        assert JSONElementType.VOID == l.poll(0).getType();
+        assert l.isEmpty();
     }
 
     @Test
-    public void test9() throws NoSuchFieldException {
-        assert DModel.class.getField("b").getGenericType() instanceof Class;
-        assert DModel.class.getField("e").getGenericType() instanceof ParameterizedType;
+    public void test9() {
+        assert JSONElement.newMap().offer("", JSONElement.theVoid()).containsKey("");
+        assert JSONElement.newList().offer(JSONElement.theVoid()).containsValue(JSONElement.theVoid());
     }
 
     @Test
-    public void test10() throws NoSuchFieldException {
-        assert "a".equals(DModel.class.getField("a").getName());
+    public void test10() {
+        assert true;
     }
 
 }

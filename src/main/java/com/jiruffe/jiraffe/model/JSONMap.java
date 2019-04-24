@@ -38,8 +38,8 @@ final class JSONMap extends JSONElement {
         this(Defaults.map());
     }
 
-    JSONMap(Map<Object, JSONElement> sub_elements) {
-        _sub_elements = sub_elements;
+    JSONMap(Map<?, JSONElement> sub_elements) {
+        _sub_elements = (Map<Object, JSONElement>) sub_elements;
     }
 
     @Override

@@ -124,7 +124,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      * @param sub_elements the sub-elements.
      * @return a new instance of {@link JSONMap} with specified sub-elements.
      */
-    public static JSONElement newMap(Map<Object, JSONElement> sub_elements) {
+    public static JSONElement newMap(Map<?, JSONElement> sub_elements) {
         if (null == sub_elements) {
             return newMap();
         } else {
@@ -515,7 +515,7 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
         private Object key;
         private JSONElement element;
 
-        public Entry(Object key, JSONElement element) {
+        Entry(Object key, JSONElement element) {
             this.key = key;
             this.element = element;
         }
@@ -524,16 +524,8 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
             return key;
         }
 
-        public void setKey(Object key) {
-            this.key = key;
-        }
-
         public JSONElement getElement() {
             return element;
-        }
-
-        public void setElement(JSONElement element) {
-            this.element = element;
         }
 
     }
