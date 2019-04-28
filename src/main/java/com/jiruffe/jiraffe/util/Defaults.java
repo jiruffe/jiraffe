@@ -38,12 +38,16 @@ public abstract class Defaults {
         return new Hashtable<>();
     }
 
+    public static <E> Collection<E> collection() {
+        return list();
+    }
+
     public static <E> List<E> list() {
         return new ArrayList<>();
     }
 
     public static <E> Set<E> set() {
-        return new HashSet<>();
+        return new LinkedHashSet<>();
     }
 
     public static <E> SortedSet<E> sortedSet() {

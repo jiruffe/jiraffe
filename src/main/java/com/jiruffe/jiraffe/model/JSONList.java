@@ -52,7 +52,7 @@ final class JSONList extends JSONElement {
 
     @Override
     public Collection<Entry> entries() {
-        Collection<Entry> entries = Defaults.list();
+        Collection<Entry> entries = Defaults.collection();
         for (int i = 0; i < _sub_elements.size(); i++) {
             entries.add(new Entry(i, _sub_elements.get(i)));
         }
