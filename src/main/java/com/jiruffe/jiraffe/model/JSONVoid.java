@@ -20,7 +20,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * JSON <code>null</code>, <code>undefined</code> or <code>NaN</code>
+ * JSON {@code null}, {@code undefined} or {@code NaN}
  *
  * @author Jiruffe
  * 2019.02.20

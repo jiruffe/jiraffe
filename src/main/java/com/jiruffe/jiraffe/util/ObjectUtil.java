@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Util for <code>Object</code> or <code>Class</code>.
+ * Util for {@link Object} or {@link Class}.
  *
  * @author Jiruffe
  * 2019.02.20

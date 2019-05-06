@@ -162,10 +162,10 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Returns {@link JSONVoid#INSTANCE} which represents a <code>void</code> element,
-     * also known as <code>null</code>, <code>undefined</code> or <code>NaN</code> in JSON.
+     * Returns {@link JSONVoid#INSTANCE} which represents a {@code void} element,
+     * also known as {@code null}, {@code undefined} or {@code NaN} in JSON.
      *
-     * @return {@link JSONVoid#INSTANCE} which represents a <code>void</code> element.
+     * @return {@link JSONVoid#INSTANCE} which represents a {@code void} element.
      */
     public static JSONElement theVoid() {
         return JSONVoid.INSTANCE;
@@ -181,9 +181,9 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Returns whether this element is <code>void</code>.
+     * Returns whether this element is {@code void}.
      *
-     * @return {@code true} if is <code>void</code>, {@code false} otherwise.
+     * @return {@code true} if is {@code void}, {@code false} otherwise.
      */
     public boolean isVoid() {
         return this instanceof JSONVoid;
@@ -381,72 +381,72 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
-     * Get the <code>byte</code> that this element represents.
+     * Get the {@code byte} that this element represents.
      *
-     * @return the <code>byte</code> that this element represents.
+     * @return the {@code byte} that this element represents.
      */
     public byte asByte() {
         throw new ClassCastException("Could not cast byte from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>short</code> that this element represents.
+     * Get the {@code short} that this element represents.
      *
-     * @return the <code>short</code> that this element represents.
+     * @return the {@code short} that this element represents.
      */
     public short asShort() {
         throw new ClassCastException("Could not cast short from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>int</code> that this element represents.
+     * Get the {@code int} that this element represents.
      *
-     * @return the <code>int</code> that this element represents.
+     * @return the {@code int} that this element represents.
      */
     public int asInt() {
         throw new ClassCastException("Could not cast int from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>long</code> that this element represents.
+     * Get the {@code long} that this element represents.
      *
-     * @return the <code>long</code> that this element represents.
+     * @return the {@code long} that this element represents.
      */
     public long asLong() {
         throw new ClassCastException("Could not cast long from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>float</code> that this element represents.
+     * Get the {@code float} that this element represents.
      *
-     * @return the <code>float</code> that this element represents.
+     * @return the {@code float} that this element represents.
      */
     public float asFloat() {
         throw new ClassCastException("Could not cast float from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>double</code> that this element represents.
+     * Get the {@code double} that this element represents.
      *
-     * @return the <code>double</code> that this element represents.
+     * @return the {@code double} that this element represents.
      */
     public double asDouble() {
         throw new ClassCastException("Could not cast double from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>boolean</code> that this element represents.
+     * Get the {@code boolean} that this element represents.
      *
-     * @return the <code>boolean</code> that this element represents.
+     * @return the {@code boolean} that this element represents.
      */
     public boolean asBoolean() {
         throw new ClassCastException("Could not cast boolean from " + ObjectUtil.getSimpleName(this));
     }
 
     /**
-     * Get the <code>char</code> that this element represents.
+     * Get the {@code char} that this element represents.
      *
-     * @return the <code>char</code> that this element represents.
+     * @return the {@code char} that this element represents.
      */
     public char asChar() {
         throw new ClassCastException("Could not cast char from " + ObjectUtil.getSimpleName(this));

@@ -17,7 +17,7 @@
 package com.jiruffe.jiraffe.util;
 
 /**
- * Util for <code>Character</code>.
+ * Util for {@link Character}.
  *
  * @author Jiruffe
  * 2019.02.18
