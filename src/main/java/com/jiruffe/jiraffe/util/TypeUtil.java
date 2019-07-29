@@ -159,6 +159,8 @@ public abstract class TypeUtil {
             return ((Boolean) o) ? 1L : 0L;
         } else if (o instanceof Character) {
             return (long) ((int) o >= '0' && (int) o <= '9' ? (int) o - '0' : (int) o);
+        } else if (o instanceof Number) {
+            return ((Number) o).longValue();
         } else if (o instanceof String) {
             String s = (String) o;
             if (StringUtil.isBCPLStyleNumeric(s)) {
@@ -220,6 +222,8 @@ public abstract class TypeUtil {
             return ((Boolean) o) ? 1d : 0d;
         } else if (o instanceof Character) {
             return (double) ((int) o >= '0' && (int) o <= '9' ? (int) o - '0' : (int) o);
+        } else if (o instanceof Number) {
+            return ((Number) o).doubleValue();
         } else if (o instanceof String) {
             String s = (String) o;
             if (StringUtil.isRealNumber(s)) {
@@ -235,8 +239,9 @@ public abstract class TypeUtil {
 
     public static boolean couldCastToBigInteger(Object o) {
 
-        return isPrimitive(o) ||
-                (o instanceof String && (StringUtil.isNumeric((String) o) || StringUtil.isBCPLStyleNumeric((String) o)));
+        return isPrimitive(o)
+                || isNumber(o)
+                || (o instanceof String && (StringUtil.isNumeric((String) o) || StringUtil.isBCPLStyleNumeric((String) o)));
 
     }
 
@@ -262,6 +267,8 @@ public abstract class TypeUtil {
             return ((Boolean) o) ? BigInteger.ONE : BigInteger.ZERO;
         } else if (o instanceof Character) {
             return BigInteger.valueOf((int) o >= '0' && (int) o <= '9' ? (int) o - '0' : (int) o);
+        } else if (o instanceof Number) {
+            return BigInteger.valueOf(((Number) o).longValue());
         } else if (o instanceof String) {
             String s = (String) o;
             if (StringUtil.isBCPLStyleNumeric(s)) {
@@ -285,8 +292,9 @@ public abstract class TypeUtil {
 
     public static boolean couldCastToBigDecimal(Object o) {
 
-        return isPrimitive(o) ||
-                (o instanceof String && StringUtil.isRealNumber((String) o));
+        return isPrimitive(o)
+                || isNumber(o)
+                || (o instanceof String && StringUtil.isRealNumber((String) o));
 
     }
 
@@ -312,6 +320,8 @@ public abstract class TypeUtil {
             return ((Boolean) o) ? BigDecimal.ONE : BigDecimal.ZERO;
         } else if (o instanceof Character) {
             return BigDecimal.valueOf((int) o >= '0' && (int) o <= '9' ? (int) o - '0' : (int) o);
+        } else if (o instanceof Number) {
+            return BigDecimal.valueOf(((Number) o).doubleValue());
         } else if (o instanceof String) {
             String s = (String) o;
             if (StringUtil.isRealNumber(s)) {
@@ -326,8 +336,9 @@ public abstract class TypeUtil {
     }
 
     public static boolean couldCastToBoolean(Object o) {
-        return isPrimitive(o) ||
-                (o instanceof String && (StringUtil.isNumeric((String) o) || "true".equalsIgnoreCase((String) o) || "false".equalsIgnoreCase((String) o)));
+        return isPrimitive(o)
+                || isNumber(o)
+                || (o instanceof String && (StringUtil.isNumeric((String) o) || "true".equalsIgnoreCase((String) o) || "false".equalsIgnoreCase((String) o)));
     }
 
     public static boolean castToBoolean(Object o) {
@@ -351,7 +362,9 @@ public abstract class TypeUtil {
         } else if (o instanceof Boolean) {
             return (Boolean) o;
         } else if (o instanceof Character) {
-            return ((int) o) != 0 && ((int) o ) != '0';
+            return ((int) o) != 0 && ((int) o) != '0';
+        } else if (o instanceof Number) {
+            return ((Number) o).intValue() != 0;
         } else if (o instanceof String) {
             String s = (String) o;
             if (StringUtil.isNumeric(s)) {
@@ -366,8 +379,9 @@ public abstract class TypeUtil {
     }
 
     public static boolean couldCastToCharacter(Object o) {
-        return isPrimitive(o) ||
-                (o instanceof String && ((String) o).length() > 0);
+        return isPrimitive(o)
+                || isNumber(o)
+                || (o instanceof String && ((String) o).length() > 0);
     }
 
     public static char castToCharacter(Object o) {
@@ -392,6 +406,8 @@ public abstract class TypeUtil {
             return (Boolean) o ? 'T' : 'F';
         } else if (o instanceof Character) {
             return (char) o;
+        } else if (o instanceof Number) {
+            return (char) ((Number) o).intValue();
         } else if (o instanceof String) {
             String s = (String) o;
             if (s.length() > 0) {
@@ -406,8 +422,9 @@ public abstract class TypeUtil {
     }
 
     public static boolean couldCastToNumber(Object o) {
-        return isPrimitive(o) ||
-                (o instanceof String && (StringUtil.isRealNumber((String) o) || StringUtil.isBCPLStyleNumeric((String) o)));
+        return isPrimitive(o)
+                || isNumber(o)
+                || (o instanceof String && (StringUtil.isRealNumber((String) o) || StringUtil.isBCPLStyleNumeric((String) o)));
     }
 
     public static Number castToNumber(Object o) {
@@ -477,6 +494,8 @@ public abstract class TypeUtil {
             return (T) castToBigInteger(s);
         } else if (BigDecimal.class.isAssignableFrom(target)) {
             return (T) castToBigDecimal(s);
+        } else if (Number.class.isAssignableFrom(target)) {
+            return (T) castToNumber(s);
         } else if (String.class.isAssignableFrom(target)) {
             return (T) StringUtil.unescape(s);
         } else {

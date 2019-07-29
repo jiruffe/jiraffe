@@ -100,10 +100,4 @@ public class BasisTest {
         assert JSONElement.newList().offer(JSONElement.theVoid()).containsValue(JSONElement.theVoid());
     }
 
-    @Test
-    public void testBigNumber() {
-        assert new BigInteger("999999999999999999999999999999999999999999999999999").equals(JSONElement.newPrimitive("999999999999999999999999999999999999999999999999999").asBigInteger());
-        assert new BigDecimal("999999999999999999999999999999999999999999999999999.99999999").equals(JSONElement.newPrimitive("999999999999999999999999999999999999999999999999999.99999999").asBigDecimal());
-    }
-
 }
