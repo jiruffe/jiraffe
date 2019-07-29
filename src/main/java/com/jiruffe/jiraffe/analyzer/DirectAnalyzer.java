@@ -16,7 +16,6 @@
 
 package com.jiruffe.jiraffe.analyzer;
 
-import com.jiruffe.jiraffe.model.JSONElement;
 import com.jiruffe.jiraffe.util.*;
 
 import javax.lang.model.type.NullType;
@@ -29,8 +28,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 /**
- * {@link Object} &lt;=&gt; JSON {@link String},
- * not using {@link JSONElement} during conversion.
+ * Java {@link Object} &lt;=&gt; JSON {@link String} conversion.
  *
  * @author Jiruffe
  * 2019.02.18
@@ -47,10 +45,6 @@ public abstract class DirectAnalyzer {
 
         if (null == o) {
             return StringUtil.NULL;
-        }
-
-        if (o instanceof JSONElement) {
-            return StringAnalyzer.analyze((JSONElement) o);
         }
 
         StringBuilder sb = new StringBuilder();
