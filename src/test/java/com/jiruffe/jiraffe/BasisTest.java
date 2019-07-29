@@ -4,8 +4,6 @@ import com.jiruffe.jiraffe.model.JSONElement;
 import com.jiruffe.jiraffe.model.JSONElementType;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
