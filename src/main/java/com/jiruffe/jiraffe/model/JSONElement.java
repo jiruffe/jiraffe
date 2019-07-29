@@ -28,6 +28,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Represents JSON element including JSON map {}, list [], or primitive value such as integer, string...
@@ -486,6 +487,15 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      */
     @Override
     public int hashCode() {
+        if (isVoid() || isEmpty()) {
+            return 0;
+        } else if (isPrimitive()) {
+            return asValue().hashCode();
+        } else if (isList()) {
+            return asList().hashCode();
+        } else if (isMap()) {
+            return asMap().hashCode();
+        }
         return toString().hashCode();
     }
 
@@ -501,6 +511,18 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
             return true;
         } else if (null == obj) {
             return false;
+        } else if (!(obj instanceof JSONElement)) {
+            return false;
+        } else if (getType() != ((JSONElement) obj).getType()) {
+            return false;
+        } else if (isVoid()) {
+            return true;
+        } else if (isPrimitive()) {
+            return Objects.equals(asValue(), ((JSONElement) obj).asValue());
+        } else if (isList()) {
+            return Objects.equals(asList(), ((JSONElement) obj).asList());
+        } else if (isMap()) {
+            return Objects.equals(asMap(), ((JSONElement) obj).asMap());
         }
         return toString().equals(StringUtil.toString(obj instanceof JSONElement ? obj : newInstance(obj)));
     }
@@ -526,6 +548,23 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
 
         public JSONElement getElement() {
             return element;
+        }
+
+        @Override
+        public int hashCode() {
+            return (null == key ? 0 : key.hashCode()) ^ (null == element ? 0 : element.hashCode());
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            } else if (null == obj) {
+                return false;
+            } else if (!(obj instanceof Entry)) {
+                return false;
+            }
+            return Objects.equals(key, ((Entry) obj).key) && Objects.equals(element, ((Entry) obj).element);
         }
 
     }
