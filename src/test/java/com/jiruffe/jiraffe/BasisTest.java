@@ -16,36 +16,36 @@ import java.util.Map;
 public class BasisTest {
 
     @Test(expected = UnsupportedOperationException.class)
-    public void test1() {
+    public void testPeekFromPrimitive() {
         JSONElement.newPrimitive().peek(new Object());
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void test2() {
+    public void testOfferVToMap() {
         JSONElement.newMap().offer(JSONElement.newPrimitive());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test3() {
+    public void testOfferKVToList() {
         JSONElement.newList().offer(new Object(), JSONElement.newPrimitive());
     }
 
     @Test
-    public void test4() {
+    public void testInitializeList() {
         List<JSONElement> l = new ArrayList<>();
         l.add(JSONElement.theVoid());
         assert JSONElementType.VOID == JSONElement.newList(l).peek(0).getType();
     }
 
     @Test
-    public void test5() {
+    public void testInitializeMap() {
         Map<String, JSONElement> m = new HashMap<>();
         m.put("", JSONElement.theVoid());
         assert JSONElementType.VOID == JSONElement.newMap(m).peek("").getType();
     }
 
     @Test
-    public void test6() {
+    public void testIsEmpty() {
         assert JSONElement.newMap().isEmpty();
         assert JSONElement.newList().isEmpty();
         assert !JSONElement.newMap().offer("", JSONElement.theVoid()).isEmpty();
@@ -53,7 +53,7 @@ public class BasisTest {
     }
 
     @Test
-    public void test7() {
+    public void testEntriesKeysValues() {
         assert !JSONElement.newMap().offer("", JSONElement.theVoid()).entries().isEmpty();
         assert !JSONElement.newMap().offer("", JSONElement.theVoid()).keys().isEmpty();
         assert !JSONElement.newMap().offer("", JSONElement.theVoid()).values().isEmpty();
@@ -63,7 +63,7 @@ public class BasisTest {
     }
 
     @Test
-    public void test8() {
+    public void testPoll() {
         JSONElement m = JSONElement.newMap().offer("", JSONElement.theVoid());
         assert !m.isEmpty();
         assert JSONElementType.VOID == m.poll("").getType();
@@ -75,14 +75,27 @@ public class BasisTest {
     }
 
     @Test
-    public void test9() {
+    public void testContains() {
         assert JSONElement.newMap().offer("", JSONElement.theVoid()).containsKey("");
         assert JSONElement.newList().offer(JSONElement.theVoid()).containsValue(JSONElement.theVoid());
     }
 
     @Test
-    public void test10() {
-        assert true;
+    public void testEquals() {
+        JSONElement e1 = JSONElement.newMap();
+        JSONElement e2 = JSONElement.newMap();
+        assert e1.equals(e2);
+        e1.offer("", JSONElement.newList().offer(0));
+        e2.offer("", JSONElement.newList().offer(0));
+        assert e1.equals(e2);
+    }
+
+    @Test
+    public void testHashcode() {
+        JSONElement e = JSONElement.newMap();
+        assert 0 == e.hashCode();
+        e.offer("", JSONElement.newList().offer(0));
+        assert 0 != e.hashCode();
     }
 
 }
