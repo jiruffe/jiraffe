@@ -4,6 +4,8 @@ import com.jiruffe.jiraffe.model.JSONElement;
 import com.jiruffe.jiraffe.model.JSONElementType;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +16,24 @@ import java.util.Map;
  * 2019.02.18
  */
 public class BasisTest {
+
+    @Test
+    public void testHashcode() {
+        JSONElement e = JSONElement.newMap();
+        assert 0 == e.hashCode();
+        e.offer("", JSONElement.newList().offer(0));
+        assert 0 != e.hashCode();
+    }
+
+    @Test
+    public void testEquals() {
+        JSONElement e1 = JSONElement.newMap();
+        JSONElement e2 = JSONElement.newMap();
+        assert e1.equals(e2);
+        e1.offer("", JSONElement.newList().offer(0));
+        e2.offer("", JSONElement.newList().offer(0));
+        assert e1.equals(e2);
+    }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testPeekFromPrimitive() {
@@ -81,21 +101,9 @@ public class BasisTest {
     }
 
     @Test
-    public void testEquals() {
-        JSONElement e1 = JSONElement.newMap();
-        JSONElement e2 = JSONElement.newMap();
-        assert e1.equals(e2);
-        e1.offer("", JSONElement.newList().offer(0));
-        e2.offer("", JSONElement.newList().offer(0));
-        assert e1.equals(e2);
-    }
-
-    @Test
-    public void testHashcode() {
-        JSONElement e = JSONElement.newMap();
-        assert 0 == e.hashCode();
-        e.offer("", JSONElement.newList().offer(0));
-        assert 0 != e.hashCode();
+    public void testBigNumber() {
+        assert new BigInteger("999999999999999999999999999999999999999999999999999").equals(JSONElement.newPrimitive("999999999999999999999999999999999999999999999999999").asBigInteger());
+        assert new BigDecimal("999999999999999999999999999999999999999999999999999.99999999").equals(JSONElement.newPrimitive("999999999999999999999999999999999999999999999999999.99999999").asBigDecimal());
     }
 
 }
