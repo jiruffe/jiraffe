@@ -81,8 +81,8 @@ public abstract class ObjectAnalyzer {
             return list;
         } else if (o instanceof Map) {
             JSONElement map = JSONElement.newMap();
-            for (Object k : ((Map) o).keySet()) {
-                map.offer(StringUtil.toString(k), analyze(((Map) o).get(k)));
+            for (Object e : ((Map) o).entrySet()) {
+                map.offer(StringUtil.toString(((Map.Entry) e).getKey()), analyze(((Map.Entry) e).getValue()));
             }
             return map;
         } else if (o instanceof Dictionary) {

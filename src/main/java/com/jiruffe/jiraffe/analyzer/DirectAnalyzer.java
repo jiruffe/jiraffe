@@ -94,14 +94,14 @@ public abstract class DirectAnalyzer {
         } else if (o instanceof Map) {
             sb.append('{');
             Map map = (Map) o;
-            Iterator iterator = map.keySet().iterator();
+            Iterator iterator = map.entrySet().iterator();
             while (iterator.hasNext()) {
-                Object k = iterator.next();
+                Object e = iterator.next();
                 sb.append('"');
-                sb.append(StringUtil.toString(k));
+                sb.append(StringUtil.toString(((Map.Entry) e).getKey()));
                 sb.append('"');
                 sb.append(':');
-                sb.append(analyze(map.get(k)));
+                sb.append(analyze(((Map.Entry) e).getValue()));
                 if (iterator.hasNext()) {
                     sb.append(',');
                 }

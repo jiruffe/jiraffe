@@ -55,8 +55,8 @@ final class JSONMap extends JSONElement {
     @Override
     public Collection<Entry> entries() {
         Collection<Entry> entries = Defaults.collection();
-        for (Object k : _sub_elements.keySet()) {
-            entries.add(new Entry(k, _sub_elements.get(k)));
+        for (Map.Entry<Object, JSONElement> e : _sub_elements.entrySet()) {
+            entries.add(new Entry(e.getKey(), e.getValue()));
         }
         return entries;
     }
