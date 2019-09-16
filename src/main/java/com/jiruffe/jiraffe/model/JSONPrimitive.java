@@ -35,7 +35,7 @@ import java.util.function.Consumer;
  */
 final class JSONPrimitive extends JSONElement {
 
-    private Object _value;
+    private final Object _value;
 
     JSONPrimitive() {
         this(Defaults.primitive());
@@ -47,7 +47,7 @@ final class JSONPrimitive extends JSONElement {
 
     @Override
     public boolean isEmpty() {
-        return StringUtil.EMPTY.equals(StringUtil.toString(_value));
+        return StringUtil.EMPTY.equals(TypeUtil.castToString(_value));
     }
 
     @Override

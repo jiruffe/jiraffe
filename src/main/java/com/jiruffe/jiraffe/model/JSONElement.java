@@ -481,6 +481,17 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
     }
 
     /**
+     * Alias of {@link #toObject(Type)}.
+     *
+     * @param target the target {@link Type}.
+     * @param <T>    the target {@link Type}.
+     * @return the target Java {@link Object}.
+     */
+    public <T> T as(Type target) {
+        return toObject(target);
+    }
+
+    /**
      * Returns a hash code value for the object.
      *
      * @return a hash code value for this object.
@@ -532,10 +543,10 @@ public abstract class JSONElement implements Iterable<JSONElement.Entry> {
      *
      * @see JSONElement#entries()
      */
-    public class Entry {
+    public final class Entry {
 
-        private Object key;
-        private JSONElement element;
+        private final Object key;
+        private final JSONElement element;
 
         Entry(Object key, JSONElement element) {
             this.key = key;

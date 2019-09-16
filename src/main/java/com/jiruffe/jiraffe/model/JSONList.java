@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  */
 final class JSONList extends JSONElement {
 
-    private List<JSONElement> _sub_elements;
+    private final List<JSONElement> _sub_elements;
 
     JSONList() {
         this(Defaults.list());

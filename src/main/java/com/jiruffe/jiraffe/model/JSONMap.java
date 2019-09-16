@@ -32,7 +32,7 @@ import java.util.function.Consumer;
  */
 final class JSONMap extends JSONElement {
 
-    private Map<Object, JSONElement> _sub_elements;
+    private final Map<Object, JSONElement> _sub_elements;
 
     JSONMap() {
         this(Defaults.map());
